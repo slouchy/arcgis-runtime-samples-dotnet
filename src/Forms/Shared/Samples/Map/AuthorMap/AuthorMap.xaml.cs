@@ -175,9 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Handle the save button click event on the page
             mapInputForm.OnSaveClicked += SaveMapAsync;
 
-            // Navigate to the SaveMapPage UI
-            // Note: in each platform's project, there is a custom PageRenderer class called SaveMapPage that provides
-            //       platform-specific logic to challenge the user for OAuth credentials for ArcGIS Online when the page launches
+            // Navigate to the SaveMapPage UI to get info for the new map (title, description, etc.)
             await Navigation.PushAsync(mapInputForm);
         }
 
@@ -504,12 +502,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             });
 #endif
 
-#endif 
+#endif // (If Android or iOS)
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
         }
 #endregion 
 #endregion 
-
     }
 }

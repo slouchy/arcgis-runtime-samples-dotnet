@@ -174,10 +174,10 @@
   <ItemGroup>
     <!-- Sample Manager Code -->
     <Compile Include="MainActivity.cs" />
-    <Compile Include="PageRenderer\SaveMapPageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\Shared\Forms.projitems" Label="Shared" Condition="Exists('..\Shared\Forms.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

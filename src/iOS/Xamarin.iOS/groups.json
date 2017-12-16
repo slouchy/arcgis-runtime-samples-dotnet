@@ -501,17 +501,25 @@
       ]
     },
     {
-      "Name": "Tutorial",
-      "CategoryName": "Tutorial",
+      "Name": "Security",
+      "CategoryName": "Security",
       "SubCategories": [
         {
-          "Name": "Author, edit, and save a map",
-          "SubCategoryName": "AuthorEditSaveMap",
+          "Name": "Security",
+          "SubCategoryName": "Security",
           "ShowGroup": true,
           "SampleInfos": [
             {
-              "SampleName": "AuthorEditSaveMap",
-              "Path": "Samples/Tutorial/AuthorEditSaveMap"
+              "SampleName": "OAuth",
+              "Path": "Samples/Security/OAuth"
+            },
+            {
+              "SampleName": "TokenSecuredChallenge",
+              "Path": "Samples/Security/TokenSecuredChallenge"
+            },
+            {
+              "SampleName": "TokenSecuredKnownUser",
+              "Path": "Samples/Security/TokenSecuredKnownUser"
             }
           ]
         }

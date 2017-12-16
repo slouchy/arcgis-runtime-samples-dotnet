@@ -109,6 +109,9 @@
     <!-- JSON Metadata -->
     <!-- Note: these don't need to be included because they're included in the C# project. -->
     <Content Include="groups.json" />
+    <Content Include="Samples\Security\OAuth\OAuth.jpg" />
+    <Content Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
+    <Content Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
     <None Include="packages.config" />
     <None Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
@@ -155,11 +158,13 @@
     <None Include="Samples\MapView\TakeScreenshot\metadata.json" />
     <None Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <None Include="Samples\Search\FindAddress\metadata.json" />
+    <None Include="Samples\Security\OAuth\metadata.json" />
+    <None Include="Samples\Security\TokenSecuredChallenge\metadata.json" />
+    <None Include="Samples\Security\TokenSecuredKnownUser\metadata.json" />
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
-    <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
@@ -213,7 +218,6 @@
     <None Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <None Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
@@ -352,6 +356,15 @@
     <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb">
       <DependentUpon>FindAddressVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Security\OAuth\OAuthVB.xaml.vb">
+      <DependentUpon>OAuthVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallengeVB.xaml.vb">
+      <DependentUpon>TokenSecuredChallengeVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUserVB.xaml.vb">
+      <DependentUpon>TokenSecuredKnownUserVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
       <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
     </Compile>
@@ -363,9 +376,6 @@
     </Compile>
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml.vb">
       <DependentUpon>UseDistanceCompositeSymVB.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
-      <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -550,6 +560,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Security\OAuth\OAuthVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallengeVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUserVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -566,11 +588,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

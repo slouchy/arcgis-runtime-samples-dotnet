@@ -11,6 +11,18 @@
   <ItemGroup>
     <!-- Misc Resources -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\OAuth.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +45,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\OAuth.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>OAuth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>TokenSecuredKnownUser.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -124,7 +151,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
@@ -202,12 +228,16 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\OAuth.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
@@ -534,14 +564,6 @@
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
-      <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml.cs">
-      <DependentUpon>SaveMapPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
@@ -788,10 +810,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml">
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\LoginPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

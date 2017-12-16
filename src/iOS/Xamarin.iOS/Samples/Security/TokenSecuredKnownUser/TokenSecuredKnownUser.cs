@@ -1,22 +1,24 @@
-// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace TokenSecuredKnownUser
+namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 {
-    public partial class TokenSecuredKnownUser : UIViewController
+    [Register("TokenSecuredKnownUser")]
+    public class TokenSecuredKnownUser : UIViewController
     {
         // Constants for the public and secured map service URLs
         private const string PublicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
@@ -33,11 +35,10 @@ namespace TokenSecuredKnownUser
         UILabel _publicLayerLabel;
         UILabel _secureLayerLabel;
 
-        // Default constructor
-        public TokenSecuredKnownUser() : base("TokenSecuredKnownUser", null) { }
-
-        // Constructor overload
-        public TokenSecuredKnownUser(IntPtr p) : base(p) { }
+        public TokenSecuredKnownUser()
+        {
+            Title = "Token known user";
+        }
 
         public override void ViewDidLoad()
         {
@@ -103,7 +104,6 @@ namespace TokenSecuredKnownUser
             // Add the map to the map view
             _myMapView.Map = myMap;
         }
-
         // Handle the load status changed event for the public and token-secured layers
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
@@ -191,6 +191,5 @@ namespace TokenSecuredKnownUser
             // Return the credential
             return knownCredential;
         }
-
     }
 }

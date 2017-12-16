@@ -504,17 +504,21 @@
       ]
     },
     {
-      "Name": "Tutorial",
-      "CategoryName": "Tutorial",
+      "Name": "Security",
+      "CategoryName": "Security",
       "SubCategories": [
         {
-          "Name": "Tutorial",
-          "SubCategoryName": "AuthorEditSaveMap",
+          "Name": "Security",
+          "SubCategoryName": "Security",
           "ShowGroup": false,
           "SampleInfos": [
             {
-              "SampleName": "AuthorEditSaveMap",
-              "Path": "Samples/Tutorial/AuthorEditSaveMap"
+              "SampleName": "OAuth",
+              "Path": "Samples/Security/OAuth"
+            },
+            {
+              "SampleName": "TokenSecuredChallenge",
+              "Path": "Samples/Security/TokenSecuredChallenge"
             }
           ]
         }

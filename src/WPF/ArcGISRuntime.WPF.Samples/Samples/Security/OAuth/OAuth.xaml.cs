@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,49 +17,65 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace OAuth
+namespace ArcGISRuntime.WPF.Samples.OAuth
 {
-    public partial class MainWindow : Window
+    public partial class OAuth
     {
         // Constants for OAuth-related values ...
-        // URL of the server to authenticate with
+        // TODO: URL of the portal to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
-        // TODO: Provide the client ID for your app (registered with the server)
-        private const string ClientId = "";
-        // TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode auth type)
-        private const string ClientSecret = "";
-        // TODO: Provide a URL registered for the app for redirecting after a successful authorization
-        private const string RedirectUrl = "http://my.redirect.url";
-        // TODO: Provide an ID for a secured web map item hosted on the server
-        private const string WebMapId = "";
 
-        public MainWindow()
+        // TODO: Add Client ID for an app registered with the server
+        private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
+        // TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode authorization type)
+        private const string ClientSecret = "";
+
+        // TODO: Add URL for redirecting after a successful authorization
+        //       Note - this must be a URL configured as a valid Redirect URI with your app
+        private const string OAuthRedirectUrl = @"my-ags-app://auth";
+
+        // TODO: Provide an ID for a web map item hosted on the server
+        // (perhaps shared only with your organization or containing secured layers)
+        private const string WebMapId = "cbd8ac5252fa4cf8a55d8350265c531b";
+
+        public OAuth()
         {
             InitializeComponent();
 
-            // Call a function to initialize the app
+            // Call a function to initialize the app and request a web map (with secured layers) to display
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests
-            UpdateAuthenticationManager();
+            SetOAuthInfo();
 
-            // Display a secured web map from ArcGIS Online (will be challenged to log in)
-            DisplaySecureMap();
+            // Connect to the portal (ArcGIS Online, for example)
+            ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+
+            // Get a web map portal item using its ID
+            // (If the item contains layers not shared publicly, the user will be challenged for credentials at this point)
+            PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
+
+            // Create a new map with the portal item and display it in the map view
+            // (If authentication failed, only the public layers will be displayed)
+            Map myMap = new Map(portalItem);
+            MyMapView.Map = myMap;
         }
 
-        private void UpdateAuthenticationManager()
+        private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager
-            Esri.ArcGISRuntime.Security.ServerInfo serverInfo = new ServerInfo
+            var serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = ClientId,
-                    RedirectUri = new Uri(RedirectUrl)
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
                 }
             };
 
@@ -69,11 +85,6 @@ namespace OAuth
                 // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode;
                 serverInfo.OAuthClientInfo.ClientSecret = ClientSecret;
-            }
-            else
-            {
-                // Otherwise, use OAuthImplicit
-                serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
             }
 
             // Register this server with AuthenticationManager
@@ -85,56 +96,21 @@ namespace OAuth
             // Use a function in this class to challenge for credentials
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
-
-        private async void DisplaySecureMap()
-        {
-            // Display a web map hosted in a portal. If the web map item is secured, AuthenticationManager will
-            // challenge for credentials
-            try
-            {
-                // Connect to a portal (ArcGIS Online, for example)
-                ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
-                // Get a web map portal item using its ID
-                // If the item is secured (not shared publicly) the user will be challenged for credentials at this point
-                PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
-                // Create a new map with the portal item
-                Map myMap = new Map(portalItem);
-
-                // Assign the map to the MapView.Map property to display it in the app
-                MyMapView.Map = myMap;
-                await myMap.RetryLoadAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error displaying map: " + ex.Message);
-            }
-        }
-
+    
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
-            // resource is attempted
-            OAuthTokenCredential credential = null;
+            // ChallengeHandler function for AuthenticationManager that will be called whenever a secured resource is accessed
+            Credential credential = null;
 
             try
             {
-                // Create generate token options if necessary
-                if (info.GenerateTokenOptions == null)
-                {
-                    info.GenerateTokenOptions = new GenerateTokenOptions();
-                }
-
                 // AuthenticationManager will handle challenging the user for credentials
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync
-                    (
-                            info.ServiceUri,
-                            info.GenerateTokenOptions
-                    ) as OAuthTokenCredential;
+                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -151,10 +127,13 @@ namespace OAuth
     {
         // Window to contain the OAuth UI
         private Window _window;
+
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _tcs;
+
         // URL for the authorization callback result (the redirect URI configured for your application)
         private string _callbackUrl;
+
         // URL that handles the OAuth request
         private string _authorizeUrl;
 
@@ -162,8 +141,8 @@ namespace OAuth
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource.Task has not completed, authorization is in progress
-            if (_tcs != null && !_tcs.Task.IsCompleted)
-            { 
+            if (_tcs != null || _window != null)
+            {
                 // Allow only one authorization process at a time
                 throw new Exception("Task in progress");
             }
@@ -194,6 +173,7 @@ namespace OAuth
         {
             // Create a WebBrowser control to display the authorize page
             var webBrowser = new WebBrowser();
+
             // Handle the navigation event for the browser to check for a response to the redirect URL
             webBrowser.Navigating += WebBrowserOnNavigating;
 
@@ -201,8 +181,8 @@ namespace OAuth
             _window = new Window
             {
                 Content = webBrowser,
-                Height = 400,
-                Width = 330,
+                Height = 420,
+                Width = 350,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
             };
 
@@ -217,7 +197,10 @@ namespace OAuth
             webBrowser.Navigate(authorizeUri);
 
             // Display the Window
-            _window.ShowDialog();
+            if (_window != null)
+            {
+                _window.ShowDialog();
+            }
         }
 
         void OnWindowClosed(object sender, EventArgs e)
@@ -229,12 +212,13 @@ namespace OAuth
             }
 
             // If the task wasn't completed, the user must have closed the window without logging in
-            if (!_tcs.Task.IsCompleted)
+            if (_tcs != null && !_tcs.Task.IsCompleted)
             {
-                // Set the task completion source exception to indicate a canceled operation
-                _tcs.SetCanceled();
+                // Set the task completion to indicate a canceled operation
+                _tcs.TrySetCanceled();
             }
 
+            _tcs = null;
             _window = null;
         }
 
@@ -242,17 +226,17 @@ namespace OAuth
         void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             // Check for a response to the callback url
-            const string portalApprovalMarker = "/oauth2/approval";
             var webBrowser = sender as WebBrowser;
             Uri uri = e.Uri;
 
             // If no browser, uri, or an empty url, return
-            if (webBrowser == null || uri == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            { 
                 return;
+            }
 
             // Check for redirect
-            bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl) ||
-                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker);
+            bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl);
 
             if (isRedirected)
             {
@@ -262,16 +246,19 @@ namespace OAuth
                 //    -return these parameters as result of the Task
                 e.Cancel = true;
 
-                // Call a helper function to decode the response parameters
-                var authResponse = DecodeParameters(uri);
-
-                // Set the result for the task completion source
-                _tcs.SetResult(authResponse);
+                TaskCompletionSource<IDictionary<string,string>> tcs = _tcs;
+                _tcs = null;
 
                 if (_window != null)
                 {
                     _window.Close();
                 }
+
+                // Call a helper function to decode the response parameters
+                var authResponse = DecodeParameters(uri);
+
+                // Set the result for the task completion source
+                tcs.SetResult(authResponse);
             }
         }
 

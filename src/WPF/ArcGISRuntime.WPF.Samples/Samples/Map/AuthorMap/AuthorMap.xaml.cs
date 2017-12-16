@@ -331,10 +331,11 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -360,11 +361,11 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource or Window are not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled 
             if (_tcs != null || _window != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _tcs.TrySetCanceled();
             }
 
             // Store the authorization and redirect URLs
@@ -433,7 +434,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             if (_tcs != null && !_tcs.Task.IsCompleted)
             {
                 // Set the task completion source exception to indicate a canceled operation
-                _tcs.SetException(new OperationCanceledException());
+                _tcs.TrySetException(new OperationCanceledException());
             }
 
             // Set the task completion source and window to null to indicate the authorization process is complete
