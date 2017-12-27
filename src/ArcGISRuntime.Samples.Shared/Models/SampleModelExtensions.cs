@@ -16,30 +16,25 @@ namespace ArcGISRuntime.Samples.Models
     /// </summary>
     public static class SampleModelExtensions
     {
-        public static string GetSampleName(this SampleModel model, Language language = Language.CSharp)
+        public static string GetSampleName(this SampleModel model)
         {
-            if (language == Language.VBNet)
-                return string.Format("{0}VB", model.SampleName);
             return model.SampleName;
         }
 
         /// <summary>
         /// Gets the name of C# the xaml file.
         /// </summary>
-        public static string GetSamplesXamlFileName(this SampleModel model, Language language = Language.CSharp)
+        public static string GetSamplesXamlFileName(this SampleModel model)
         {
-            return string.Format("{0}.xaml", model.GetSampleName(language));
+            return string.Format("{0}.xaml", model.GetSampleName());
         }
 
         /// <summary>
         /// Gets the name of the C# code behind file.
         /// </summary>
-        public static string GetSamplesCodeBehindFileName(this SampleModel model, Language language = Language.CSharp)
+        public static string GetSamplesCodeBehindFileName(this SampleModel model)
         {
-            if (language == Language.CSharp)
-                return string.Format("{0}.xaml.cs", model.GetSampleName(language));
-
-            return string.Format("{0}.xaml.vb", model.GetSampleName(language));
+            return string.Format("{0}.xaml.cs", model.GetSampleName());
         }
 
         /// <summary>
@@ -50,23 +45,11 @@ namespace ArcGISRuntime.Samples.Models
         /// </remarks>
         public static string GetSampleFolderInRelativeSolution(this SampleModel model)
         {
-            switch (model.Type)
-            {
-                case SampleModel.SampleType.API:
                     return string.Format(
                         "..\\..\\..\\src\\WPF\\ArcGISRuntime.WPF.Samples\\{0}\\{1}\\{2}",
                             model.SampleFolder.Parent.Parent.Name,
                             model.SampleFolder.Parent.Name,
                             model.SampleFolder.Name);
-                case SampleModel.SampleType.Workflow:
-                case SampleModel.SampleType.Tutorial:
-                    return string.Format(
-                        "..\\..\\..\\src\\WPF\\ArcGISRuntime.WPF.Samples\\{0}\\{1}",
-                            model.SampleFolder.Parent.Name,
-                            model.SampleFolder.Name);
-                default:
-                    throw new NotSupportedException("Sample type isn't supported.");
-            }
         }
     }
 }

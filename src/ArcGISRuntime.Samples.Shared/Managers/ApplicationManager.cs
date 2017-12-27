@@ -28,13 +28,10 @@ namespace ArcGISRuntime.Samples.Managers
             get { return SingleInstance; }
         }
 
-        public void Initialize(Language language)
+        public void Initialize()
         {
-            SelectedLanguage = language;
         }
 
         #endregion // Constructor and unique instance management
-
-        public Language SelectedLanguage { get; private set; }
     }
 }

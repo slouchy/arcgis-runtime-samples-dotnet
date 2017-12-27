@@ -37,11 +37,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
-                await SampleManager.Current.InitializeAsync(ApplicationManager.Current.SelectedLanguage);
-
-                // Set featured data context
-                featured.DataContext = SampleManager.Current.GetFeaturedSamples();
-                featured.SelectedIndex = 0;
+                await SampleManager.Current.InitializeAsync();
 
                 // Set category data context
                 categories.DataContext = SampleManager.Current.GetSamplesInTreeViewCategories();
@@ -49,15 +45,6 @@ namespace ArcGISRuntime.Samples.Desktop
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Initialization exception occurred.");
-            }
-        }
-
-        private void featured_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                var featuredItem = e.AddedItems[0] as FeaturedModel;
-                SelectSample(featuredItem.Sample);
             }
         }
 
@@ -133,12 +120,6 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private void Featured_Click(object sender, RoutedEventArgs e)
-        {
-            categories.Visibility = Visibility.Collapsed;
-            featured.Visibility = Visibility.Visible;
-        }
-
         private bool _openCategoryLeafs = true;
 
         private void Categories_Click(object sender, RoutedEventArgs e)
@@ -158,8 +139,6 @@ namespace ArcGISRuntime.Samples.Desktop
                     }
                 }
             }
-            featured.Visibility = Visibility.Collapsed;
-            categories.Visibility = Visibility.Visible;
         }
 
         private void CommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -246,8 +225,6 @@ namespace ArcGISRuntime.Samples.Desktop
             closeNavigation.Visibility = Visibility.Visible;
             root.ColumnDefinitions[0].MaxWidth = 535;
         }
-
-        
     }
 }
 

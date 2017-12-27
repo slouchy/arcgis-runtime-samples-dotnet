@@ -30,7 +30,6 @@ namespace ArcGISRuntime.Desktop.Viewer.Managers
     {
         private Assembly _samplesAssembly;
         private SampleStructureMap _sampleStructureMap;
-        private Language _selectedLanguage;
 
         #region Constructor and unique instance management
 
@@ -45,15 +44,10 @@ namespace ArcGISRuntime.Desktop.Viewer.Managers
             get { return SingleInstance; }
         }
 
-        public async Task InitializeAsync(Language language)
+        public async Task InitializeAsync()
         {
           
-            _selectedLanguage = language;
-            if (language == Language.CSharp)
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.Desktop.Samples");
-            else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.Desktop.Samples.VB");
-
+            _samplesAssembly = Assembly.Load("ArcGISRuntime.Desktop.Samples");
             await CreateAllAsync();
             RemoveEmptySamples();
         }
@@ -187,7 +181,7 @@ namespace ArcGISRuntime.Desktop.Viewer.Managers
         private bool DoesSampleTypeExists(SampleModel sampleModel)
         {
             var fullTypeAsString = string.Format("{0}.{1}", sampleModel.SampleNamespace,
-               sampleModel.GetSampleName(_selectedLanguage));
+               sampleModel.GetSampleName());
             var sampleType = _samplesAssembly.GetType(fullTypeAsString);
             if (sampleType == null)
                 return false;

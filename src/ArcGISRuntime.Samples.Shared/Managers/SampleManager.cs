@@ -30,7 +30,6 @@ namespace ArcGISRuntime.Samples.Managers
     {
         private Assembly _samplesAssembly;
         private SampleStructureMap _sampleStructureMap;
-        private Language _selectedLanguage;
 
         #region Constructor and unique instance management
 
@@ -45,23 +44,13 @@ namespace ArcGISRuntime.Samples.Managers
             get { return SingleInstance; }
         }
 
-        public async Task InitializeAsync(Language language)
+        public async Task InitializeAsync()
         {
-          
-            _selectedLanguage = language;
-            if (language == Language.CSharp)
 #if NETFX_CORE
                 _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples"));
 #else
                 _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples");
 #endif
-            else
-#if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples.VB"));
-#else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples.VB");
-#endif
-
             await CreateAllAsync();
         }
 
@@ -71,15 +60,6 @@ namespace ArcGISRuntime.Samples.Managers
         /// Gets or sets selected sample.
         /// </summary>
         public SampleModel SelectedSample { get; set; }
- 
-        /// <summary>
-        /// Gets featured samples.
-        /// </summary>
-        /// <returns></returns>
-        public List<FeaturedModel> GetFeaturedSamples()
-        {
-            return _sampleStructureMap.Featured;
-        }
 
         /// <summary>
         /// Gets all samples in a list grouped by main category. All sub-categories are flattened.
@@ -171,7 +151,7 @@ namespace ArcGISRuntime.Samples.Managers
         public Control SampleToControl(SampleModel sampleModel)
         {
             var fullTypeAsString = string.Format("{0}.{1}", sampleModel.SampleNamespace,
-                sampleModel.GetSampleName(_selectedLanguage));
+                sampleModel.GetSampleName());
             var sampleType = _samplesAssembly.GetType(fullTypeAsString);
 
             var item = sampleType.GetConstructor(new Type[] { }).Invoke(new object[] { });
@@ -205,7 +185,7 @@ namespace ArcGISRuntime.Samples.Managers
                         throw new NotImplementedException("groups.json file is missing");
 #endif
 
-                    _sampleStructureMap = SampleStructureMap.Create(filePath, _selectedLanguage);
+                    _sampleStructureMap = SampleStructureMap.Create(filePath);
                 });
             }
             // This is thrown if even one of the files requires permissions greater 

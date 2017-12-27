@@ -18,8 +18,6 @@ namespace ArcGISRuntime.WPF.Viewer
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var selectedLanguage = Language.CSharp;
-
             try
             {
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
@@ -31,18 +29,7 @@ namespace ArcGISRuntime.WPF.Viewer
                 Current.Shutdown();
             }
 
-            // Check application parameters:
-            // parameter definitions:
-            //     /vb = launch application using VBNet samples, defaults to C#
-            for (int i = 0; i != e.Args.Length; ++i)
-            {
-                if (e.Args[i] == "/vb")
-                {
-                    selectedLanguage = Language.VBNet;
-                }
-            }
-
-            ApplicationManager.Current.Initialize(selectedLanguage);
+            ApplicationManager.Current.Initialize();
         }
     }
 }

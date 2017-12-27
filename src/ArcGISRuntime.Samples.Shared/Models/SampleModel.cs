@@ -28,22 +28,6 @@ namespace ArcGISRuntime.Samples.Models
     public class SampleModel
     {
         /// <summary>
-        /// Defines sample types 
-        /// </summary>
-        [DataContract]
-        public enum SampleType
-        {
-            [EnumMember(Value = "API")]
-            API,
-
-            [EnumMember(Value = "Workflow")]
-            Workflow,
-
-            [EnumMember(Value = "Tutorial")]
-            Tutorial,
-        }
-
-        /// <summary>
         /// Gets or sets the human readable name of the sample.
         /// </summary>
         [DataMember]
@@ -66,12 +50,6 @@ namespace ArcGISRuntime.Samples.Models
         /// </summary>
         [DataMember]
         public string Instructions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of the sample.
-        /// </summary>
-        [DataMember]
-        public SampleType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the category where sample belongs.
@@ -142,22 +120,6 @@ namespace ArcGISRuntime.Samples.Models
         public DirectoryInfo SampleFolder { get; set; }
 
         /// <summary>
-        /// Gets the (expected) assembly-qualified name for the VB sample; useful when determining if VB implementation is present
-        /// </summary>
-        [IgnoreDataMember]
-        public String ExpectedVbAssemblyQualifiedType
-        {
-            get
-            {
-#if NETFX_CORE
-                return String.Format("{0}.{1}VB, ArcGISRuntime.UWP.Samples.VB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", SampleNamespace, SampleName);
-#else
-                return String.Format("{0}.{1}VB, ArcGISRuntime.WPF.Samples.VB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", SampleNamespace, SampleName);
-#endif
-            }
-        }
-
-        /// <summary>
         /// Gets the namespace of the sample.
         /// </summary>
         /// <remarks>
@@ -219,12 +181,6 @@ namespace ArcGISRuntime.Samples.Models
                 sampleModel = serializer.ReadObject(stream) as SampleModel;
 
                 sampleModel.SampleFolder = metadataFile.Directory;
-            }
-
-            // Stop if the sample doesn't have a VB implementation (VB sample viewer only)
-            if (ApplicationManager.Current.SelectedLanguage == Language.VBNet && System.Type.GetType(sampleModel.ExpectedVbAssemblyQualifiedType, false) == null)
-            {
-                return null;
             }
 
             return sampleModel;

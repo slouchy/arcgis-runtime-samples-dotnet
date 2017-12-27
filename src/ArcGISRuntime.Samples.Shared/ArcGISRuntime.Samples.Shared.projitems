@@ -14,8 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FeaturedModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\LanguageEnum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModelExtensions.cs" />

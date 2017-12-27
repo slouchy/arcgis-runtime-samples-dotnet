@@ -23,11 +23,6 @@ namespace ArcGISRuntime.UWP.Viewer
 {
     sealed partial class App
     {
-        // Default to use CSharp assembly for samples
-        // NOTE :
-        // Change this to Language.VBNet to run VB samples
-        private const Language SamplesLanguageUsed = Language.CSharp;
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -40,7 +35,7 @@ namespace ArcGISRuntime.UWP.Viewer
             UnhandledException += App_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
-            ApplicationManager.Current.Initialize(SamplesLanguageUsed);
+            ApplicationManager.Current.Initialize();
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

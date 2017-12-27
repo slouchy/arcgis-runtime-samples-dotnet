@@ -104,10 +104,6 @@
       <Project>{6820b615-c568-4a13-b026-a77cdd348bfa}</Project>
       <Name>ArcGISRuntime.UWP.Samples.CSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ArcGISRuntime.UWP.Samples\ArcGISRuntime.UWP.Samples.VBNet.vbproj">
-      <Project>{73cf6057-8ac2-40e5-90eb-f733ce87dd93}</Project>
-      <Name>ArcGISRuntime.UWP.Samples.VBNet</Name>
-    </ProjectReference>
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>

@@ -32,12 +32,6 @@ namespace ArcGISRuntime.Samples.Models
         public List<CategoryModel> Categories { get; set; }
 
         /// <summary>
-        /// Gets or sets list of featured samples.
-        /// </summary>
-        [DataMember]
-        public List<FeaturedModel> Featured { get; set; }
-
-        /// <summary>
         /// Get all samples in a flat list.
         /// </summary>
         [IgnoreDataMember]
@@ -72,7 +66,7 @@ namespace ArcGISRuntime.Samples.Models
         /// <param name="metadataFilePath">Full path to the metadata JSON file</param>
         /// <param name="language">Language that is used to create the samples</param>
         /// <returns>Deserialized <see cref="SampleStructureMap"/></returns>
-        internal static SampleStructureMap Create(string metadataFilePath, Language language = Language.CSharp)
+        internal static SampleStructureMap Create(string metadataFilePath)
         {
             var serializer = new DataContractJsonSerializer(typeof(SampleStructureMap));
 
@@ -135,17 +129,6 @@ namespace ArcGISRuntime.Samples.Models
                         subCategory.Samples.Add(sample);
                     }
                 }
-            }
-
-            if (structureMap.Featured == null)
-                structureMap.Featured = new List<FeaturedModel>();
-
-            // Set all sample models to the featured models
-            foreach (var featured in structureMap.Featured)
-            {
-                var sample = structureMap.Samples.FirstOrDefault(x => x.SampleName == featured.SampleName);
-                if (sample != null)
-                    featured.Sample = sample;
             }
 
             return structureMap;

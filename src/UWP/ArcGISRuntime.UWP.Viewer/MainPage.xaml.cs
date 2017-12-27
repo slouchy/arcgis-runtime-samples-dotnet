@@ -94,29 +94,12 @@ namespace ArcGISRuntime.UWP.Viewer
         private async void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
-            await SampleManager.Current.InitializeAsync(ApplicationManager.Current.SelectedLanguage);
+            await SampleManager.Current.InitializeAsync();
 
             // Create categories list. Also add Featured there as a single category.
             var categoriesList = SampleManager.Current.GetSamplesInCategories();
 
             var collectedFeaturedSamplesList = new List<object>();
-            var featuredSampleList = SampleManager.Current.GetFeaturedSamples();
-
-            // Collect all featured samples from the samples list and construct featured category
-            foreach (var featured in featuredSampleList)
-            {
-                foreach (var category in categoriesList)
-                {
-                    foreach (var sample in category.Items)
-                    {
-                        var sampleModel = (sample as SampleModel);
-                        if (sampleModel == null) continue;
-
-                        if (sampleModel.SampleName == featured.SampleName)
-                            collectedFeaturedSamplesList.Add(sampleModel);
-                    }
-                }
-            }
 
             // Make sure that Featured is shown on top of the categories
             if (collectedFeaturedSamplesList.Count > 0)
