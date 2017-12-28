@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using UIKit;
-using ArcGISRuntimeXamarin.Managers;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISRuntime.Samples.Managers;
 using Foundation;
 
 namespace ArcGISRuntimeXamarin
 {
     public class SamplesViewController : UITableViewController
     {
-        TreeItem category;
+        SearchableTreeNode category;
 
-        public SamplesViewController(TreeItem category)
+        public SamplesViewController(SearchableTreeNode category)
         {
             this.category = category;
         }
@@ -23,20 +23,7 @@ namespace ArcGISRuntimeXamarin
 
             this.Title = "Samples";
 
-            List<Object> listSubCategoryItems = new List<Object>();
-            for (int i = 0; i < category.Items.Count; i++)
-            {
-                listSubCategoryItems.Add((category.Items[i] as TreeItem).Items);
-            }
-
-            List<Object> listSampleItems = new List<Object>();
-            foreach (List<Object> subCategoryItem in listSubCategoryItems)
-            {
-                foreach (var sample in subCategoryItem)
-                {
-                    listSampleItems.Add(sample);
-                }
-            }
+            var listSampleItems = category.Items;
 
             this.TableView.Source = new SamplesDataSource(this, listSampleItems);
 
@@ -46,11 +33,11 @@ namespace ArcGISRuntimeXamarin
         public class SamplesDataSource : UITableViewSource
         {
             private UITableViewController controller;
-            private List<object> data;
+            private List<SampleInfo> data;
 
             public SamplesDataSource(UITableViewController controller, List<Object> data)
             {
-                this.data = data;
+                this.data = data.OfType<SampleInfo>().ToList();
                 this.controller = controller;
             }
 
@@ -58,7 +45,7 @@ namespace ArcGISRuntimeXamarin
             {
                 var cell = new UITableViewCell();
                 var item = data[indexPath.Row];
-                cell.TextLabel.Text = (item as SampleModel).Name;
+                cell.TextLabel.Text = (item as SampleInfo).SampleName;
                 return cell;
             }
 
@@ -67,31 +54,16 @@ namespace ArcGISRuntimeXamarin
                 return data.Count;
             }
 
-            public override async void RowSelected(UITableView tableView, NSIndexPath indexPath)
+            public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
             {
                 try
                 {
-                    var item = data[indexPath.Row];
-                    var sampleName = (item as SampleModel).SampleName;
-                    var sampleNamespace = (item as SampleModel).SampleNamespace;
-
-                    //If Offline data is required for the sample to work download it 
-                    if ((item as SampleModel).RequiresOfflineData)
-                    {
-                        foreach (string id in ((item as SampleModel).DataItemIds))
-                        {
-                            //TODO - Add splash screen/progress bar
-                            await DataManager.GetData(id, sampleName);
-                        }
-                    }
-
-                    Type t = Type.GetType(sampleNamespace + "." + sampleName);
-                    UIViewController vc = Activator.CreateInstance(t) as UIViewController;
+                    var item = SampleManager.Current.SampleToControl(data[indexPath.Row]);
 
                     // Call a function to clear existing credentials
                     ClearCredentials();
 
-                    controller.NavigationController.PushViewController(vc, true);
+                    controller.NavigationController.PushViewController((UIViewController)item, true);
                 }
                 catch (Exception ex)
                 {

@@ -1,8 +1,10 @@
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 using CoreGraphics;
 using Foundation;
 using System;
 using UIKit;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ArcGISRuntimeXamarin
@@ -22,7 +24,7 @@ namespace ArcGISRuntimeXamarin
 			base.ViewDidLoad();
 
 			await SampleManager.Current.InitializeAsync();
-			var data = SampleManager.Current.GetSamplesAsTree();
+            var data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 			this.TableView.Source = new CategoryDataSource(this, data);
 
 			this.TableView.ReloadData();
@@ -47,11 +49,11 @@ namespace ArcGISRuntimeXamarin
         public class CategoryDataSource : UITableViewSource
 		{
 			private UITableViewController controller;
-			private List<TreeItem> data;
+			private List<SearchableTreeNode> data;
 
 			static string CELL_ID = "cellid";
 
-			public CategoryDataSource(UITableViewController controller, List<TreeItem> data)
+			public CategoryDataSource(UITableViewController controller, List<SearchableTreeNode> data)
 			{
 				this.data = data;
 				this.controller = controller;
