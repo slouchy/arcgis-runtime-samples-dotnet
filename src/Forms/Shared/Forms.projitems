@@ -23,16 +23,6 @@
       <DependentUpon>CategoryListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Logger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FeaturedModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModelExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleStructureMap.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SubCategoryModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>

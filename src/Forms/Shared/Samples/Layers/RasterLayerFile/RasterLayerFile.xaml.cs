@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using System;
 using Xamarin.Forms;
 using System.IO;

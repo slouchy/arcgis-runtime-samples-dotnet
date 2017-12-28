@@ -10,7 +10,7 @@
 using System.IO;
 using System.Linq;
 using Esri.ArcGISRuntime.Mapping;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap

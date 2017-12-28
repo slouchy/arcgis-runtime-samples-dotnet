@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
+using ArcGISRuntime.Samples.Shared.Attributes;
 using System;
 using Xamarin.Forms;
 
@@ -19,8 +20,11 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.LineOfSightLocation
+namespace ArcGISRuntimeXamarin.Samples.Analysis
 {
+    [Sample("Line of sight (Location)",
+        "This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.",
+        "Click to define a location for the observer, then again to define the target. The result will show visible segments in cyan and obstructed ones in magenta.")]
     public partial class LineOfSightLocation : ContentPage
     {
         // URL for an image service to use as an elevation source
