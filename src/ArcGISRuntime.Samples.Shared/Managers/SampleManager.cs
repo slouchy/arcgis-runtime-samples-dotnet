@@ -21,7 +21,8 @@ using System.Threading.Tasks;
 #if NETFX_CORE
 using Windows.UI.Xaml.Controls;
 using Windows.ApplicationModel;
-#else
+#endif
+#if __WPF__
 using System.Windows.Controls;
 #endif
 
@@ -47,6 +48,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         public IList<SampleInfo> AllSamples { get; set; }
         public SearchableTreeNode FullTree { get; set; }
+        public SampleInfo SelectedSample { get; set; }
 
         public async Task InitializeAsync()
         {
@@ -151,42 +153,14 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         /// <summary>
-        /// Gets or sets selected sample.
-        /// </summary>
-        public SampleInfo SelectedSample { get; set; }
-
-#if !NETFX_CORE
-        public List<TreeViewItem> GetSamplesInTreeViewCategories()
-        {
-            var categories = new List<TreeViewItem>();
-
-            foreach (var category in FullTree.Items)
-            {
-                var categoryItem = new TreeViewItem();
-                categoryItem.Header = (category as SearchableTreeNode).Name;
-                categoryItem.DataContext = category;
-
-                foreach (SampleInfo sampleInfo in ((SearchableTreeNode)category).Items)
-                {
-                    categoryItem.Items.Add( new TreeViewItem { Header = sampleInfo.SampleName, DataContext = sampleInfo });
-                }
-
-                categories.Add(categoryItem);
-            }
-            return categories;
-        }
-#endif
-
-        /// <summary>
         /// Creates a new control from sample.
         /// </summary>
         /// <param name="sampleModel">Sample that is transformed into a control</param>
         /// <returns>Sample as a control.</returns>
-        public Control SampleToControl(SampleInfo sampleModel)
+        public object SampleToControl(SampleInfo sampleModel)
         {
-            var item = sampleModel.SampleType.GetConstructor(new Type[] { }).Invoke(new object[] { });
-
-           return (Control)item;
+            var item = Activator.CreateInstance(sampleModel.SampleType);
+            return item;
         }
 
     }

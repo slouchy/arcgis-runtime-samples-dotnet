@@ -41,6 +41,9 @@
     <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
+    <DefineConstants>__WPF__</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
@@ -76,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
     </Compile>

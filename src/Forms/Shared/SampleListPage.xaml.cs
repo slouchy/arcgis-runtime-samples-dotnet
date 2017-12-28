@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin
             try
             {
                 var item = (SampleInfo)e.Item;
-                await Navigation.PushAsync((ContentPage)Activator.CreateInstance(item.SampleType));
+                await Navigation.PushAsync((ContentPage)SampleManager.Current.SampleToControl(item));
 
                 // Call a function to clear existing credentials
                 ClearCredentials();

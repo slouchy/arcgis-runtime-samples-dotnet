@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 await SampleManager.Current.InitializeAsync();
 
                 // Set category data context
-                categories.DataContext = SampleManager.Current.GetSamplesInTreeViewCategories();
+                categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
             }
             catch (Exception ex)
             {
