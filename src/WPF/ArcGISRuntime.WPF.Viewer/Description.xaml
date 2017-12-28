@@ -27,8 +27,8 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0">
-                <Image Grid.RowSpan="2" Margin="10" Stretch="Uniform" HorizontalAlignment="Center"
-                       Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
+                <Image Grid.RowSpan="2" Margin="10" Stretch="Uniform" HorizontalAlignment="Center">
+                    <!--<Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">-->
                     <Image.Effect>
                         <DropShadowEffect></DropShadowEffect>
                     </Image.Effect>
@@ -46,32 +46,6 @@
 									TextWrapping="Wrap" 
                                     Style="{StaticResource PrimaryTextBlock}"
 									VerticalAlignment="Top" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1"
-                            Visibility="{Binding Link, Converter={StaticResource nullToVisibilityConverter}}"
-                            >
-                    <TextBlock Text="Read tutorial from "                                     
-                               Style="{StaticResource PrimaryTextBlock}" FontSize="24" VerticalAlignment="Center" />
-                    <Button Margin="5" FontSize="24" VerticalAlignment="Center" Content="developers.arcgis.com" Cursor="Hand" 
-                            Click="OpenTutorial">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <TextBlock TextDecorations="Underline">
-                                    <ContentPresenter />
-                                </TextBlock>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Foreground" Value="Blue" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Foreground" Value="Red" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
                 </StackPanel>
             </Grid>
 

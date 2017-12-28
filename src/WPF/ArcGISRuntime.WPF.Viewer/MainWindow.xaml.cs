@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Models;
+using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,7 +53,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             if (e.AddedItems.Count > 0)
             {
-                var sample = e.AddedItems[0] as SampleModel;
+                var sample = e.AddedItems[0] as SampleInfo;
                 SelectSample(sample);
                 (sender as ListView).SelectedItem = null;
             }
@@ -60,28 +61,11 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = ((e.NewValue as TreeViewItem).DataContext as SampleModel);
-            if (sample == null)
-            {
-                var category = ((e.NewValue  as TreeViewItem).DataContext as CategoryModel);
-                var subcategories = category.SubCategories;
-                var samples = new List<SampleModel>();
-                foreach (var subCategory in subcategories)
-                {
-                    if (subCategory.Samples.Count > 0)
-                        samples.AddRange(subCategory.Samples);
-                }
-                if (samples.Any())
-                {
-                    categoriesList.ItemsSource = samples;
-                    CategoriesRegion.Visibility = Visibility.Visible;
-                }
-            }
-            else
-                SelectSample(sample);
+            var sample = ((e.NewValue as TreeViewItem).DataContext as SampleInfo);
+            SelectSample(sample);
         }
 
-        private void SelectSample(SampleModel selectedSample)
+        private void SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
 
@@ -171,7 +155,8 @@ namespace ArcGISRuntime.Samples.Desktop
             // Encoding the RenderBitmapTarget as a JPG file.
             JpegBitmapEncoder jpg = new JpegBitmapEncoder() { QualityLevel = 90 };
             jpg.Frames.Add(BitmapFrame.Create(rtb));
-
+            /*
+             * TODO - re-add image code
             var file = new FileInfo(Path.Combine(
                 SampleManager.Current.SelectedSample.GetSampleFolderInRelativeSolution(),
                 SampleManager.Current.SelectedSample.Image));
@@ -187,7 +172,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 using (Stream stm = File.Create(file.FullName))
                     jpg.Save(stm);
             }
-
+            */
             SampleContainer.Width = _previousWidth;
             SampleContainer.Height = _previousHeight;
             SampleContainer.HorizontalAlignment = HorizontalAlignment.Left;

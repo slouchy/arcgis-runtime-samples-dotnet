@@ -7,18 +7,35 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Runtime.Serialization;
 
 namespace ArcGISRuntime.Samples.Shared.Models
 {
 
-    [DataContract(Name = "SampleInfo")]
     public class SampleInfo
     {
-        [DataMember()]
         public string Path { get; set; }
-
-        [DataMember()]
         public string SampleName { get; set; }
+
+        public string Category { get; set; }
+
+        public string Description { get; set; }
+
+        public string Instructions { get; set; }
+
+        public string[] OfflineDataItems { get; set; }
+
+        public string[] Tags { get; set; }
+
+        public string[] AndroidLayouts { get; set; }
+
+        public string[] XamlLayouts { get; set; }
+
+        public string[] ClassFiles { get; set; }
+
+        public string Image { get; set; }
+
+        public Type SampleType { get; set; }
     }
 }

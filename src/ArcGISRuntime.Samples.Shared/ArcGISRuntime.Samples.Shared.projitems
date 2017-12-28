@@ -18,9 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModelExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleStructureMap.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SubCategoryModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SearchableTreeNode.cs" />
   </ItemGroup>
 </Project>

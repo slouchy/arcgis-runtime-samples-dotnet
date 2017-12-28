@@ -8,9 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Models;
+using ArcGISRuntime.Samples.Shared.Attributes;
+using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -29,9 +33,6 @@ namespace ArcGISRuntime.Samples.Managers
     public class SampleManager 
     {
         private Assembly _samplesAssembly;
-        private SampleStructureMap _sampleStructureMap;
-
-        #region Constructor and unique instance management
 
         // Private constructor
         private SampleManager() { }
@@ -44,62 +45,134 @@ namespace ArcGISRuntime.Samples.Managers
             get { return SingleInstance; }
         }
 
+        public IList<SampleInfo> AllSamples { get; set; }
+        public SearchableTreeNode FullTree { get; set; }
+
         public async Task InitializeAsync()
         {
 #if NETFX_CORE
                 _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples"));
 #else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples");
+                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Viewer");
 #endif
-            await CreateAllAsync();
+            AllSamples = CreateSampleInfos(_samplesAssembly).OrderBy(info => info.Category)
+                .ThenBy(info => info.SampleName.ToLowerInvariant())
+                .ToList();
+
+            FullTree = BuildFullTree(AllSamples);
         }
 
-        #endregion // Constructor and unique instance management
+        private static IList<SampleInfo> CreateSampleInfos(Assembly assembly)
+        {
+            var sampleTypes = assembly.GetTypes()
+                .Where(type => type.GetTypeInfo().GetCustomAttributes().OfType<SampleAttribute>().Any());
+
+            var samples = new List<SampleInfo>();
+            foreach(Type type in sampleTypes)
+            {
+                try
+                {
+                    samples.Add(MakeSampleInfo(type));
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Could not create sample from " + type + ": " + ex);
+                }
+            }
+            return samples;
+        }
+
+        private static SampleInfo MakeSampleInfo(Type sampleType)
+        {
+            TypeInfo typeInfo = sampleType.GetTypeInfo();
+            string category = ExtractCategoryFromNamespace(typeInfo);
+
+            // TODO - make sample attr optional once all samples have been converted
+            //var sampleAttr = GetRequiredAttribute<SampleAttribute>(typeInfo);
+            var sampleAttr = GetOptionalAttribute<SampleAttribute>(typeInfo);
+            if (sampleAttr == null) { return null; }
+
+            var offlineDataAttr = GetOptionalAttribute<OfflineDataAttribute>(typeInfo);
+            var xamlAttr = GetOptionalAttribute<XamlFilesAttribute>(typeInfo);
+            var androidAttr = GetOptionalAttribute<AndroidLayoutAttribute>(typeInfo);
+            var classAttr = GetOptionalAttribute<ClassFileAttribute>(typeInfo);
+
+            var sample = new SampleInfo()
+            {
+                SampleName = sampleAttr.Name,
+                Category = category,
+                Description = sampleAttr.Description,
+                Instructions = sampleAttr.Instructions,
+                Tags = sampleAttr.Tags.ToArray(),
+                SampleType = sampleType
+            };
+
+            if (offlineDataAttr != null) { sample.OfflineDataItems = offlineDataAttr.Items.ToArray(); }
+            if (xamlAttr != null) { sample.XamlLayouts = xamlAttr.Files.ToArray(); }
+            if (androidAttr != null) { sample.AndroidLayouts = androidAttr.Files.ToArray(); }
+            if (classAttr != null) { sample.ClassFiles = classAttr.Files.ToArray(); }
+
+            return sample;
+        }
+
+        private static T GetRequiredAttribute<T>(MemberInfo typeInfo) where T : Attribute
+        {
+            return (T)typeInfo.GetCustomAttributes(typeof(T)).Single();
+        }
+
+        private static T GetOptionalAttribute<T>(MemberInfo typeInfo) where T : Attribute
+        {
+            return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
+        }
+
+        private static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
+        {
+            return new SearchableTreeNode(
+                "All Samples",
+                allSamples.ToLookup(s => s.Category) // put samples into lookup by category
+                .OrderBy(s => s.Key)
+                .Select(BuildTreeForCategory) // create a tree for each category
+                .ToList());
+        }
+
+        private static SearchableTreeNode BuildTreeForCategory(IGrouping<string, SampleInfo> byCategory)
+        {
+            // only supporting one-level hierarchies for now, no subcategories
+            return new SearchableTreeNode(
+                byCategory.Key.ToString(),
+                byCategory.OrderBy(si => si.SampleName)
+                .ToList());
+        }
+
+        private static string ExtractCategoryFromNamespace(TypeInfo typeInfo)
+        {
+            string namespaceName = typeInfo.Namespace.Split('.').Last();
+
+            // Replace _ with space
+            namespaceName = namespaceName.Replace('_', ' ');
+
+            return namespaceName;
+        }
 
         /// <summary>
         /// Gets or sets selected sample.
         /// </summary>
-        public SampleModel SelectedSample { get; set; }
-
-        /// <summary>
-        /// Gets all samples in a list grouped by main category. All sub-categories are flattened.
-        /// </summary>
-        /// <returns>Return all categories and samples</returns>
-        public List<TreeItem> GetSamplesInCategories()
-        {
-            var categories = new List<TreeItem>();
-
-            foreach (var category in _sampleStructureMap.Categories)
-            {
-                var categoryItem = new TreeItem();
-                categoryItem.Name = category.Name;
-
-                foreach (var subCategory in category.SubCategories)
-                {
-                    foreach (var sample in subCategory.Samples)
-                        categoryItem.Items.Add(sample);
-                }
-
-                categories.Add(categoryItem);
-            }
-            return categories;
-        }
+        public SampleInfo SelectedSample { get; set; }
 
 #if !NETFX_CORE
         public List<TreeViewItem> GetSamplesInTreeViewCategories()
         {
             var categories = new List<TreeViewItem>();
 
-            foreach (var category in _sampleStructureMap.Categories)
+            foreach (var category in FullTree.Items)
             {
                 var categoryItem = new TreeViewItem();
-                categoryItem.Header = category.Name;
+                categoryItem.Header = (category as SearchableTreeNode).Name;
                 categoryItem.DataContext = category;
 
-                foreach (var subCategory in category.SubCategories)
+                foreach (SampleInfo sampleInfo in ((SearchableTreeNode)category).Items)
                 {
-                    foreach (var sample in subCategory.Samples)
-                        categoryItem.Items.Add( new TreeViewItem { Header = sample.Name, DataContext = sample });
+                    categoryItem.Items.Add( new TreeViewItem { Header = sampleInfo.SampleName, DataContext = sampleInfo });
                 }
 
                 categories.Add(categoryItem);
@@ -107,101 +180,18 @@ namespace ArcGISRuntime.Samples.Managers
             return categories;
         }
 #endif
-
-        /// <summary>
-        /// Gets all samples as a tree.
-        /// </summary>
-        /// <returns>Return all categories, subcategories and samples.</returns>
-        public List<TreeItem> GetSamplesAsTree()
-        {
-            var categories = new List<TreeItem>();
-
-            foreach (var category in _sampleStructureMap.Categories)
-            {
-                var categoryItem = new TreeItem { Name = category.Name };
-
-                foreach (var subCategory in category.SubCategories)
-                {
-                    if (subCategory.ShowGroup)
-                    {
-                        var subCategoryItem = new TreeItem() { Name = subCategory.Name };
-                        categoryItem.Items.Add(subCategoryItem);
-
-                        if (subCategory.Samples != null)
-                            foreach (var sample in subCategory.Samples)
-                                subCategoryItem.Items.Add(sample);
-                    }
-                    else
-                    {
-                        foreach (var sample in subCategory.Samples)
-                            categoryItem.Items.Add(sample);
-                    }
-                }
-
-                categories.Add(categoryItem);
-            }
-            return categories;
-        }
 
         /// <summary>
         /// Creates a new control from sample.
         /// </summary>
         /// <param name="sampleModel">Sample that is transformed into a control</param>
         /// <returns>Sample as a control.</returns>
-        public Control SampleToControl(SampleModel sampleModel)
+        public Control SampleToControl(SampleInfo sampleModel)
         {
-            var fullTypeAsString = string.Format("{0}.{1}", sampleModel.SampleNamespace,
-                sampleModel.GetSampleName());
-            var sampleType = _samplesAssembly.GetType(fullTypeAsString);
-
-            var item = sampleType.GetConstructor(new Type[] { }).Invoke(new object[] { });
+            var item = sampleModel.SampleType.GetConstructor(new Type[] { }).Invoke(new object[] { });
 
            return (Control)item;
         }
 
-        /// <summary>
-        /// Creates whole sample structure.
-        /// </summary>
-        private async Task CreateAllAsync()
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-#if NETFX_CORE
-                    var filePath = string.Format("ms-appx:///{0}", "ArcGISRuntime.UWP.Samples/groups.json");
-                    try
-                    {
-                        filePath = Path.Combine(Package.Current.InstalledLocation.Path, "ArcGISRuntime.UWP.Samples", "groups.json");
-                    }
-                    catch (Exception)
-                    {
-                        throw new NotImplementedException("groups.json file is missing");
-                    }
-#else
-                   var filePath = "groups.json";
-                    
-                    if (!File.Exists(filePath))
-                        throw new NotImplementedException("groups.json file is missing");
-#endif
-
-                    _sampleStructureMap = SampleStructureMap.Create(filePath);
-                });
-            }
-            // This is thrown if even one of the files requires permissions greater 
-            // than the application provides. 
-            catch (UnauthorizedAccessException e)
-            {
-                throw; //TODO
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw; //TODO
-            }
-            catch (Exception e)
-            {
-                throw; //TODO
-            }
-        }
     }
 }

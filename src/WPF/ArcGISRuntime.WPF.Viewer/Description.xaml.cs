@@ -18,12 +18,5 @@ namespace ArcGISRuntime.WPF.Viewer
         {
             InitializeComponent();
         }
-
-        private void OpenTutorial(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var sampleModel = DataContext as SampleModel;
-            Process.Start(new ProcessStartInfo(sampleModel.Link));
-            e.Handled = true;
-        }
     }
 }
