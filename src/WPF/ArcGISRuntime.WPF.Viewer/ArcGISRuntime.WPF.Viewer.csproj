@@ -1187,9 +1187,9 @@
     <Resource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

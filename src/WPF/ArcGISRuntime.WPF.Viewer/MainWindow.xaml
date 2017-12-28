@@ -43,9 +43,9 @@
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
                     <Image Width="270" Height="200" Stretch="Uniform"
-                       HorizontalAlignment="Center" />
-                    <!--="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
-                    </Image>-->
+                       HorizontalAlignment="Center"
+                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
+                    </Image>
                     <TextBlock Text="{Binding SampleName}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"  Style="{StaticResource PrimaryTextBlock}" />
                     <TextBlock Text="{Binding Description}" FontSize="13" 
 										   TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top" 

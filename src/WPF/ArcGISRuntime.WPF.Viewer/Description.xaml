@@ -27,8 +27,8 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0">
-                <Image Grid.RowSpan="2" Margin="10" Stretch="Uniform" HorizontalAlignment="Center">
-                    <!--<Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">-->
+                <Image Grid.RowSpan="2" Margin="10" Stretch="Uniform" HorizontalAlignment="Center"
+                    Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
                     <Image.Effect>
                         <DropShadowEffect></DropShadowEffect>
                     </Image.Effect>

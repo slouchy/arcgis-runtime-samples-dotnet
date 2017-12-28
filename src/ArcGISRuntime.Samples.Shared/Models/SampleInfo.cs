@@ -9,13 +9,18 @@
 
 using System;
 using System.Runtime.Serialization;
+using System.Reflection;
 
 namespace ArcGISRuntime.Samples.Shared.Models
 {
 
     public class SampleInfo
     {
-        public string Path { get; set; }
+        public string Path { get {
+                return System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Samples", this.Category, SampleType.Name);
+        }
+        }
+
         public string SampleName { get; set; }
 
         public string Category { get; set; }
@@ -34,8 +39,10 @@ namespace ArcGISRuntime.Samples.Shared.Models
 
         public string[] ClassFiles { get; set; }
 
-        public string Image { get; set; }
+        public string Image { get { return String.Format("{0}.jpg", SampleType.Name);} }
 
         public Type SampleType { get; set; }
+
+        public string SampleImageName { get { return System.IO.Path.Combine(this.Path, this.Image);}}
     }
 }

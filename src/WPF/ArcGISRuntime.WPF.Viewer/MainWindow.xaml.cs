@@ -155,10 +155,9 @@ namespace ArcGISRuntime.Samples.Desktop
             // Encoding the RenderBitmapTarget as a JPG file.
             JpegBitmapEncoder jpg = new JpegBitmapEncoder() { QualityLevel = 90 };
             jpg.Frames.Add(BitmapFrame.Create(rtb));
-            /*
-             * TODO - re-add image code
+            
             var file = new FileInfo(Path.Combine(
-                SampleManager.Current.SelectedSample.GetSampleFolderInRelativeSolution(),
+                SampleManager.Current.SelectedSample.Path,
                 SampleManager.Current.SelectedSample.Image));
             if (file.Exists)
             {
@@ -172,7 +171,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 using (Stream stm = File.Create(file.FullName))
                     jpg.Save(stm);
             }
-            */
+            
             SampleContainer.Width = _previousWidth;
             SampleContainer.Height = _previousHeight;
             SampleContainer.HorizontalAlignment = HorizontalAlignment.Left;
