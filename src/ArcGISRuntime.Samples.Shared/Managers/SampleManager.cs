@@ -50,11 +50,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         public async Task InitializeAsync()
         {
-#if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples"));
-#else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Viewer");
-#endif
+            _samplesAssembly = this.GetType().GetTypeInfo().Assembly;
             AllSamples = CreateSampleInfos(_samplesAssembly).OrderBy(info => info.Category)
                 .ThenBy(info => info.SampleName.ToLowerInvariant())
                 .ToList();

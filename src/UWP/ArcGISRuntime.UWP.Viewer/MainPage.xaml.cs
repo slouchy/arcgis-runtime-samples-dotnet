@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Navigation = Windows.UI.Xaml.Navigation;
+using ArcGISRuntime.Samples.Shared.Models;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -97,19 +98,11 @@ namespace ArcGISRuntime.UWP.Viewer
             await SampleManager.Current.InitializeAsync();
 
             // Create categories list. Also add Featured there as a single category.
-            var categoriesList = SampleManager.Current.GetSamplesInCategories();
+            var categoriesList = SampleManager.Current.FullTree;
 
-            var collectedFeaturedSamplesList = new List<object>();
-
-            // Make sure that Featured is shown on top of the categories
-            if (collectedFeaturedSamplesList.Count > 0)
-                categoriesList.Insert(0, new TreeItem
-                    { Name = "Featured", Items = collectedFeaturedSamplesList });
-            
-            categories.ItemsSource = categoriesList;
-            categories.SelectedIndex = 0;
-
-            Frame.Navigated += OnFrameNavigated;
+            categories.ItemsSource = categoriesList.Items;
+            //categories.SelectedIndex = 0;
+            (Window.Current.Content as Frame).Navigated += OnFrameNavigated;
 
             HideLoadingIndication();
         }
@@ -125,7 +118,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
         {
-            var selectedSample = (sender as FrameworkElement).DataContext as SampleModel;
+            var selectedSample = (sender as FrameworkElement).DataContext as SampleInfo;
             if (selectedSample == null) return;
 
             // Call a function to clear existing credentials
@@ -176,14 +169,14 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async void OnInfoClicked(object sender, RoutedEventArgs e)
         {
-            var sampleModel = (sender as Button).DataContext as SampleModel;
+            var sampleModel = (sender as Button).DataContext as SampleInfo;
             if (sampleModel == null)
                 return;
 
             // Create dialog that is used to show the picture
             var dialog = new ContentDialog()
             {
-                Title = sampleModel.Name,
+                Title = sampleModel.SampleName,
                 //MaxWidth = ActualWidth,
                 //MaxHeight = ActualHeight
             };
