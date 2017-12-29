@@ -20,7 +20,7 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.Analysis
+namespace ArcGISRuntimeXamarin.Samples.AnalysisSamples
 {
     [Sample("Line of sight (Location)",
         "This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.",

@@ -101,7 +101,8 @@ namespace ArcGISRuntime.Samples.Managers
 #if NETFX_CORE
             appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #else
-            appDataFolder = System.IO.Directory.GetCurrentDirectory();
+            appDataFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+            //appDataFolder = System.IO.Directory.GetCurrentDirectory();
 #endif
             return appDataFolder;
         }

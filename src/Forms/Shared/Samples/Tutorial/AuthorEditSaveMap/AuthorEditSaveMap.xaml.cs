@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,8 +19,12 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
+namespace ArcGISRuntimeXamarin.Samples.TutorialSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author, edit, and save a map",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/forms/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map.\n2. Choose a basemap from the list of available basemaps.\n3. Click 'Save ...' and provide info for the new portal item (Title, Description, and Tags).\n4. Click 'Save Map to Portal'.\n5. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder.\n6. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public partial class AuthorEditSaveMap : ContentPage
 	{
         private MapViewModel _mapViewModel;
@@ -94,7 +98,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         private async void ShowSaveMapDialog(object sender, EventArgs e)
         {
             // Create a SaveMapPage page for getting user input for the new web map item
-            var mapInputForm = new ArcGISRuntime.Samples.AuthorEditSaveMap.SaveMapPage();
+            var mapInputForm = new ArcGISRuntime.Samples.TutorialSamples.SaveMapPage();
 
             // Handle the save button click event on the page
             mapInputForm.OnSaveClicked += SaveMapAsync;
@@ -132,7 +136,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         }
 
         // Event handler to get information entered by the user and save the map
-        private async void SaveMapAsync(object sender, ArcGISRuntime.Samples.AuthorEditSaveMap.SaveMapEventArgs e)
+        private async void SaveMapAsync(object sender, ArcGISRuntime.Samples.TutorialSamples.SaveMapEventArgs e)
         {
             try
             {

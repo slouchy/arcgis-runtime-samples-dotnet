@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArcGISRuntime.Samples.AuthorEditSaveMap.SaveMapPage">
+             x:Class="ArcGISRuntime.Samples.TutorialSamples.SaveMapPage">
   <TableView x:Name="SaveMapUI"
           Grid.Row="0"
           Intent="Form">

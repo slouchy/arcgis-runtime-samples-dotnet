@@ -23,6 +23,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using ArcGISRuntime.Samples.Managers;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 {
@@ -89,7 +90,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(GetTpkPath());
+            TileCache _tileCache = new TileCache(await GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
@@ -274,7 +275,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         }
 
         // Get the path to the tile package used for the basemap
-        private string GetTpkPath()
+        private async Task<string> GetTpkPath()
         {
             #region offlinedata
 
@@ -285,7 +286,13 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             string folder = DataManager.GetDataFolder();
 
             // Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
-            return Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+            string path = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+
+            if (!File.Exists(path))
+            {
+                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
+            }
+            return path;
 
             #endregion offlinedata
         }
