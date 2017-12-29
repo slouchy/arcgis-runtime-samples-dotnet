@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace ArcGISRuntime.Samples.Shared.Models
 {
@@ -10,8 +9,12 @@ namespace ArcGISRuntime.Samples.Shared.Models
     {
         public string Name { get; set; }
         public List<object> Items { get; set; }
+
         private bool m_IsExpanded;
 
+        /// <summary>
+        /// Supports collapsing in a tree view context
+        /// </summary>
         public bool IsExpanded
         {
             get { return m_IsExpanded; }
@@ -19,8 +22,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             {
                 m_IsExpanded = value;
                 PropertyChangedEventHandler pc = PropertyChanged;
-                if (pc != null)
-                    pc.Invoke(this, new PropertyChangedEventArgs("IsExpanded"));
+                if (pc != null) pc.Invoke(this, new PropertyChangedEventArgs("IsExpanded"));
             }
         }
 
@@ -29,6 +31,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             Name = name;
             Items = items.ToList();
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public SearchableTreeNode Search(Func<SampleInfo, bool> predicate)

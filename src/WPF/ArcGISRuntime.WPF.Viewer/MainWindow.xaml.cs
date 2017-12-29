@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Models;
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -38,7 +37,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
-                await SampleManager.Current.InitializeAsync();
+                SampleManager.Current.Initialize();
 
                 // Set category data context
                 categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);

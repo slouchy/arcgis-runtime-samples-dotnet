@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -19,8 +18,6 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Navigation = Windows.UI.Xaml.Navigation;
 using ArcGISRuntime.Samples.Shared.Models;
 
@@ -95,7 +92,7 @@ namespace ArcGISRuntime.UWP.Viewer
         private async void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
-            await SampleManager.Current.InitializeAsync();
+            SampleManager.Current.Initialize();
 
             // Create categories list. Also add Featured there as a single category.
             var categoriesList = SampleManager.Current.FullTree;

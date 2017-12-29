@@ -23,7 +23,7 @@ namespace ArcGISRuntimeXamarin
 		{
 			base.ViewDidLoad();
 
-			await SampleManager.Current.InitializeAsync();
+			await SampleManager.Current.Initialize();
             var data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 			this.TableView.Source = new CategoryDataSource(this, data);
 

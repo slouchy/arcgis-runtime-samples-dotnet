@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Models;
 using ArcGISRuntime.Samples.Shared.Attributes;
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
@@ -50,7 +49,7 @@ namespace ArcGISRuntime.Samples.Managers
         public SearchableTreeNode FullTree { get; set; }
         public SampleInfo SelectedSample { get; set; }
 
-        public async Task InitializeAsync()
+        public void Initialize()
         {
             _samplesAssembly = this.GetType().GetTypeInfo().Assembly;
             AllSamples = CreateSampleInfos(_samplesAssembly).OrderBy(info => info.Category)
@@ -70,7 +69,7 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 try
                 {
-                    samples.Add(MakeSampleInfo(type));
+                    samples.Add(new SampleInfo(type));
                 }
                 catch (Exception ex)
                 {
@@ -78,49 +77,6 @@ namespace ArcGISRuntime.Samples.Managers
                 }
             }
             return samples;
-        }
-
-        private static SampleInfo MakeSampleInfo(Type sampleType)
-        {
-            TypeInfo typeInfo = sampleType.GetTypeInfo();
-            string category = ExtractCategoryFromNamespace(typeInfo);
-
-            // TODO - make sample attr optional once all samples have been converted
-            //var sampleAttr = GetRequiredAttribute<SampleAttribute>(typeInfo);
-            var sampleAttr = GetOptionalAttribute<SampleAttribute>(typeInfo);
-            if (sampleAttr == null) { return null; }
-
-            var offlineDataAttr = GetOptionalAttribute<OfflineDataAttribute>(typeInfo);
-            var xamlAttr = GetOptionalAttribute<XamlFilesAttribute>(typeInfo);
-            var androidAttr = GetOptionalAttribute<AndroidLayoutAttribute>(typeInfo);
-            var classAttr = GetOptionalAttribute<ClassFileAttribute>(typeInfo);
-
-            var sample = new SampleInfo()
-            {
-                SampleName = sampleAttr.Name,
-                Category = category,
-                Description = sampleAttr.Description,
-                Instructions = sampleAttr.Instructions,
-                Tags = sampleAttr.Tags.ToArray(),
-                SampleType = sampleType
-            };
-
-            if (offlineDataAttr != null) { sample.OfflineDataItems = offlineDataAttr.Items.ToArray(); }
-            if (xamlAttr != null) { sample.XamlLayouts = xamlAttr.Files.ToArray(); }
-            if (androidAttr != null) { sample.AndroidLayouts = androidAttr.Files.ToArray(); }
-            if (classAttr != null) { sample.ClassFiles = classAttr.Files.ToArray(); }
-
-            return sample;
-        }
-
-        private static T GetRequiredAttribute<T>(MemberInfo typeInfo) where T : Attribute
-        {
-            return (T)typeInfo.GetCustomAttributes(typeof(T)).Single();
-        }
-
-        private static T GetOptionalAttribute<T>(MemberInfo typeInfo) where T : Attribute
-        {
-            return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
         }
 
         private static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
@@ -142,15 +98,6 @@ namespace ArcGISRuntime.Samples.Managers
                 .ToList());
         }
 
-        private static string ExtractCategoryFromNamespace(TypeInfo typeInfo)
-        {
-            string namespaceName = typeInfo.Namespace.Split('.').Last();
-
-            // Replace _ with space and "Samples" with nothing
-            namespaceName = namespaceName.Replace('_', ' ').Replace("Samples", "");
-
-            return namespaceName;
-        }
 
         /// <summary>
         /// Creates a new control from sample.

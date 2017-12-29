@@ -33,7 +33,7 @@ namespace ArcGISRuntimeXamarin
             try
             {
                 // Initialize the SampleManager and create the Sample Categories
-                await SampleManager.Current.InitializeAsync();
+                await SampleManager.Current.Initialize();
                 _sampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 
                 // Set up the custom ArrayAdapter for displaying the Categories.

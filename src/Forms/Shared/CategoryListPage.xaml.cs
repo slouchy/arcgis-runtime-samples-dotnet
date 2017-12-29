@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin
 
         async void Initialize()
         {
-            await SampleManager.Current.InitializeAsync();
+            SampleManager.Current.Initialize();
             _sampleCategories= SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
             BindingContext = _sampleCategories;
 
