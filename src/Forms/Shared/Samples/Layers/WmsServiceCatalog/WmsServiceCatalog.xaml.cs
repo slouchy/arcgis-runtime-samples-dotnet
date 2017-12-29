@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS service catalog",

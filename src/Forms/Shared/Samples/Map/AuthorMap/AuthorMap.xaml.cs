@@ -32,7 +32,7 @@ using Xamarin.Auth;
 using System.IO;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Author and save a map",

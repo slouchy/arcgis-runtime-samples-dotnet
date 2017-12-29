@@ -16,7 +16,7 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("FeatureLayerRenderingModeMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

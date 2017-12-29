@@ -22,7 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.HydrographySamples
+namespace ArcGISRuntime.Samples.HydrographySamples
 {
     [Register("SelectEncFeatures")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

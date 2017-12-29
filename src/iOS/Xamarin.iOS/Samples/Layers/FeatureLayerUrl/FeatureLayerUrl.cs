@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("FeatureLayerUrl")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

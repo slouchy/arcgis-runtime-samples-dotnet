@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [Register("TakeScreenshot")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

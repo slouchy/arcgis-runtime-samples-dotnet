@@ -14,7 +14,7 @@ using System;
 using Xamarin.Forms;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "ArcGIS raster function (service)",

@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("RasterLayerGeoPackage")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

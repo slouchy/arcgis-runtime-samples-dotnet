@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Register("SearchPortalMaps")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

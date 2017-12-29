@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [Register("GeoViewSync")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

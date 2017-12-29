@@ -17,7 +17,7 @@ using Foundation;
 using System.Collections.Generic;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
+namespace ArcGISRuntime.Samples.GraphicsOverlaySamples
 {
     [Register("IdentifyGraphics")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

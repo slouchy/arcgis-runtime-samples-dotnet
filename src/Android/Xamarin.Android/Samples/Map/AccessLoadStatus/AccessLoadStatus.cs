@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

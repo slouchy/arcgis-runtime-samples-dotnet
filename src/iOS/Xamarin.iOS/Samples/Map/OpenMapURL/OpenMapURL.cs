@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Register("OpenMapURL")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

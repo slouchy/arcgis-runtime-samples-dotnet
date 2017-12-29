@@ -28,7 +28,7 @@ using Android.App;
 using Xamarin.Auth;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Search a portal for maps",

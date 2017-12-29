@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Set initial map location",

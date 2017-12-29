@@ -22,7 +22,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchSamples
+namespace ArcGISRuntime.Samples.SearchSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find place",

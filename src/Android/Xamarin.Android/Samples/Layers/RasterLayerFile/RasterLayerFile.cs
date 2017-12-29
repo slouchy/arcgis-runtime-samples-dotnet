@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.IO;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Activity(Label = "RasterLayerFile")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

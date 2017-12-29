@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.NetworkAnalysisSamples
+namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
 {
     [Activity(Label = "FindRoute")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

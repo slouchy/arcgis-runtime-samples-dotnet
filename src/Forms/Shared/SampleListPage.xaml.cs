@@ -14,7 +14,7 @@ using System.Linq;
 using Xamarin.Forms;
 using ArcGISRuntime.Samples.Shared.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public partial class SampleListPage : ContentPage
     {

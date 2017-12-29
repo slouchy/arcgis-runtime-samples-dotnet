@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change basemap",

@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoprocessingSamples
+namespace ArcGISRuntime.Samples.GeoprocessingSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

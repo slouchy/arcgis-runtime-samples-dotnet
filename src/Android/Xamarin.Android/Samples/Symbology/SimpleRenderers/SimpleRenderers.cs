@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -22,7 +22,7 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
+namespace ArcGISRuntime.Samples.GraphicsOverlaySamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Identify graphics",

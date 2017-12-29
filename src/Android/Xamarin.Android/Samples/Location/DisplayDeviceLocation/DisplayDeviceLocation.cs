@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.LocationSamples
+namespace ArcGISRuntime.Samples.LocationSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

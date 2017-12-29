@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("RasterRenderingRule")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [Register("ShowCallout")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

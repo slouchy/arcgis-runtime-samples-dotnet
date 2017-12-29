@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("WMTSLayer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

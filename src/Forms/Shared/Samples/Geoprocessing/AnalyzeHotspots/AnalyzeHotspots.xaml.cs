@@ -14,7 +14,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoprocessingSamples
+namespace ArcGISRuntime.Samples.GeoprocessingSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Analyze hotspots",

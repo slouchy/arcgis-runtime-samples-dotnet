@@ -16,7 +16,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Render picture markers",

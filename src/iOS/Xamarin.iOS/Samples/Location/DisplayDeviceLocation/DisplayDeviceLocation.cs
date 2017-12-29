@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntimeXamarin.Samples.LocationSamples
+namespace ArcGISRuntime.Samples.LocationSamples
 {    
     [Register("DisplayDeviceLocation")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

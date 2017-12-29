@@ -13,7 +13,7 @@ using Android.Views;
 using Android.Widget;
 using ArcGISRuntime.Samples.Shared.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
    /// <summary>
    /// Custom ArrayAdapter to display the list of Samples

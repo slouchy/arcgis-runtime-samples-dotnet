@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

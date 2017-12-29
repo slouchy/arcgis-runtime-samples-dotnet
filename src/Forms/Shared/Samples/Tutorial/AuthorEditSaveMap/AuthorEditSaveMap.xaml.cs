@@ -19,7 +19,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.TutorialSamples
+namespace ArcGISRuntime.Samples.TutorialSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Author, edit, and save a map",

@@ -19,7 +19,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

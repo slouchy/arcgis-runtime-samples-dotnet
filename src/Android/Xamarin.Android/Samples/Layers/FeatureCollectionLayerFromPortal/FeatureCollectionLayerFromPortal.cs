@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Activity(Label = "FeatureCollectionLayerFromPortal")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

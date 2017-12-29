@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [Register("ChangeViewpoint")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

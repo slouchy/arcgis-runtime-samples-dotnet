@@ -20,7 +20,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.HydrographySamples
+namespace ArcGISRuntime.Samples.HydrographySamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Select ENC features",

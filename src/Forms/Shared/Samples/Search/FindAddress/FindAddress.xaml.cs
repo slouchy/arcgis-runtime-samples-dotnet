@@ -20,7 +20,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchSamples
+namespace ArcGISRuntime.Samples.SearchSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find address",

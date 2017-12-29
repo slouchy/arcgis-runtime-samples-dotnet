@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.HydrographySamples
+namespace ArcGISRuntime.Samples.HydrographySamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

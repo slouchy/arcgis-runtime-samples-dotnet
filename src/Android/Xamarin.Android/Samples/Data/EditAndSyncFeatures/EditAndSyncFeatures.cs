@@ -26,7 +26,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

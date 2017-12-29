@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Take screenshot",

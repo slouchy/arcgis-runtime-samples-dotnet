@@ -32,7 +32,7 @@ using Colors = System.Drawing.Color;
 
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Edit and sync features",

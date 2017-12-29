@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
+namespace ArcGISRuntime.Samples.GraphicsOverlaySamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

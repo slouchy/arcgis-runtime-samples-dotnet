@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using UIKit;
 using System.IO;
 
-namespace ArcGISRuntimeXamarin.Samples.TutorialSamples
+namespace ArcGISRuntime.Samples.TutorialSamples
 {
     [Register("AuthorEditSaveMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

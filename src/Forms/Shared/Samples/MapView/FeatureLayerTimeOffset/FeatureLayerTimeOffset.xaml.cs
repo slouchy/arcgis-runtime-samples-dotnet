@@ -19,7 +19,7 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer time offset",

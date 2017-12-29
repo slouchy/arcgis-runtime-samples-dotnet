@@ -13,7 +13,7 @@ using Xamarin.Forms;
 using ArcGISRuntime.Samples.Shared.Models;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public partial class CategoryListPage : ContentPage
     {

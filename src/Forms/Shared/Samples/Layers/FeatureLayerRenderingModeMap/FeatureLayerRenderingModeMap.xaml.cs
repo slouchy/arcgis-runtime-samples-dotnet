@@ -14,7 +14,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature Layer Rendering Mode (Map)",

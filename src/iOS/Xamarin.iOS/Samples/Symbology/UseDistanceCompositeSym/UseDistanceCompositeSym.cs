@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [Register("UseDistanceCompositeSym")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

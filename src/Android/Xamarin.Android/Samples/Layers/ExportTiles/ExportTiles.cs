@@ -21,7 +21,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Activity(Label = "ExportTiles")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

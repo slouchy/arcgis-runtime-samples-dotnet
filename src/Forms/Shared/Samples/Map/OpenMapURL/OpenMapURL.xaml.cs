@@ -12,7 +12,7 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Open map (URL)",

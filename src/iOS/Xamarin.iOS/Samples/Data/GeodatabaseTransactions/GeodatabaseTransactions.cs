@@ -20,7 +20,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("GeodatabaseTransactions")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

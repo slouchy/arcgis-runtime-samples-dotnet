@@ -7,7 +7,7 @@ using UIKit;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     partial class CategoriesViewController : UITableViewController
 	{
@@ -23,7 +23,7 @@ namespace ArcGISRuntimeXamarin
 		{
 			base.ViewDidLoad();
 
-			await SampleManager.Current.Initialize();
+			SampleManager.Current.Initialize();
             var data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 			this.TableView.Source = new CategoryDataSource(this, data);
 

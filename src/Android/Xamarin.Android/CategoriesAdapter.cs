@@ -14,7 +14,7 @@ using Android.Views;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     /// <summary>
     /// Custom ArrayAdapter to display the list of Categories

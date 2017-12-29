@@ -16,7 +16,7 @@ using System;
 using UIKit;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("RasterLayerRasterFunction")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

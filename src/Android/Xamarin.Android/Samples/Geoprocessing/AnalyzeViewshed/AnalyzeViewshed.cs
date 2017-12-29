@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoprocessingSamples
+namespace ArcGISRuntime.Samples.GeoprocessingSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

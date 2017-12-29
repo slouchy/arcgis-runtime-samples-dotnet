@@ -14,7 +14,7 @@ using System;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Register("ManageBookmarks")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

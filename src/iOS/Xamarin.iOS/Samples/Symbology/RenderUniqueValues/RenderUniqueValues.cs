@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [Register("RenderUniqueValues")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

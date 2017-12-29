@@ -22,7 +22,7 @@ using Colors = System.Drawing.Color;
 #endif
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.NetworkAnalysisSamples
+namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find a route",

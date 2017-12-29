@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("FeatureCollectionLayerFromQuery")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

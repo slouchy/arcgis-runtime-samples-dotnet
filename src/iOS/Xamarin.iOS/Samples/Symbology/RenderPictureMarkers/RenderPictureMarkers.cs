@@ -18,7 +18,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [Register("RenderPictureMarkers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

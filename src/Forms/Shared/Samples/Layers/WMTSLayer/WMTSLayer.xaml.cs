@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMTS layer",

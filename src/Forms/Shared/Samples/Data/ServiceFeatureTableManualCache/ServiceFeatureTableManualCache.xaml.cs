@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Service feature table (manual cache)",

@@ -6,7 +6,7 @@ using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.Samples.Managers;
 using Foundation;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public class SamplesViewController : UITableViewController
     {

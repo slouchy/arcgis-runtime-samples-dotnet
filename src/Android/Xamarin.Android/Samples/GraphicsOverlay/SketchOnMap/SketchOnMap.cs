@@ -23,7 +23,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
+namespace ArcGISRuntime.Samples.GraphicsOverlaySamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

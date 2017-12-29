@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System.IO;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer dictionary renderer",

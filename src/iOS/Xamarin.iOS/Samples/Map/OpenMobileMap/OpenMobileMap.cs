@@ -15,7 +15,7 @@ using UIKit;
 using System.IO;
 using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Register("OpenMobileMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("ServiceFeatureTableManualCache")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

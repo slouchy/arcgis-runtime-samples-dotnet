@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Register("SetMapSpatialReference")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

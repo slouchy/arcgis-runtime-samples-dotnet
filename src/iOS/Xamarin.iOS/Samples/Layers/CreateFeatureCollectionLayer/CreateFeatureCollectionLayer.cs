@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("CreateFeatureCollectionLayer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

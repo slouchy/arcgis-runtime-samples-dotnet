@@ -23,7 +23,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchSamples
+namespace ArcGISRuntime.Samples.SearchSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

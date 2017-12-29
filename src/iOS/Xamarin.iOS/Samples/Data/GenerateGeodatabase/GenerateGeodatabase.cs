@@ -23,7 +23,7 @@ using ArcGISRuntime.Samples.Managers;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("GenerateGeodatabase")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

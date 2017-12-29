@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("StatisticalQuery")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

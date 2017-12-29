@@ -16,7 +16,7 @@ using Foundation;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [Register("SimpleRenderers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

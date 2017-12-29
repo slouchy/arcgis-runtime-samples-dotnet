@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalysisSamples
+namespace ArcGISRuntime.Samples.AnalysisSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -16,7 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster layer (GeoPackage)",

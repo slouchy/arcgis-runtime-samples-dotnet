@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [Register("ShowMagnifier")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

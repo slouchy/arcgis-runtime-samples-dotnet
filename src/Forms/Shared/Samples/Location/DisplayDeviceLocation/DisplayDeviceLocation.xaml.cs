@@ -14,7 +14,7 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LocationSamples
+namespace ArcGISRuntime.Samples.LocationSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display device location",

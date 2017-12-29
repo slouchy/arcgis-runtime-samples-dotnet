@@ -15,7 +15,7 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

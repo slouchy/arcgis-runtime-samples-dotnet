@@ -23,7 +23,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.TutorialSamples
+namespace ArcGISRuntime.Samples.TutorialSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

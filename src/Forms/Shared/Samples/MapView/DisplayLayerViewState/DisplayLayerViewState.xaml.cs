@@ -18,7 +18,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display layer view state",

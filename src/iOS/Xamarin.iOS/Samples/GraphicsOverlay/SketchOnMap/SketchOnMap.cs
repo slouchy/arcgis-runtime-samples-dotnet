@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
+namespace ArcGISRuntime.Samples.GraphicsOverlaySamples
 {
     [Register("SketchOnMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Create a feature collection layer from a portal item",

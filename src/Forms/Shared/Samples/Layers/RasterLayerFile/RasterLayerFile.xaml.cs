@@ -15,7 +15,7 @@ using Xamarin.Forms;
 using System.IO;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster layer (file)",

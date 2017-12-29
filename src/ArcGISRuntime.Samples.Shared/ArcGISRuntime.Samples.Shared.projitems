@@ -12,7 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\LayoutFilesAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\OfflineDataAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\SampleAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\ApplicationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />

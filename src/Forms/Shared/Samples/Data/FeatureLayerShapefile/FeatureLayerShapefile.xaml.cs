@@ -14,7 +14,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer (shapefile)",

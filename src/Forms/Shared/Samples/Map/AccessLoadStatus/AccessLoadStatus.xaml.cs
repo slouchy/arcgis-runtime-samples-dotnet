@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Access load status",

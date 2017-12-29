@@ -18,7 +18,7 @@ using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     [Activity(Label = "Samples")]
     public class SamplesListActivity : Activity

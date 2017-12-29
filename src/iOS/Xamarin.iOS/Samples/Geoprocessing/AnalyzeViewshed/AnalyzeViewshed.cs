@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoprocessingSamples
+namespace ArcGISRuntime.Samples.GeoprocessingSamples
 {
     [Register("AnalyzeViewshed")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

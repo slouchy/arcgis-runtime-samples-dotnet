@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalysisSamples
+namespace ArcGISRuntime.Samples.AnalysisSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed for camera",

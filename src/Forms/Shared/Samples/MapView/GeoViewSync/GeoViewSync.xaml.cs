@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "GeoView viewpoint synchronization",

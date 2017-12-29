@@ -17,7 +17,7 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
+namespace ArcGISRuntime.Samples.GraphicsOverlaySamples
 {
     [Register("SurfacePlacements")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

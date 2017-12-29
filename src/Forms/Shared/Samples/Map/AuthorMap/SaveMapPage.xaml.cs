@@ -1,7 +1,7 @@
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
 	public partial class SaveMapPage : ContentPage
 	{

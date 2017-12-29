@@ -19,7 +19,7 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
+namespace ArcGISRuntime.Samples.SymbologySamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Simple renderer",

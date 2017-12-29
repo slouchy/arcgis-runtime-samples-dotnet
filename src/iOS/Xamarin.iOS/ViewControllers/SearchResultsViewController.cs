@@ -6,7 +6,7 @@ using ArcGISRuntime.Samples.Managers;
 using System;
 using ArcGISRuntime.Samples.Shared.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     [Register("SearchResultsViewController")]
     public class SearchResultsViewController : UITableViewController

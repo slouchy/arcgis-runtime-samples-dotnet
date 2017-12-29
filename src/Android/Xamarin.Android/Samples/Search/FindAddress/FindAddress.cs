@@ -23,7 +23,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchSamples
+namespace ArcGISRuntime.Samples.SearchSamples
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

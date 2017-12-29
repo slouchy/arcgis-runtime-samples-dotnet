@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using ArcGISRuntime.Samples.Shared.Attributes;
 
-namespace ArcGISRuntimeXamarin.Samples.Analysis
+namespace ArcGISRuntime.Samples.Analysis
 {
     [Activity]
     [Sample("Line of sight (Location)",

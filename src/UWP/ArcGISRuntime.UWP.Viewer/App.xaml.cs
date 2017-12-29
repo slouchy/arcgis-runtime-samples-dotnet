@@ -33,8 +33,6 @@ namespace ArcGISRuntime.UWP.Viewer
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-
-            ApplicationManager.Current.Initialize();
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

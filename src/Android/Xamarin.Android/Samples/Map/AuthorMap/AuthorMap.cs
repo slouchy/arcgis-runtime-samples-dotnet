@@ -23,7 +23,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Activity(Label = "AuthorMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

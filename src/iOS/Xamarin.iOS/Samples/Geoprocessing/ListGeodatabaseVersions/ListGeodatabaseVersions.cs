@@ -15,7 +15,7 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoprocessingSamples
+namespace ArcGISRuntime.Samples.GeoprocessingSamples
 {
     [Register("ListGeodatabaseVersions")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

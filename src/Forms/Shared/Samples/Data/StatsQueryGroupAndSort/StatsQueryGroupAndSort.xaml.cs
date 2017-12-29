@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Statistical query group and sort results",

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [Register("SetInitialMapArea")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalysisSamples
+namespace ArcGISRuntime.Samples.AnalysisSamples
 {
     [Register("ViewshedCamera")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

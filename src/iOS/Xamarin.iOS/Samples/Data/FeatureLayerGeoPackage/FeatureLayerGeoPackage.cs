@@ -17,7 +17,7 @@ using ArcGISRuntime.Samples.Managers;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("FeatureLayerGeoPackage")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

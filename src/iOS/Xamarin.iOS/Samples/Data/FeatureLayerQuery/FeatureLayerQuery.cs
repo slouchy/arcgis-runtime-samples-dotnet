@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("FeatureLayerQuery")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

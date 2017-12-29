@@ -25,7 +25,7 @@ using System.IO;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DataSamples
+namespace ArcGISRuntime.Samples.DataSamples
 {
     [Register("EditAndSyncFeatures")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

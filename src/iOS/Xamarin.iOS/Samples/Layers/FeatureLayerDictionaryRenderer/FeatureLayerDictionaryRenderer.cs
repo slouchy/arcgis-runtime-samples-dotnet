@@ -17,7 +17,7 @@ using Foundation;
 using System.IO;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("FeatureLayerDictionaryRenderer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

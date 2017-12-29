@@ -20,7 +20,7 @@ using System.IO;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LayersSamples
+namespace ArcGISRuntime.Samples.LayersSamples
 {
     [Register("ExportTiles")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

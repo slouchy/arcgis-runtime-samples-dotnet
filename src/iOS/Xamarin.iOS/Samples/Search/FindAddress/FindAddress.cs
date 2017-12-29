@@ -22,7 +22,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchSamples
+namespace ArcGISRuntime.Samples.SearchSamples
 {
     [Register("FindAddress")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

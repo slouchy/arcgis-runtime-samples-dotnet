@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
+namespace ArcGISRuntime.Samples.MapViewSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Show callout",

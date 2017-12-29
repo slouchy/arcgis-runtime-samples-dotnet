@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using ArcGISRuntime.Samples.Managers;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapSamples
+namespace ArcGISRuntime.Samples.MapSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Open mobile map (map package)",

@@ -16,7 +16,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.Analysis
+namespace ArcGISRuntime.Samples.Analysis
 {
     [Register("LineOfSightLocation")]
     [Sample("Line of sight (Location)",

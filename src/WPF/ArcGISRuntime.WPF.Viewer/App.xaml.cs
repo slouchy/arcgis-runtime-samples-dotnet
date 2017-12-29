@@ -27,8 +27,6 @@ namespace ArcGISRuntime.WPF.Viewer
                 MessageBox.Show(String.Format("There was an error that prevented initializing the runtime. {0}", ex.Message));
                 Current.Shutdown();
             }
-
-            ApplicationManager.Current.Initialize();
         }
     }
 }

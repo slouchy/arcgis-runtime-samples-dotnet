@@ -16,7 +16,7 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoprocessingSamples
+namespace ArcGISRuntime.Samples.GeoprocessingSamples
 {
     [Register("AnalyzeHotspots")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
