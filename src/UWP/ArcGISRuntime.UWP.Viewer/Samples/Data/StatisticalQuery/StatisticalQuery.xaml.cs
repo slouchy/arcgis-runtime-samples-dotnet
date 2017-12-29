@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,8 +15,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.StatisticalQuery
+namespace ArcGISRuntime.UWP.Samples.DataSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Statistical query",
+        "This sample demonstrates how to query a feature table to get statistics for a specified field.",
+        "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public partial class StatisticalQuery
     {
         // URI for the world cities map service layer

@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -23,8 +23,12 @@ using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.UWP.Samples.DataSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Generate geodatabase",
+        "This sample demonstrates how to take a feature service offline by generating a geodatabase.",
+        "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
     public partial class GenerateGeodatabase
     {
         // URI for a feature service that supports geodatabase generation

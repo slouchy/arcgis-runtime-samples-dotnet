@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,8 +22,12 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.FindAddress
+namespace ArcGISRuntime.UWP.Samples.SearchSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Find address",
+        "This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.",
+        "")]
     public partial class FindAddress
     {
         // Addresses for suggestion

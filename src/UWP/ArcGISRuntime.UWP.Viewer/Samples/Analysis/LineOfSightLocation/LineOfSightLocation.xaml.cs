@@ -14,7 +14,7 @@ using System;
 using Windows.UI;
 using ArcGISRuntime.Samples.Shared.Attributes;
 
-namespace ArcGISRuntime.UWP.Samples.Analysis
+namespace ArcGISRuntime.UWP.Samples.AnalysisSamples
 {
     [Sample("Line of sight (Location)",
         "This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.",

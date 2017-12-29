@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,8 +15,12 @@ using System;
 using Windows.UI;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
+namespace ArcGISRuntime.UWP.Samples.LayersSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change feature layer renderer",
+        "This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.",
+        "")]
     public partial class ChangeFeatureLayerRenderer
     {
         // Create and hold reference to the feature layer

@@ -1,6 +1,6 @@
-﻿<UserControl 
-    x:Class="ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
-    xmlns:local="using:ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort"
+<UserControl 
+    x:Class="ArcGISRuntime.UWP.Samples.DataSamples.StatsQueryGroupAndSort"
+    xmlns:local="using:ArcGISRuntime.UWP.Samples.DataSamples"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"    
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     

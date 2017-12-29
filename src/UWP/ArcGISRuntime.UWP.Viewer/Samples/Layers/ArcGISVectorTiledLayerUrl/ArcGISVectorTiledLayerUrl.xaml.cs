@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,8 +11,12 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGISRuntime.UWP.Samples.LayersSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS vector tiled layer (URL)",
+        "This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.",
+        "")]
     public partial class ArcGISVectorTiledLayerUrl
     {
         private string _navigationUrl = "http://www.arcgis.com/home/item.html?id=dcbbba0edf094eaa81af19298b9c6247";

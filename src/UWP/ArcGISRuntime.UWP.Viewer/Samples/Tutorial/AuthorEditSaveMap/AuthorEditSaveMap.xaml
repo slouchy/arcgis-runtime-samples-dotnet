@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISRuntime.UWP.Samples.AuthorEditSaveMap.AuthorEditSaveMap"
+<UserControl x:Class="ArcGISRuntime.UWP.Samples.TutorialSamples.AuthorEditSaveMap"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:esri="using:Esri.ArcGISRuntime.UI.Controls">

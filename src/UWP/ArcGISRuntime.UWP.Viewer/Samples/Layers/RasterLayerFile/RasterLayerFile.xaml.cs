@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,8 +15,12 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
+namespace ArcGISRuntime.UWP.Samples.LayersSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster layer (file)",
+        "This sample demonstrates how to use a raster layer created from a local raster file.",
+        "The raster file is downloaded by the sample viewer automatically.")]
     public partial class RasterLayerFile
     {
         public RasterLayerFile()

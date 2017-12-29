@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,8 +16,12 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
+namespace ArcGISRuntime.UWP.Samples.GeoprocessingSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List geodatabase versions",
+        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+        "")]
     public sealed partial class ListGeodatabaseVersions
     {
         // Url to used geoprocessing service

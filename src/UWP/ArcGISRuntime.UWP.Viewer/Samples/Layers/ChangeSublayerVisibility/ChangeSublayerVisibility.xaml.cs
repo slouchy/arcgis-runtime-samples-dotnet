@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,8 +13,12 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
+namespace ArcGISRuntime.UWP.Samples.LayersSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change sublayer visibility",
+        "This sample demonstrates how to show or hide sublayers of a map image layer.",
+        "")]
     public partial class ChangeSublayerVisibility
     {
         private ArcGISMapImageLayer _imageLayer;

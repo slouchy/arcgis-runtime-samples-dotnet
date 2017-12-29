@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,8 +12,12 @@ using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.OpenMapURL
+namespace ArcGISRuntime.UWP.Samples.MapSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Open map (URL)",
+        "This sample demonstrates loading a webmap in a map from a Uri.",
+        "")]
     public partial class OpenMapURL
     {
         // String array to hold urls to publicly available web maps
