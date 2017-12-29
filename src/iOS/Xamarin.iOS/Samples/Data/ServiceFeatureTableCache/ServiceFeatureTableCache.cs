@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,9 +15,13 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableCache
+namespace ArcGISRuntimeXamarin.Samples.DataSamples
 {
     [Register("ServiceFeatureTableCache")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Service feature table (cache)",
+        "This sample demonstrates how to use a feature service in on interaction cache mode.",
+        "")]
     public class ServiceFeatureTableCache : UIViewController
     {
         // Constant holding offset where the MapView control should start

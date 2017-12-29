@@ -16,9 +16,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
+namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
 {
     [Register("DisplayLayerViewState")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display layer view state",
+        "This sample demonstrates how to get view status for layers in a map.",
+        "")]
     public class DisplayLayerViewState : UIViewController
     {
         // Create and hold reference to the used MapView

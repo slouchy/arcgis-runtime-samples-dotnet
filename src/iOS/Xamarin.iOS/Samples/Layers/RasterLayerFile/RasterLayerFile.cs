@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,9 +17,13 @@ using System;
 using System.IO;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Register("RasterLayerFile")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster layer (file)",
+        "This sample demonstrates how to use a raster layer created from a local raster file.",
+        "The raster file is downloaded by the sample viewer automatically.")]
     public class RasterLayerFile : UIViewController
     {
         // Reference to the MapView used in the sample

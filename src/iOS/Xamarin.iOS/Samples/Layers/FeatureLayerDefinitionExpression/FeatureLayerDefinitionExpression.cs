@@ -15,9 +15,13 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDefinitionExpression
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Register("FeatureLayerDefinitionExpression")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer definition expression",
+        "This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.",
+        "")]
     public class FeatureLayerDefinitionExpression : UIViewController
     {
         // Create and hold reference to the used MapView

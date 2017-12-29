@@ -13,9 +13,13 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISTiledLayerUrl
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Register("ArcGISTiledLayerUrl")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS tiled layer (URL)",
+        "This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.",
+        "")]
     public class ArcGISTiledLayerUrl : UIViewController
     {
         // Constant holding offset where the MapView control should start

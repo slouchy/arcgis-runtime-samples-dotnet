@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,9 +17,13 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SurfacePlacements
+namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
 {
     [Register("SurfacePlacements")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Surface placement",
+        "This sample demonstrates how to position graphics using different Surface Placements.",
+        "")]
     public class SurfacePlacements : UIViewController
     {
         // Create and hold reference to the used SceneView

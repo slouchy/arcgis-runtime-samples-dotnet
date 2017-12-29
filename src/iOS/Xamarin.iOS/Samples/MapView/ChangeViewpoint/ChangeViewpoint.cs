@@ -16,9 +16,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeViewpoint
+namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
 {
     [Register("ChangeViewpoint")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change viewpoint",
+        "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
+        "")]
     public class ChangeViewpoint : UIViewController
     {
         // Constant holding offset where the MapView control should start

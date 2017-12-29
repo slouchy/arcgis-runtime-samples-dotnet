@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,9 +17,13 @@ using Foundation;
 using System.IO;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Register("FeatureLayerDictionaryRenderer")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer dictionary renderer",
+        "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
+        "")]
     public class FeatureLayerDictionaryRenderer : UIViewController
     {
         // Create and hold reference to the used MapView

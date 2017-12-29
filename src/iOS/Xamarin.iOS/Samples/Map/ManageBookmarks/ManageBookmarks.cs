@@ -14,9 +14,13 @@ using System;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
+namespace ArcGISRuntimeXamarin.Samples.MapSamples
 {
     [Register("ManageBookmarks")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Manage bookmarks",
+        "This sample demonstrates how to access and add bookmarks to a map.",
+        "")]
     public class ManageBookmarks : UIViewController
     {
         // Create and hold reference to the used MapView

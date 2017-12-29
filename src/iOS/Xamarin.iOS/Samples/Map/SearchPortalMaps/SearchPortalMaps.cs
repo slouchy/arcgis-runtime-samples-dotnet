@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,9 +19,13 @@ using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
+namespace ArcGISRuntimeXamarin.Samples.MapSamples
 {
     [Register("SearchPortalMaps")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Search a portal for maps",
+        "This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.",
+        "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler
     {
         // Constant holding offset where the MapView control should start
@@ -37,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
         // Overlay with entry controls for OAuth configuration (client ID and redirect Url)
-        private OAuthPropsDialogOverlay _oauthInfoUI;
+        private OAuthPropsDialogOverlay_SPM _oauthInfoUI;
 
         // Overlay with entry control for web map search text
         private SearchMapsDialogOverlay _searchMapsUI;
@@ -110,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
             // Create a view to show entry controls over the map view
             var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height); ;
-            _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
+            _oauthInfoUI = new OAuthPropsDialogOverlay_SPM(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
             _oauthInfoUI.OnOAuthPropsInfoEntered += (s, e) =>
@@ -559,10 +563,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
     #region UI for entering OAuth configuration settings
 
     // View containing "configure OAuth" controls (client id and redirect url inputs with save/cancel buttons)
-    public class OAuthPropsDialogOverlay : UIView
+    public class OAuthPropsDialogOverlay_SPM : UIView
     {
         // Event to provide information the user entered when the user dismisses the view
-        public event EventHandler<OAuthPropsSavedEventArgs> OnOAuthPropsInfoEntered;
+        public event EventHandler<OAuthPropsSavedEventArgs_SPM> OnOAuthPropsInfoEntered;
 
         // Event to report that the entry was canceled
         public event EventHandler OnCanceled;
@@ -572,7 +576,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         private UITextField _redirectUrlTextField;
 
-        public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
+        public OAuthPropsDialogOverlay_SPM(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color
             BackgroundColor = color;
@@ -692,8 +696,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Fire the OnOAuthPropsInfoEntered event and provide the map item values
             if (OnOAuthPropsInfoEntered != null)
             {
-                // Create a new OAuthPropsSavedEventArgs to contain the user's values
-                var oauthSaveEventArgs = new OAuthPropsSavedEventArgs(clientId, redirectUrl);
+                // Create a new OAuthPropsSavedEventArgs_SPM to contain the user's values
+                var oauthSaveEventArgs = new OAuthPropsSavedEventArgs_SPM(clientId, redirectUrl);
 
                 // Raise the event
                 OnOAuthPropsInfoEntered(sender, oauthSaveEventArgs);
@@ -702,7 +706,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
     }
 
     // Custom EventArgs implementation to hold OAuth information (client Id and redirect Url)
-    public class OAuthPropsSavedEventArgs : EventArgs
+    public class OAuthPropsSavedEventArgs_SPM : EventArgs
     {
         // Client ID property
         public string ClientId { get; set; }
@@ -711,7 +715,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         public string RedirectUrl { get; set; }
 
         // Store map item values passed into the constructor
-        public OAuthPropsSavedEventArgs(string clientId, string redirectUrl)
+        public OAuthPropsSavedEventArgs_SPM(string clientId, string redirectUrl)
         {
             ClientId = clientId;
             RedirectUrl = redirectUrl;

@@ -13,9 +13,13 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISMapImageLayerUrl
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Register("ArcGISMapImageLayerUrl")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS map image layer (URL)",
+        "This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.",
+        "")]
     public class ArcGISMapImageLayerUrl : UIViewController
     {
         // Constant holding offset where the MapView control should start

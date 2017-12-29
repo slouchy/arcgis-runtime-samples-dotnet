@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,9 +16,13 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Register("FeatureLayerRenderingModeMap")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature Layer Rendering Mode (Map)",
+        "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
+        "")]
     public class FeatureLayerRenderingModeMap : UIViewController
     {
         private MapView _myMapViewTop;
