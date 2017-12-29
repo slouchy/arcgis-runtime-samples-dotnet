@@ -146,8 +146,8 @@ namespace ArcGISRuntime.Samples.Managers
         {
             string namespaceName = typeInfo.Namespace.Split('.').Last();
 
-            // Replace _ with space
-            namespaceName = namespaceName.Replace('_', ' ');
+            // Replace _ with space and "Samples" with nothing
+            namespaceName = namespaceName.Replace('_', ' ').Replace("Samples", "");
 
             return namespaceName;
         }
