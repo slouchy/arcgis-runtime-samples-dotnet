@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,8 +18,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
+namespace ArcGISRuntime.WPF.Samples.LocalServerSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Dynamic workspace shapefile",
+        "This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.",
+        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nClick on the 'Choose Shapefile' button to select a shapefile. The file picker will start in the sample viewer's offline data directory. Sample shapefiles are loaded in the background. ")]
     public partial class DynamicWorkspaceShapefile
     {
         // Hold a reference to the local map service

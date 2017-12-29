@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,8 +13,12 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.WPF.Samples.SimpleRenderers
+namespace ArcGISRuntime.WPF.Samples.SymbologySamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Simple renderer",
+        "This sample demonstrates how to create a simple renderer and add it to a graphics overlay. Renderers define the symbology for all graphics in a graphics overlay (unless they are overridden by setting the symbol directly on the graphic). Simple renderers can also be defined on feature layers using the same code.",
+        "")]
     public partial class SimpleRenderers
     {
         public SimpleRenderers()

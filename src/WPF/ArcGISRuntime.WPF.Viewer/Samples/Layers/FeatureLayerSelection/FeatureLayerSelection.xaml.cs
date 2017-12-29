@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,8 +16,12 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.WPF.Samples.FeatureLayerSelection
+namespace ArcGISRuntime.WPF.Samples.LayersSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer selection",
+        "This sample demonstrates how to select features in a feature layer by tapping a MapView.",
+        "")]
     public partial class FeatureLayerSelection
     {
 

@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,8 +10,12 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntime.WPF.Samples.SetInitialMapArea
+namespace ArcGISRuntime.WPF.Samples.MapSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set initial map area",
+        "This sample demonstrates how to set the initial viewpoint from envelope defined by minimum (x,y) and maximum (x,y) values. The map's InitialViewpoint is set to this viewpoint before the map is loaded into the MapView. Upon loading the map zoom to this initial area.",
+        "")]
     public partial class SetInitialMapArea
     {
 

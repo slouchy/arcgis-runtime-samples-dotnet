@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,8 +10,12 @@
 using Esri.ArcGISRuntime.Mapping;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
+namespace ArcGISRuntime.WPF.Samples.MapViewSamples
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Take screenshot",
+        "This sample demonstrates how you can take screenshot of a map. Click 'take screenshot' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
+        "")]
     public partial class TakeScreenshot
     {
         public TakeScreenshot()
