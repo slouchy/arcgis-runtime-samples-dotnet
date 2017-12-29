@@ -16,9 +16,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
+namespace ArcGISRuntimeXamarin.Samples.MapSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change basemap",
+        "This sample demonstrates how to dynamically change the basemap displayed in a Map.",
+        "")]
     public class ChangeBasemap : Activity
     {
         // Create and hold reference to the used MapView

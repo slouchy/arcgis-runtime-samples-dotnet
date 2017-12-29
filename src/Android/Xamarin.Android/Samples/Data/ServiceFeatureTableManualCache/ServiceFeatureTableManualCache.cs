@@ -16,9 +16,13 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableManualCache
+namespace ArcGISRuntimeXamarin.Samples.DataSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Service feature table (manual cache)",
+        "This sample demonstrates how to use a feature service in manual cache mode.",
+        "")]
     public class ServiceFeatureTableManualCache : Activity
     {
         // Create and hold reference to the used MapView

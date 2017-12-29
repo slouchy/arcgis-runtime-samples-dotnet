@@ -19,9 +19,13 @@ using System.Collections.Generic;
 
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMS service catalog",
+        "This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.",
+        "")]
     public class WmsServiceCatalog : Activity
     {
         // Create and hold reference to the used MapView

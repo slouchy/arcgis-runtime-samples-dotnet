@@ -15,9 +15,13 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
+namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display layer view state",
+        "This sample demonstrates how to get view status for layers in a map.",
+        "")]
     public class DisplayLayerViewState : Activity
     {
         // Create and hold reference to the used MapView

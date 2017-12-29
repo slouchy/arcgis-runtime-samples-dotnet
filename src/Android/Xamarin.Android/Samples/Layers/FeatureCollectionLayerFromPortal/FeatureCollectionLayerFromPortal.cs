@@ -17,9 +17,13 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Activity(Label = "FeatureCollectionLayerFromPortal")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Create a feature collection layer from a portal item",
+        "This sample demonstrates opening a feature collection saved as a portal item.",
+        "")]
     public class FeatureCollectionLayerFromPortal : Activity
     {
         // Store the map view displayed in the app

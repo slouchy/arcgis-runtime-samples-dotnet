@@ -16,9 +16,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMS layer (URL)",
+        "This sample demonstrates how to add a layer from a WMS service to a map.",
+        "")]
     public class WMSLayerUrl : Activity
     {
         // Create and hold reference to the used MapView

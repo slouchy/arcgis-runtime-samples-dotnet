@@ -15,9 +15,13 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
+namespace ArcGISRuntimeXamarin.Samples.MapSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set map spatial reference",
+        "This sample demonstrates how you can set the spatial reference on a Map and all the operational layers would project accordingly.",
+        "")]
     public class SetMapSpatialReference : Activity
     {
         // Create and hold reference to the used MapView

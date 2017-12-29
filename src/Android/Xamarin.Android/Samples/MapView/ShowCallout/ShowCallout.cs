@@ -15,9 +15,13 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowCallout
+namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Show callout",
+        "This sample illustrates how to show callouts on a map in response to user interaction.",
+        "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : Activity
     {
         // Create and hold reference to the used MapView

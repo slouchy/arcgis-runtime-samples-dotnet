@@ -17,9 +17,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerRasterFunction
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS raster function (service)",
+        "This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.",
+        "")]
     public class RasterLayerRasterFunction : Activity
     {
         // Create and hold reference to the used MapView

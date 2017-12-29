@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,9 +18,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.IO;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Activity(Label = "RasterLayerFile")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster layer (file)",
+        "This sample demonstrates how to use a raster layer created from a local raster file.",
+        "The raster file is downloaded by the sample viewer automatically. Note that due to a known bug, this sample may crash in emulators running Android 4.4 (API level 19). All other platform versions are unaffected.")]
     public class RasterLayerFile : Activity
     {
         // Reference to the MapView used in the sample

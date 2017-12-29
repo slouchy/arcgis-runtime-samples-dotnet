@@ -16,9 +16,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGISRuntimeXamarin.Samples.LayersSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS vector tiled layer (URL)",
+        "This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.",
+        "")]
     public class ArcGISVectorTiledLayerUrl : Activity
     {
         // Create and hold reference to the used MapView

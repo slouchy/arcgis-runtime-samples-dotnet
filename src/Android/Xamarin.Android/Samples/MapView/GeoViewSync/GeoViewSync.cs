@@ -14,9 +14,13 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
+namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "GeoView viewpoint synchronization",
+        "This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.",
+        "")]
     public class GeoViewSync : Activity
     {
         // Hold references to the GeoViews

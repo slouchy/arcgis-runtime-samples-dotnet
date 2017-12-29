@@ -16,9 +16,13 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
+namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer time offset",
+        "This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
+        "")]
     public class FeatureLayerTimeOffset : Activity
     {
         // Create and hold reference to the used MapView

@@ -17,9 +17,13 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.AddGraphicsRenderer
+namespace ArcGISRuntimeXamarin.Samples.GraphicsOverlaySamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Add graphics (SimpleRenderer)",
+        "This sample demonstrates how you add graphics and set a renderer on a graphic overlays.",
+        "")]
     public class AddGraphicsRenderer : Activity
     {
         // Create and hold reference to the used MapView

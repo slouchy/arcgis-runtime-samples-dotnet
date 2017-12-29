@@ -15,9 +15,13 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
+namespace ArcGISRuntimeXamarin.Samples.MapSamples
 {
     [Activity(Label = "ManageBookmarks")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Manage bookmarks",
+        "This sample demonstrates how to access and add bookmarks to a map.",
+        "")]
     public class ManageBookmarks : Activity
     {
         // MapView for the app

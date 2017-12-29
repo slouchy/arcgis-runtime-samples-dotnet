@@ -18,9 +18,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
+namespace ArcGISRuntimeXamarin.Samples.LocationSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display Device Location",
+        "This sample demonstrates how you can enable location services and switch between different types of auto pan modes.",
+        "")]
     public class DisplayDeviceLocation : Activity
     {
         // Create and hold reference to the used MapView

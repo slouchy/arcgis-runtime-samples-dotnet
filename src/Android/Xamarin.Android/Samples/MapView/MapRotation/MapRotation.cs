@@ -13,9 +13,13 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.MapRotation
+namespace ArcGISRuntimeXamarin.Samples.MapViewSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Map rotation",
+        "This sample illustrates how to rotate a map.",
+        "")]
     public class MapRotation : Activity
     {
         // Create and hold reference to the used MapView
@@ -52,7 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapRotation
                     _myMapView.SetViewpointRotationAsync(e.Progress);
 
                     // Display the MapView's rotation.
-                    _loadStatusTextView.Text = string.Format("{0:0}°", angleSlider.Progress);
+                    _loadStatusTextView.Text = string.Format("{0:0}ï¿½", angleSlider.Progress);
                 }
             };
 

@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,9 +18,13 @@ using ArcGISRuntime.Samples.Managers;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
+namespace ArcGISRuntimeXamarin.Samples.DataSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer (GeoPackage)",
+        "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
+        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class FeatureLayerGeoPackage : Activity
     {
         private MapView _myMapView;

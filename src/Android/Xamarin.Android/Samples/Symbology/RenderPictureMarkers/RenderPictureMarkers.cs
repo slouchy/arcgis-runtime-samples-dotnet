@@ -19,9 +19,13 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
+namespace ArcGISRuntimeXamarin.Samples.SymbologySamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Render picture markers",
+        "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
+        "")]
     public class RenderPictureMarkers : Activity
     {
         // Create and hold reference to the used MapView

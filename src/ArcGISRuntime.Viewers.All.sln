@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Xamarin.Samples.Android", "Android\Xamarin.Android\ArcGISRuntime.Xamarin.Samples.Android.csproj", "{BF0E3CEE-E88E-44E0-80CE-46EDA6CD4B54}"
 EndProject
@@ -35,10 +35,12 @@ Global
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{183e6918-b2cd-4eeb-9666-8889a151bc7d}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{183e6918-b2cd-4eeb-9666-8889a151bc7d}*SharedItemsImports = 4
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{3192a404-34ac-4083-a3b9-44610ee92e68}*SharedItemsImports = 4
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{5278f66e-d41f-45d2-8327-25ea13a11618}*SharedItemsImports = 4
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{5da4dcda-0167-4eda-b6cf-5711458ca9bf}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{5da4dcda-0167-4eda-b6cf-5711458ca9bf}*SharedItemsImports = 4
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{be5076af-ece0-4ea9-994e-37bad4b19828}*SharedItemsImports = 4
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{bf0e3cee-e88e-44e0-80ce-46eda6cd4b54}*SharedItemsImports = 4
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{db2fc14a-7608-44f9-bcf4-88ec7c1aa949}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{db2fc14a-7608-44f9-bcf4-88ec7c1aa949}*SharedItemsImports = 4
 	EndGlobalSection

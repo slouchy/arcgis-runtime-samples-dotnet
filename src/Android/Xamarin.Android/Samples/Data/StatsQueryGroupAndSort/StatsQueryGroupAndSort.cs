@@ -18,9 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
+namespace ArcGISRuntimeXamarin.Samples.DataSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Statistical query group and sort results",
+        "This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.",
+        "")]
     public class StatsQueryGroupAndSort : Activity
     {
         // URI for the US states map service

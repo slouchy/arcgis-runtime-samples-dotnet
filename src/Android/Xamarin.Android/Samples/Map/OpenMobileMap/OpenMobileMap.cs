@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,9 +16,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System.IO;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
+namespace ArcGISRuntimeXamarin.Samples.MapSamples
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Open mobile map (map package)",
+        "This sample demonstrates how to open a map from a mobile map package.",
+        "The map package will be downloaded from an ArcGIS Online portal automatically.")]
     public class OpenMobileMap : Activity
     {
         private MapView _myMapView;
