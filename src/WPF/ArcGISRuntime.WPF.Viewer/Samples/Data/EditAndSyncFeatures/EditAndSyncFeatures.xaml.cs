@@ -30,6 +30,7 @@ namespace ArcGISRuntime.WPF.Samples.DataSamples
         "Edit and sync features",
         "This sample demonstrates how to synchronize offline edits with a feature service.",
         "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap the 'generate' button. This will start the process of generating the offline geodatabase.\n3. Tap on a point feature within the area of the generated geodatabase. Then tap on the screen (anywhere within the range of the local geodatabase) to move the point to that location.\n4. Tap the 'Sync Geodatabase' button to synchronize the changes back to the feature service.\n\n Note that the basemap for this sample is downloaded from ArcGIS Online automatically.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
     public partial class EditAndSyncFeatures
     {
         // Enumeration to track which phase of the workflow the sample is in
@@ -66,7 +67,7 @@ namespace ArcGISRuntime.WPF.Samples.DataSamples
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache tileCache = new TileCache(await GetTpkPath());
+            TileCache tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
@@ -428,28 +429,13 @@ namespace ArcGISRuntime.WPF.Samples.DataSamples
 
         // Get the path to the tile package used for the basemap
         // (this is plumbing for the sample viewer)
-        private async Task<string> GetTpkPath()
+        private string GetTpkPath()
         {
-            #region offlinedata
-
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return Path.Combine(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d"), filename);
         }
 
         private string GetGdbPath()

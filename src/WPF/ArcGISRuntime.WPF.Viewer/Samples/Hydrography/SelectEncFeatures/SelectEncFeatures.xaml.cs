@@ -25,6 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.HydrographySamples
         "Select ENC features",
         "This sample demonstrates how to select an ENC feature.",
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
     public partial class SelectEncFeatures
     {
         public SelectEncFeatures()
@@ -38,10 +39,10 @@ namespace ArcGISRuntime.WPF.Samples.HydrographySamples
         private async void Initialize()
         {
             // Initialize the map with an oceans basemap
-            MyMapView.Map = new Map(Basemap.CreateOceans());
+            Map myMap = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set
-            string encPath = await GetEncPath();
+            string encPath = GetEncPath();
 
             // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
             List<Envelope> dataSetExtents = new List<Envelope>();
@@ -50,16 +51,19 @@ namespace ArcGISRuntime.WPF.Samples.HydrographySamples
             EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
 
             // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myEncLayer);
+            myMap.OperationalLayers.Add(myEncLayer);
 
             // Wait for the layer to load
             await myEncLayer.LoadAsync();
 
             // Set the viewpoint
-            MyMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
+            myMap.InitialViewpoint = new Viewpoint(myEncLayer.FullExtent);
 
             // Subscribe to tap events (in order to use them to identify and select features)
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            // Apply the map to the mapview 
+            MyMapView.Map = myMap;
         }
 
         private void ClearAllSelections()
@@ -111,25 +115,11 @@ namespace ArcGISRuntime.WPF.Samples.HydrographySamples
             MyMapView.ShowCalloutAt(e.Location, definition);
         }
 
-        private async Task<String> GetEncPath()
+        private string GetEncPath()
         {
-            #region offlinedata
+            string filename = "GB5X01NW.000";
 
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path 
-            string filepath = Path.Combine(folder, "SampleData", "SelectEncFeatures", "GB5X01NW.000");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("a490098c60f64d3bbac10ad131cc62c7", "SelectEncFeatures");
-            }
-
-            return filepath;
-            #endregion offlinedata
+            return Path.Combine(DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7"), filename);
         }
     }
 }

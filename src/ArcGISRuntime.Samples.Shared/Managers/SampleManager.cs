@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Attributes;
@@ -12,10 +12,8 @@ using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 #if NETFX_CORE
 using Windows.UI.Xaml.Controls;
@@ -30,14 +28,14 @@ namespace ArcGISRuntime.Samples.Managers
     /// <summary>
     /// Single instance class to manage samples.
     /// </summary>
-    public class SampleManager 
+    public class SampleManager
     {
         private Assembly _samplesAssembly;
 
         // Private constructor
         private SampleManager() { }
 
-        // Static initialization of the unique instance 
+        // Static initialization of the unique instance
         private static readonly SampleManager SingleInstance = new SampleManager();
 
         public static SampleManager Current
@@ -65,7 +63,7 @@ namespace ArcGISRuntime.Samples.Managers
                 .Where(type => type.GetTypeInfo().GetCustomAttributes().OfType<SampleAttribute>().Any());
 
             var samples = new List<SampleInfo>();
-            foreach(Type type in sampleTypes)
+            foreach (Type type in sampleTypes)
             {
                 try
                 {
@@ -98,7 +96,6 @@ namespace ArcGISRuntime.Samples.Managers
                 .ToList());
         }
 
-
         /// <summary>
         /// Creates a new control from sample.
         /// </summary>
@@ -109,6 +106,5 @@ namespace ArcGISRuntime.Samples.Managers
             var item = Activator.CreateInstance(sampleModel.SampleType);
             return item;
         }
-
     }
 }

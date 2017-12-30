@@ -24,6 +24,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerSamples
         "Dynamic workspace shapefile",
         "This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.",
         "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nClick on the 'Choose Shapefile' button to select a shapefile. The file picker will start in the sample viewer's offline data directory. Sample shapefiles are loaded in the background. ")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa", "ea619b4f0f8f4d108c5b87e90c1b5be0")]
     public partial class DynamicWorkspaceShapefile
     {
         // Hold a reference to the local map service
@@ -75,7 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerSamples
                 await LocalServer.Instance.StartAsync();
 
                 // Load the sample data
-                await LoadShapefilePaths();
+                LoadShapefilePaths();
             }
             catch (InvalidOperationException ex)
             {
@@ -96,7 +97,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerSamples
         private async void StartLocalMapService(string filename, string path)
         {
             // Start a service from the blank MPK
-            String mapServiceUrl = await GetMpkPath();
+            String mapServiceUrl = GetMpkPath();
 
             // Create the local map service
             _localMapService = new LocalMapService(mapServiceUrl);
@@ -157,52 +158,18 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerSamples
             }
         }
 
-        private async Task<String> GetMpkPath()
+        private string GetMpkPath()
         {
             // Gets the path to the blank map package
+            string filename = "mpk_blank.mpk";
 
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "DynamicWorkspaceShapefile", "mpk_blank.mpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("ea619b4f0f8f4d108c5b87e90c1b5be0", "DynamicWorkspaceShapefile");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return Path.Combine(DataManager.GetDataFolder("ea619b4f0f8f4d108c5b87e90c1b5be0"), filename);
         }
 
-        private async Task<String> LoadShapefilePaths()
+        private string LoadShapefilePaths()
         {
-            // Gets the path to the shapefile package
-
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "DynamicWorkspaceShapefile", "TrailBikeNetwork.shp");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "DynamicWorkspaceShapefile");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            string filename = "TrailBikeNetwork.shp";
+            return Path.Combine(DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa"), filename);
         }
 
         private async void MyChooseButton_Click(object sender, RoutedEventArgs e)
@@ -212,7 +179,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerSamples
             {
                 DefaultExt = ".shp",
                 Filter = "Shapefiles|*.shp",
-                InitialDirectory = Path.GetDirectoryName(await LoadShapefilePaths())
+                InitialDirectory = Path.GetDirectoryName(LoadShapefilePaths())
             };
 
             // Show the dialog and get the results

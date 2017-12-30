@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArcGISRuntime.Samples.Managers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

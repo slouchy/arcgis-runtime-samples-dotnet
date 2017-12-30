@@ -79,6 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ErrorPage.xaml.cs">
+      <DependentUpon>ErrorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
@@ -320,9 +323,16 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitPage.xaml.cs">
+      <DependentUpon>WaitPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="Description.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ErrorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -668,6 +678,10 @@
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WaitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

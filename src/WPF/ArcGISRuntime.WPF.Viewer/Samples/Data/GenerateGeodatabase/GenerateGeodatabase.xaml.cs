@@ -28,6 +28,7 @@ namespace ArcGISRuntime.WPF.Samples.DataSamples
         "Generate geodatabase",
         "This sample demonstrates how to take a feature service offline by generating a geodatabase.",
         "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
     public partial class GenerateGeodatabase
     {
         // URI for a feature service that supports geodatabase generation
@@ -53,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.DataSamples
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(await GetTpkPath());
+            TileCache _tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
@@ -228,28 +229,12 @@ namespace ArcGISRuntime.WPF.Samples.DataSamples
         }
 
         // Get the path to the tile package used for the basemap
-        private async Task<string> GetTpkPath()
+        private string GetTpkPath()
         {
-            #region offlinedata
-
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return Path.Combine(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d"), filename);
         }
 
         private string GetGdbPath()

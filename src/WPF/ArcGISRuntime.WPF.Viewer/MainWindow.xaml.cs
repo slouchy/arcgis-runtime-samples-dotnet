@@ -3,14 +3,13 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,7 +63,7 @@ namespace ArcGISRuntime.Samples.Desktop
             SelectSample(sample);
         }
 
-        private void SelectSample(SampleInfo selectedSample)
+        private async void SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
 
@@ -73,8 +72,18 @@ namespace ArcGISRuntime.Samples.Desktop
 
             try
             {
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    // Show waiting page
+                    SampleContainer.Content = new WPF.Viewer.WaitPage();
+
+                    // Wait for offline data to complete
+                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                }
+
+                // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
-                
+
                 // Call a function to clear any existing credentials from AuthenticationManager
                 ClearCredentials();
 
@@ -84,7 +93,7 @@ namespace ArcGISRuntime.Samples.Desktop
             catch (Exception exception)
             {
                 // failed to create new instance of the sample
-                // TODO handle
+                SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
             CategoriesRegion.Visibility = Visibility.Collapsed;
         }
@@ -154,7 +163,7 @@ namespace ArcGISRuntime.Samples.Desktop
             // Encoding the RenderBitmapTarget as a JPG file.
             JpegBitmapEncoder jpg = new JpegBitmapEncoder() { QualityLevel = 90 };
             jpg.Frames.Add(BitmapFrame.Create(rtb));
-            
+
             var file = new FileInfo(Path.Combine(
                 SampleManager.Current.SelectedSample.Path,
                 SampleManager.Current.SelectedSample.Image));
@@ -170,7 +179,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 using (Stream stm = File.Create(file.FullName))
                     jpg.Save(stm);
             }
-            
+
             SampleContainer.Width = _previousWidth;
             SampleContainer.Height = _previousHeight;
             SampleContainer.HorizontalAlignment = HorizontalAlignment.Left;
@@ -195,6 +204,7 @@ namespace ArcGISRuntime.Samples.Desktop
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Collapsed;
         }
+
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             closeNavigation.Visibility = Visibility.Collapsed;
@@ -210,4 +220,3 @@ namespace ArcGISRuntime.Samples.Desktop
         }
     }
 }
-
