@@ -25,6 +25,7 @@ namespace ArcGISRuntime.Samples.LayersSamples
         "Raster layer (file)",
         "This sample demonstrates how to use a raster layer created from a local raster file.",
         "The raster file is downloaded by the sample viewer automatically. Note that due to a known bug, this sample may crash in emulators running Android 4.4 (API level 19). All other platform versions are unaffected.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public class RasterLayerFile : Activity
     {
         // Reference to the MapView used in the sample
@@ -93,18 +94,7 @@ namespace ArcGISRuntime.Samples.LayersSamples
 
         private string GetRasterPath()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta.tif
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path; Item ID is 7c4c679ab06a4df19dc497f577f111bd
-            return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
     }
 }

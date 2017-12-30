@@ -26,6 +26,7 @@ namespace ArcGISRuntime.UWP.Samples.HydrographySamples
         "Select ENC features",
         "This sample demonstrates how to select an ENC feature.",
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
     public partial class SelectEncFeatures
     {
         public SelectEncFeatures()
@@ -42,7 +43,7 @@ namespace ArcGISRuntime.UWP.Samples.HydrographySamples
             MyMapView.Map = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set
-            string encPath = await GetEncPath();
+            string encPath = GetEncPath();
 
             // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
             List<Envelope> dataSetExtents = new List<Envelope>();
@@ -112,25 +113,9 @@ namespace ArcGISRuntime.UWP.Samples.HydrographySamples
             MyMapView.ShowCalloutAt(e.Location, definition);
         }
 
-        private async Task<String> GetEncPath()
+        private string GetEncPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path 
-            string filepath = Path.Combine(folder, "SampleData", "SelectEncFeatures", "GB5X01NW.000");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("a490098c60f64d3bbac10ad131cc62c7", "SelectEncFeatures");
-            }
-
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
         }
     }
 }

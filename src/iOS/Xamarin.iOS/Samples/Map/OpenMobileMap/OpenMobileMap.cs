@@ -22,6 +22,7 @@ namespace ArcGISRuntime.Samples.MapSamples
         "Open mobile map (map package)",
         "This sample demonstrates how to open a mobile map from a map package.",
         "The map package will be downloaded from an ArcGIS Online portal automatically.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     public class OpenMobileMap : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -69,18 +70,8 @@ namespace ArcGISRuntime.Samples.MapSamples
         /// <returns>String that is the path to the file on disk</returns>
         private string GetMmpkPath()
         {
-            #region offlinedata
-
-            // The mobile map package will be downloaded from ArcGIS Online
-            // The desired MMPK is expected to be called Yellowstone.mmpk
             string filename = "Yellowstone.mmpk";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-			// Return the full path; Item ID is e1f3a7254cb845b09450f54937c16061
-			return Path.Combine(folder, "SampleData", "OpenMobileMap", filename);
-            #endregion offlinedata
+            return DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", filename);
         }
 
         private void CreateLayout()

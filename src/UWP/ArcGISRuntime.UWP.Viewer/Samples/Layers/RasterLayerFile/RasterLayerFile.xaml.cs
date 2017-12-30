@@ -21,6 +21,7 @@ namespace ArcGISRuntime.UWP.Samples.LayersSamples
         "Raster layer (file)",
         "This sample demonstrates how to use a raster layer created from a local raster file.",
         "The raster file is downloaded by the sample viewer automatically.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterLayerFile
     {
         public RasterLayerFile()
@@ -40,7 +41,7 @@ namespace ArcGISRuntime.UWP.Samples.LayersSamples
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -61,28 +62,9 @@ namespace ArcGISRuntime.UWP.Samples.LayersSamples
             MyMapView.Map = myMap;
         }
 
-        private async Task<string> GetRasterPath()
+        private string GetRasterPath()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta.tif
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterLayerFile");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
     }
 }

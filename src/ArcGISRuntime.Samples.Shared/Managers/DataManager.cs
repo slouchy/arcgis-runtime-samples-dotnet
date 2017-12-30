@@ -200,5 +200,10 @@ namespace ArcGISRuntime.Samples.Managers
         {
             return Path.Combine(GetDataFolder(), itemId);
         }
+
+        internal static string GetDataFolder(string itemID, params string[] pathParts)
+        {
+            return Path.Combine(GetDataFolder(itemID), Path.Combine(pathParts));
+        }
     }
 }
