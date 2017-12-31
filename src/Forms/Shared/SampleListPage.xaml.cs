@@ -44,7 +44,19 @@ namespace ArcGISRuntime
             try
             {
                 var item = (SampleInfo)e.Item;
-                await Navigation.PushAsync((ContentPage)SampleManager.Current.SampleToControl(item));
+                
+                if (item.OfflineDataItems != null)
+                {
+                    // Show wait page
+                    await Navigation.PushAsync(new WaitPage(), false);
+
+                    // Wait for sample data download
+                    await DataManager.EnsureSampleDataPresent(item);
+
+                    // Pop the stack
+                    await Navigation.PopAsync(false);
+                }
+                await Navigation.PushAsync((ContentPage)SampleManager.Current.SampleToControl(item), false);
 
                 // Call a function to clear existing credentials
                 ClearCredentials();

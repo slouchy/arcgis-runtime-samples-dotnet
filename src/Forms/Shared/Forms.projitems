@@ -11,6 +11,9 @@
   <ItemGroup>
     <!-- Misc Resources -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)WaitPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -26,6 +29,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WaitPage.xaml.cs">
+      <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
