@@ -113,7 +113,7 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        private void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
+        private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
         {
             var selectedSample = (sender as FrameworkElement).DataContext as SampleInfo;
             if (selectedSample == null) return;
@@ -123,8 +123,37 @@ namespace ArcGISRuntime.UWP.Viewer
 
             SampleManager.Current.SelectedSample = selectedSample;
 
-            // Navigate to the sample page that shows the sample and details
-            Frame.Navigate(typeof(SamplePage));
+            try
+            {
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    // Show the waiting page
+                    Frame.Navigate(typeof(WaitPage));
+                    // Wait for offline data to complete
+                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                    
+                }
+                // Show the sample
+                Frame.Navigate(typeof(SamplePage));
+
+                // Only remove download page from navigation stack if it was shown
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    // Remove the waitpage from the stack
+                    Frame.BackStack.Remove(Frame.BackStack.Where(m => m.SourcePageType == typeof(WaitPage)).First());
+                }
+                
+                // Call a function to clear any existing credentials from AuthenticationManager
+                ClearCredentials();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+            catch (Exception exception)
+            {
+                // failed to create new instance of the sample
+                Frame.Navigate(typeof(ErrorPage), exception);
+            }
         }
 
         private void ClearCredentials()
