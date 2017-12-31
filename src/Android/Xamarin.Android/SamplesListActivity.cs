@@ -59,6 +59,21 @@ namespace ArcGISRuntime
                 // Get the clicked item along with its name and namespace
                 var item = _listSampleItems[e.Position];
 
+                if (item.OfflineDataItems != null)
+                {
+                    // Show wait dialog
+                    ProgressDialog mDialog = new ProgressDialog(this);
+                    mDialog.Indeterminate = true;
+                    mDialog.SetMessage("Downloading Data");
+                    mDialog.Show();
+
+                    // Begin downloading data
+                    await DataManager.EnsureSampleDataPresent(item);
+
+                    // Hide the progress dialog
+                    mDialog.Dismiss();
+                }
+
                 // Each sample is an Activity, so locate it and launch it via an Intent
                 var newActivity = new Intent(this, item.SampleType);
 
