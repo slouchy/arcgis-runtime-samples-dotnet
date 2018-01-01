@@ -113,58 +113,6 @@ namespace ArcGISRuntime.Samples.Managers
             await Task.WhenAll(downloads);
         }
 
-        /// <summary>
-        /// Downloads data from ArcGIS Portal and unzips it to the local data folder
-        /// </summary>
-        /// <param name="path">The path to put the data in - if the folder already exists, the data is assumed to have been downloaded and this immediately returns</param>
-        /// <returns></returns>
-        public static async Task GetData(string itemId, string sampleName) // temporary rename before removal
-        {
-            // Method for creating directories as needed
-            Action<DirectoryInfo> createDir = null;
-            createDir = (s) =>
-            {
-                System.Diagnostics.Debug.WriteLine(s.FullName);
-                if (Directory.Exists(s.FullName)) return;
-                if (!Directory.Exists(s.Parent.FullName))
-                    createDir(s.Parent);
-                Directory.CreateDirectory(s.FullName);
-            };
-
-            // Create the portal
-            var portal = await ArcGISPortal.CreateAsync().ConfigureAwait(false);
-
-            // Create the portal item
-            var item = await PortalItem.CreateAsync(portal, itemId).ConfigureAwait(false);
-
-            // Create the SampleData folder
-            var tempFile = Path.Combine(GetDataFolder(), "SampleData");
-            createDir(new DirectoryInfo(tempFile));
-
-            // Create the sample-specific folder
-            tempFile = Path.Combine(tempFile, sampleName);
-            createDir(new DirectoryInfo(tempFile));
-
-            // Get the full path to the specific file
-            tempFile = Path.Combine(tempFile, item.Name);
-
-            // Download the file
-            using (var s = await item.GetDataAsync().ConfigureAwait(false))
-            {
-                var x = item.GetDataAsync();
-                using (var f = File.Create(tempFile))
-                {
-                    await s.CopyToAsync(f).ConfigureAwait(false);
-                }
-            }
-
-            // Unzip the file if it is a zip file
-            if (tempFile.EndsWith(".zip"))
-            {
-                UnpackData(tempFile, Path.Combine(GetDataFolder(), "SampleData", sampleName));
-            }
-        }
-
         private static void UnpackData(string zipFile, string folder)
         {
             using (var archive = ZipFile.OpenRead(zipFile))
