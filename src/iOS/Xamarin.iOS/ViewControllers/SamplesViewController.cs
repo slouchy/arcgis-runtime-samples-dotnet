@@ -33,6 +33,7 @@ namespace ArcGISRuntime
         public class SamplesDataSource : UITableViewSource
         {
             private UITableViewController controller;
+            private LoadingOverlay loadPopup;
             private List<SampleInfo> data;
 
             public SamplesDataSource(UITableViewController controller, List<Object> data)
@@ -54,16 +55,31 @@ namespace ArcGISRuntime
                 return data.Count;
             }
 
-            public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+            public override async void RowSelected(UITableView tableView, NSIndexPath indexPath)
             {
                 try
                 {
-                    var item = SampleManager.Current.SampleToControl(data[indexPath.Row]);
+                    var sample = data[indexPath.Row];
+                    
+                    if(sample.OfflineDataItems != null)
+                    {
+                        // Show progress overlay
+                        var bounds = UIScreen.MainScreen.Bounds;
 
+                        loadPopup = new LoadingOverlay(bounds); 
+                        controller.ParentViewController.View.Add(loadPopup);
+
+                        // Ensure data present
+                        await DataManager.EnsureSampleDataPresent(sample);
+
+                        // Hide progress overlay
+                        loadPopup.Hide();
+                    }
                     // Call a function to clear existing credentials
                     ClearCredentials();
 
-                    controller.NavigationController.PushViewController((UIViewController)item, true);
+                    var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                    controller.NavigationController.PushViewController(control, true);
                 }
                 catch (Exception ex)
                 {
