@@ -17,6 +17,8 @@ namespace ArcGISRuntime.Samples.Shared.Models
 {
     public class SampleInfo
     {
+        private string _pathStub = System.IO.Directory.GetCurrentDirectory();
+
         public SampleInfo(Type sampleType)
         {
             this.SampleType = sampleType;
@@ -41,11 +43,57 @@ namespace ArcGISRuntime.Samples.Shared.Models
             if (offlineDataAttr != null) { this.OfflineDataItems = offlineDataAttr.Items; }
         }
 
+        /// <summary>
+        /// This constructor is for use when constructing from a type in another assembly
+        /// Because of the way type comparison is done, types from different assembly (even if the source is the same) are different, which breaks casts and comparisons
+        /// </summary>
+        /// <param name="sampleType"></param>
+        /// <param name="assembly"></param>
+        public SampleInfo(Type sampleType, Assembly assembly)
+        {
+            // The type from which to build the sample info
+            this.SampleType = sampleType;
+
+            // Type info for the sample
+            TypeInfo typeInfo = sampleType.GetTypeInfo();
+
+            // Category is extracted from the namespace, by convention the last component of namespace is the category
+            this.Category = ExtractCategoryFromNamespace(typeInfo);
+
+            // Get the types from the originating assembly
+            var attributeTypeSample = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.SampleAttribute"); // needed when working from other assembly
+            var attributeTypeAndroid = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.AndroidLayoutAttribute");
+            var attributeTypeOffline = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.OfflineDataAttribute");
+            var attributeTypeXaml = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.XamlFilesAttribute");
+            var attributeTypeClass = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.ClassFileAttribute");
+
+            // Get the attributes decorating the sample
+            var sampleAttr = typeInfo.GetCustomAttribute(attributeTypeSample);
+            if (sampleAttr == null) { throw new ArgumentException("Type must be decorated with 'Sample' attribute"); }
+            var offlineDataAttr = typeInfo.GetCustomAttribute(attributeTypeOffline);
+            var xamlAttr = typeInfo.GetCustomAttribute(attributeTypeXaml);
+            var androidAttr = typeInfo.GetCustomAttribute(attributeTypeAndroid);
+            var classAttr = typeInfo.GetCustomAttribute(attributeTypeClass);
+
+            // Use reflection to get the properties from each attribute. Then get the value for each property on each attribute
+            this.Description = sampleAttr.GetType().GetProperty("Description").GetValue(sampleAttr).ToString();
+            this.Instructions = sampleAttr.GetType().GetProperty("Instructions").GetValue(sampleAttr).ToString(); ;
+            this.SampleName = sampleAttr.GetType().GetProperty("Name").GetValue(sampleAttr).ToString();
+            this.Tags = sampleAttr.GetType().GetProperty("Tags").GetValue(sampleAttr) as List<String>;
+            if (androidAttr != null) { this.AndroidLayouts = androidAttr.GetType().GetProperty("Files").GetValue(androidAttr) as List<String>; }
+            if (xamlAttr != null) { this.XamlLayouts = xamlAttr.GetType().GetProperty("Files").GetValue(xamlAttr) as List<String>; }
+            if (classAttr != null) { this.ClassFiles = classAttr.GetType().GetProperty("Files").GetValue(classAttr) as List<String>; }
+            if (offlineDataAttr != null) { this.OfflineDataItems = offlineDataAttr.GetType().GetProperty("Items").GetValue(offlineDataAttr) as List<String>; }
+        }
+
+        /// <summary>
+        /// This path function assumes that the sample is in the executing assembly
+        /// </summary>
         public string Path
         {
             get
             {
-                return System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Samples", this.Category, SampleType.Name);
+                return System.IO.Path.Combine(_pathStub, "Samples", this.Category, SampleType.Name);
             }
         }
 
@@ -69,6 +117,8 @@ namespace ArcGISRuntime.Samples.Shared.Models
 
         public string Category { get; set; }
 
+        public string ProgCategory { get { return Category.Replace("Samples", "").Replace(" ", ""); } }
+
         public string Description { get; set; }
 
         public string Instructions { get; set; }
@@ -88,5 +138,14 @@ namespace ArcGISRuntime.Samples.Shared.Models
         public Type SampleType { get; set; }
 
         public string SampleImageName { get { return System.IO.Path.Combine(this.Path, this.Image); } }
+
+        /// <summary>
+        /// Base directory for the samples; defaults to executable directory
+        /// </summary>
+        public string PathStub
+        {
+            get { return _pathStub; }
+            set { _pathStub = value; }
+        }
     }
 }
