@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.Desktop
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             try
             {
@@ -40,6 +40,10 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Set category data context
                 categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+
+                // Select a random sample
+                Random rnd = new Random();
+                SelectSample(SampleManager.Current.AllSamples[rnd.Next(0, SampleManager.Current.AllSamples.Count() - 1)]);
             }
             catch (Exception ex)
             {
