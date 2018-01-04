@@ -1202,7 +1202,7 @@
     <Resource Include="Assets\appbar.window.maximize.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg">
