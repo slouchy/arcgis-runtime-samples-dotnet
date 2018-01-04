@@ -68,12 +68,12 @@ namespace ArcGISRuntime.Samples.Shared.Models
             var attributeTypeClass = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.ClassFileAttribute");
 
             // Get the attributes decorating the sample
-            var sampleAttr = typeInfo.GetCustomAttribute(attributeTypeSample);
+            var sampleAttr = typeInfo.GetCustomAttribute(attributeTypeSample, false);
             if (sampleAttr == null) { throw new ArgumentException("Type must be decorated with 'Sample' attribute"); }
-            var offlineDataAttr = typeInfo.GetCustomAttribute(attributeTypeOffline);
-            var xamlAttr = typeInfo.GetCustomAttribute(attributeTypeXaml);
-            var androidAttr = typeInfo.GetCustomAttribute(attributeTypeAndroid);
-            var classAttr = typeInfo.GetCustomAttribute(attributeTypeClass);
+            var offlineDataAttr = typeInfo.GetCustomAttribute(attributeTypeOffline, false);
+            var xamlAttr = typeInfo.GetCustomAttribute(attributeTypeXaml, false);
+            var androidAttr = typeInfo.GetCustomAttribute(attributeTypeAndroid, false);
+            var classAttr = typeInfo.GetCustomAttribute(attributeTypeClass, false);
 
             // Use reflection to get the properties from each attribute. Then get the value for each property on each attribute
             this.Description = sampleAttr.GetType().GetProperty("Description").GetValue(sampleAttr).ToString();
@@ -114,6 +114,8 @@ namespace ArcGISRuntime.Samples.Shared.Models
         }
 
         public string SampleName { get; set; }
+
+        public string FormalName { get { return SampleType.Name; } }
 
         public string Category { get; set; }
 
