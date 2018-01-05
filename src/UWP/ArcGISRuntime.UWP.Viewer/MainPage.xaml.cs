@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Navigation = Windows.UI.Xaml.Navigation;
 using ArcGISRuntime.Samples.Shared.Models;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -89,7 +90,7 @@ namespace ArcGISRuntime.UWP.Viewer
             base.OnNavigatedTo(e);
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
             SampleManager.Current.Initialize();
@@ -98,7 +99,7 @@ namespace ArcGISRuntime.UWP.Viewer
             var categoriesList = SampleManager.Current.FullTree;
 
             categories.ItemsSource = categoriesList.Items;
-            //categories.SelectedIndex = 0;
+            categories.SelectedIndex = 0;
             (Window.Current.Content as Frame).Navigated += OnFrameNavigated;
 
             HideLoadingIndication();
@@ -116,8 +117,11 @@ namespace ArcGISRuntime.UWP.Viewer
         private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
         {
             var selectedSample = (sender as FrameworkElement).DataContext as SampleInfo;
-            if (selectedSample == null) return;
+            await SelectSample(selectedSample);
+        }
 
+        private async Task SelectSample(SampleInfo selectedSample)
+        {
             // Call a function to clear existing credentials
             ClearCredentials();
 
