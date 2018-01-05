@@ -79,6 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CodeListing.xaml.cs">
+      <DependentUpon>CodeListing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ErrorPage.xaml.cs">
       <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
@@ -326,6 +329,11 @@
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="CodeListing.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Description.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -363,6 +371,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <InProject>False</InProject>
+    </None>
     <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

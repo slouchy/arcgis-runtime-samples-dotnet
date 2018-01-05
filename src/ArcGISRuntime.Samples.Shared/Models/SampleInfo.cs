@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -148,6 +149,53 @@ namespace ArcGISRuntime.Samples.Shared.Models
         {
             get { return _pathStub; }
             set { _pathStub = value; }
+        }
+
+        private List<String> codeFiles;
+
+        public IEnumerable<string> CodeFiles
+        {
+            get
+            {
+                {
+                    if (codeFiles != null) { return codeFiles; }
+                    codeFiles = new List<string>();
+                    // Any code files in the sample directory
+                    foreach (var file in Directory.EnumerateFiles(this.Path).Where(f => f.EndsWith(".cs") || f.EndsWith(".xaml")))
+                    {
+                        codeFiles.Add(file);
+                    }
+                    // Any android layouts
+                    if (this.AndroidLayouts != null)
+                    {
+                        foreach (var file in this.AndroidLayouts)
+                        {
+                            codeFiles.Add(System.IO.Path.Combine(_pathStub, "resource", "layout", file));
+                        }
+                    }
+                    // Any additional class files
+                    if (this.ClassFiles != null)
+                    {
+                        foreach (var file in this.ClassFiles)
+                        {
+                            if (!String.IsNullOrWhiteSpace(System.IO.Path.GetDirectoryName(file)))
+                            {
+                                codeFiles.Add(System.IO.Path.Combine(_pathStub, file));
+                            }
+                            else
+                            {
+                                codeFiles.Add(System.IO.Path.Combine(this.Path, file));
+                            }
+                        }
+                    }
+                    return codeFiles;
+                }
+            }
+        }
+
+        public IEnumerable<string> CodeFileNames
+        {
+            get { return CodeFiles.Select(f => System.IO.Path.GetFileName(f)); }
         }
     }
 }

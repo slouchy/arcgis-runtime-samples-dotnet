@@ -73,6 +73,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
             SampleManager.Current.SelectedSample = selectedSample;
             DescriptionContainer.DataContext = selectedSample;
+            CodeListingContainer.DataContext = selectedSample;
 
             try
             {
@@ -195,18 +196,21 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
+            CodeListingContainer.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
+            CodeListingContainer.Visibility = Visibility.Collapsed;
         }
 
-        private void Data_Click(object sender, RoutedEventArgs e)
+        private void codeListing_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Collapsed;
+            CodeListingContainer.Visibility = Visibility.Visible;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -222,5 +226,6 @@ namespace ArcGISRuntime.Samples.Desktop
             closeNavigation.Visibility = Visibility.Visible;
             root.ColumnDefinitions[0].MaxWidth = 535;
         }
+
     }
 }
