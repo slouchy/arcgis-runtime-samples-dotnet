@@ -216,19 +216,29 @@
                 Checked="Description_Checked"
                 x:Name="Description"
                 Content="Description" 
-                RelativePanel.AlignRightWithPanel="True" 
+                RelativePanel.LeftOf="tgCodeListing"
                 RelativePanel.AlignBottomWithPanel="True"
-                Margin="0,0,48,0" 
+                Margin="0,0,28,0" 
                 Style="{StaticResource TabToggleButtonStyle}">
             </ToggleButton>
+            <ToggleButton
+                Checked="Code_Checked"
+                x:Name="tgCodeListing"
+                Content="Code"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.AlignBottomWithPanel="True"
+                HorizontalAlignment="Stretch"
+                Margin="0,0,28,0"
+                Style="{StaticResource TabToggleButtonStyle}" />
             <CommandBar
                 x:DeferLoadStrategy="Lazy"
                 x:Name="CommandBar"
                 RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Background="Transparent" Foreground="{StaticResource PrimaryColor}"
                         Visibility="Collapsed">
                 <CommandBar.SecondaryCommands>
-                    <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
-                    <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
+                    <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}" />
+                    <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"/>
+                    <AppBarToggleButton Label="Code" IsChecked="{Binding ElementName=CodeListing, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}" />
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </RelativePanel>
@@ -256,6 +266,16 @@
                                RelativePanel.Below="InstructionsHeader"  Style="{StaticResource SecondaryTextBlock}"  />
                     </RelativePanel>
                 </ScrollViewer>
+            </ContentControl>
+            <ContentControl Margin="0" Visibility="Collapsed" Grid.Row="1" x:Name="CodeListingContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ComboBox ItemsSource="{Binding CodeFileNames}" SelectionChanged="ListBox_SelectionChanaged" x:Name="lstCodeFiles" Grid.Row="0"/>
+                    <WebView x:Name="txtCodeListing" Grid.Row="1" />
+                </Grid>
             </ContentControl>
         </Grid>
     </Grid>

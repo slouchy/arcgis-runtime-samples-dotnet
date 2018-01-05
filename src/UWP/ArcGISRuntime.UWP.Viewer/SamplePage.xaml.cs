@@ -26,6 +26,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using ArcGISRuntime.Samples.Shared.Models;
+using System.Linq;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -59,21 +61,34 @@ namespace ArcGISRuntime.UWP.Viewer
         private void LiveSample_Checked(object sender, RoutedEventArgs e)
         {
             // Make sure that only one is  selected
-            if (Description.IsChecked.HasValue && Description.IsChecked.Value)
                 Description.IsChecked = false;
+                tgCodeListing.IsChecked = false;
 
             DescriptionContainer.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
+            CodeListingContainer.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Checked(object sender, RoutedEventArgs e)
         {
             // Make sure that only one is  selected
-            if (LiveSample.IsChecked.HasValue && LiveSample.IsChecked.Value)
                 LiveSample.IsChecked = false;
+                tgCodeListing.IsChecked = false;
 
             DescriptionContainer.Visibility = Visibility.Visible;
             SampleContainer.Visibility = Visibility.Collapsed;
+            CodeListingContainer.Visibility = Visibility.Collapsed;
+        }
+
+        private void Code_Checked(object sender, RoutedEventArgs e)
+        {
+            // Make sure that only one is selected
+            Description.IsChecked = false;
+            LiveSample.IsChecked = false;
+
+            DescriptionContainer.Visibility = Visibility.Collapsed;
+            SampleContainer.Visibility = Visibility.Collapsed;
+            CodeListingContainer.Visibility = Visibility.Visible;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -184,6 +199,24 @@ namespace ArcGISRuntime.UWP.Viewer
                 encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, (uint)image.PixelWidth, (uint)image.PixelHeight, 96, 96, pixels);
                 await encoder.FlushAsync();
             }
+        }
+        private static string WrapCodeInHtml(string code)
+        {
+            // < conversion to &lt; is needed to prevent IE from interpreting xaml as a user control in the page
+            return "<html><head><script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script></head><body><pre class=\"prettyprint\">" + code.Replace("<", "&lt;") + "</pre></body></html>";
+        }
+
+        private void ListBox_SelectionChanaged(object sender, RoutedEventArgs e)
+        {
+            if (lstCodeFiles.SelectedIndex < 0) { return; }
+            // Get datacontext
+            SampleInfo sample = (SampleInfo)this.DataContext;
+
+            if (sample == null) { return; }
+
+            // Read file
+            string content = File.ReadAllText(sample.CodeFiles.ElementAt(lstCodeFiles.SelectedIndex));
+            txtCodeListing.NavigateToString(WrapCodeInHtml(content));
         }
     }
 }
