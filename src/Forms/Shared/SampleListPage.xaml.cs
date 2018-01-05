@@ -56,7 +56,8 @@ namespace ArcGISRuntime
                     // Pop the stack
                     await Navigation.PopAsync(false);
                 }
-                await Navigation.PushAsync((ContentPage)SampleManager.Current.SampleToControl(item), false);
+                SamplePage page = new SamplePage((ContentPage)SampleManager.Current.SampleToControl(item), item);
+                await Navigation.PushAsync(page, false);
 
                 // Call a function to clear existing credentials
                 ClearCredentials();

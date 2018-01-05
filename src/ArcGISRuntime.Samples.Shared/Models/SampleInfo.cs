@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
 
         private List<String> codeFiles;
 
-        public IEnumerable<string> CodeFiles
+        public List<string> CodeFiles
         {
             get
             {
@@ -193,9 +193,9 @@ namespace ArcGISRuntime.Samples.Shared.Models
             }
         }
 
-        public IEnumerable<string> CodeFileNames
+        public List<string> CodeFileNames
         {
-            get { return CodeFiles.Select(f => System.IO.Path.GetFileName(f)); }
+            get { return CodeFiles.Select(f => System.IO.Path.GetFileName(f)).ToList(); }
         }
     }
 }
