@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             get { return _pathStub; }
             set { _pathStub = value; }
         }
-
+        /*
         private List<String> codeFiles;
 
         public List<string> CodeFiles
@@ -197,5 +197,6 @@ namespace ArcGISRuntime.Samples.Shared.Models
         {
             get { return CodeFiles.Select(f => System.IO.Path.GetFileName(f)).ToList(); }
         }
+        */
     }
 }

@@ -25,6 +25,10 @@ namespace ArcGISRuntime
             this.BindingContext = sampleInfo;
             this.cpSample.Content = sample.Content;
             this.Title = sample.Title;
+            if (!String.IsNullOrWhiteSpace(sampleInfo.Instructions))
+            {
+                lblInstr.IsVisible = true;
+            }
         }
     }
 }

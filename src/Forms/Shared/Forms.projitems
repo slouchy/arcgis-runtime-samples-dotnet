@@ -45,89 +45,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <!-- JSON Metadata -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)groups.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GeodatabaseTransactions\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerVisibility\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AccessLoadStatus\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeBasemap\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayMap\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ManageBookmarks\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileMap\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapLocation\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMapSpatialReference\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMinMaxScale\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
-  </ItemGroup>
-  <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -198,7 +115,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
@@ -493,7 +410,7 @@
       <DependentUpon>TakeScreenshot.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -746,7 +663,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml">

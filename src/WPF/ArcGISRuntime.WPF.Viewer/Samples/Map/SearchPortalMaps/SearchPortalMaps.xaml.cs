@@ -15,8 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+
 
 namespace ArcGISRuntime.WPF.Samples.MapSamples
 {
@@ -24,6 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
         "Search a portal for maps",
         "This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.",
         "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("OAuthAuthorize_SPM")]
     public partial class SearchPortalMaps
     {
         // Variables for OAuth with default values ...
@@ -272,176 +272,4 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
             }
         }
     }
-
-    #region OAuth handler
-    public class OAuthAuthorize_SPM : IOAuthAuthorizeHandler
-    {
-        // Window to contain the OAuth UI
-        private Window _window;
-
-        // Use a TaskCompletionSource to track the completion of the authorization
-        private TaskCompletionSource<IDictionary<string, string>> _tcs;
-
-        // URL for the authorization callback result (the redirect URI configured for your application)
-        private string _callbackUrl;
-
-        // URL that handles the OAuth request
-        private string _authorizeUrl;
-
-        // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
-        {
-            if (_tcs != null && !_tcs.Task.IsCompleted)
-                throw new Exception("Task in progress");
-
-            _tcs = new TaskCompletionSource<IDictionary<string, string>>();
-
-            // Store the authorization and redirect URLs
-            _authorizeUrl = authorizeUri.AbsoluteUri;
-            _callbackUrl = callbackUri.AbsoluteUri;
-
-            // Call a function to show the login controls, make sure it runs on the UI thread for this app
-            var dispatcher = Application.Current.Dispatcher;
-            if (dispatcher == null || dispatcher.CheckAccess())
-            {
-                AuthorizeOnUIThread(_authorizeUrl);
-            }
-            else
-            {
-                var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
-                dispatcher.BeginInvoke(authorizeOnUIAction);
-            }
-
-            // Return the task associated with the TaskCompletionSource
-            return _tcs.Task;
-        }
-
-        // Challenge for OAuth credentials on the UI thread
-        private void AuthorizeOnUIThread(string authorizeUri)
-        {
-            // Create a WebBrowser control to display the authorize page
-            var webBrowser = new WebBrowser();
-
-            // Handle the navigation event for the browser to check for a response to the redirect URL
-            webBrowser.Navigating += WebBrowserOnNavigating;
-
-            // Display the web browser in a new window 
-            _window = new Window
-            {
-                Content = webBrowser,
-                Height = 330,
-                Width = 295,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-
-            // Set the app's window as the owner of the browser window (if main window closes, so will the browser)
-            if (Application.Current != null && Application.Current.MainWindow != null)
-            {
-                _window.Owner = Application.Current.MainWindow;
-            }
-
-            // Handle the window closed event then navigate to the authorize url
-            _window.Closed += OnWindowClosed;
-            webBrowser.Navigate(authorizeUri);
-
-            // Display the Window
-            _window.ShowDialog();
-        }
-
-        // Handle the browser window closing
-        void OnWindowClosed(object sender, EventArgs e)
-        {
-            // If the browser window closes, return the focus to the main window
-            if (_window != null && _window.Owner != null)
-            {
-                _window.Owner.Focus();
-            }
-
-            // If the task wasn't completed, the user must have closed the window without logging in
-            if (!_tcs.Task.IsCompleted)
-            {
-                // Set the task completion source exception to indicate a canceled operation
-                _tcs.SetCanceled();
-            }
-
-            _window = null;
-        }
-
-        // Handle browser navigation (content changing)
-        void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            // Check for a response to the callback url
-            const string portalApprovalMarker = "/oauth2/approval";
-            var webBrowser = sender as WebBrowser;
-
-            Uri uri = e.Uri;
-
-            // If no browser, uri, or an empty url, return
-            if (webBrowser == null || uri == null || string.IsNullOrEmpty(uri.AbsoluteUri))
-                return;
-
-            // Check for redirect
-            bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl) ||
-                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker);
-
-            if (isRedirected)
-            {
-                // Browser was redirected to the callbackUrl (success!)
-                //    -close the window 
-                //    -decode the parameters (returned as fragments or query)
-                //    -return these parameters as result of the Task
-                e.Cancel = true;
-
-                // Call a helper function to decode the response parameters
-                var authResponse = DecodeParameters(uri);
-
-                // Set the result for the task completion source
-                _tcs.SetResult(authResponse);
-
-                if (_window != null)
-                {
-                    _window.Close();
-                }
-            }
-        }
-
-        private static IDictionary<string, string> DecodeParameters(Uri uri)
-        {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
-
-            // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
-            {
-                answer = uri.Fragment.Substring(1);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(uri.Query))
-                {
-                    answer = uri.Query.Substring(1);
-                }
-            }
-
-            // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
-            {
-                var pair = kvString.Split('=');
-                string key = pair[0];
-                string value = string.Empty;
-                if (key.Length > 1)
-                {
-                    value = Uri.UnescapeDataString(pair[1]);
-                }
-
-                keyValueDictionary.Add(key, value);
-            }
-
-            // Return the dictionary of string keys/values
-            return keyValueDictionary;
-        }
-    }
-    #endregion
 }

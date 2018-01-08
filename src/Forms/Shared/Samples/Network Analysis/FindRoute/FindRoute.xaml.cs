@@ -12,34 +12,26 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UIKit;
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
+using Colors = System.Drawing.Color;
+#endif
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
+namespace ArcGISRuntime.Samples.Network_AnalysisSamples
 {
-    [Register("FindRoute")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find route",
-        "This sample illustrates how to solve a simple route between two locations.",
+        "Find a route",
+        "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
         "")]
-    public class FindRoute : UIViewController
+    public partial class FindRoute : ContentPage
     {
-        private MapView _myMapView;
-        private UIToolbar _toolbar = new UIToolbar();
-
-        UIButton solveRouteButton = new UIButton(UIButtonType.Plain);
-        UIButton resetButton = new UIButton(UIButtonType.Plain);
-        UIButton showDirectionsButton = new UIButton(UIButtonType.Plain);
-
         // List of stops on the route ('from' and 'to')
         private List<Stop> _routeStops;
-
-        // List of direction maneuvers for completing the route (once solved)
-        IReadOnlyList<DirectionManeuver> _directionsList;
 
         // Graphics overlay to display stops and the route result
         private GraphicsOverlay _routeGraphicsOverlay;
@@ -53,28 +45,11 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
 
         public FindRoute()
         {
-            Title = "Find route";
-        }
+            InitializeComponent();
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
+            Title = "Find a route";
 
-            // Create a new MapView control and provide its location coordinates on the frame
-            _myMapView = new MapView();
-
-            solveRouteButton.SetTitle("Solve Route", UIControlState.Normal);
-            solveRouteButton.TouchUpInside += SolveRouteButtonClick;
-
-            resetButton.SetTitle("Reset", UIControlState.Normal);
-            resetButton.TouchUpInside += ResetButtonClick;
-
-            showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
-            showDirectionsButton.TouchUpInside += ShowDirections;
-
-            // Add the bar button items to an array of UIBarButtonItems
-            View.AddSubviews(_myMapView, _toolbar, solveRouteButton, resetButton, showDirectionsButton);
-
+            // Create the map, graphics overlay, and the 'from' and 'to' locations for the route
             Initialize();
         }
 
@@ -94,8 +69,8 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
             PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
 
             // Add a slight offset (pixels) to the picture symbols
-            carSymbol.OffsetX = -20;
-            flagSymbol.OffsetY = -10;
+            carSymbol.OffsetX = -30;
+            flagSymbol.OffsetY = -15;
 
             // Create graphics for the stops
             Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
@@ -113,14 +88,14 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
 
             // Create a new viewpoint apply it to the map view when the spatial reference changes
             Viewpoint sanDiegoViewpoint = new Viewpoint(envBuilder.ToGeometry());
-            _myMapView.SpatialReferenceChanged += (s, e) => _myMapView.SetViewpoint(sanDiegoViewpoint);
+            MyMapView.SpatialReferenceChanged += (s, e) => MyMapView.SetViewpoint(sanDiegoViewpoint);
 
             // Add a new Map and the graphics overlay to the map view
-            _myMapView.Map = new Map(Basemap.CreateStreetsVector());
-            _myMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
+            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
         }
-
-        private async void SolveRouteButtonClick(object sender, EventArgs e)
+        
+        private async void SolveRouteClick(object sender, EventArgs e)
         {
             // Create a new route task using the San Diego route service URI
             RouteTask solveRouteTask = await RouteTask.CreateAsync(_sanDiegoRouteServiceUri);
@@ -145,20 +120,21 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
             Polyline routePolyline = firstRoute.RouteGeometry;
 
             // Create a thick purple line symbol for the route
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Purple, 8.0);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Purple, 8.0);
 
             // Create a new graphic for the route geometry and add it to the graphics overlay
             Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
             _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
             // Get a list of directions for the route and display it in the list box
-            _directionsList = firstRoute.DirectionManeuvers;          
+            var directions = from d in firstRoute.DirectionManeuvers select d.DirectionText;
+            DirectionsListBox.ItemsSource = directions;
         }
 
-        private void ResetButtonClick(object sender, EventArgs e)
+        private void ResetClick(object sender, EventArgs e)
         {
             // Clear the list of directions
-            _directionsList = null;
+            DirectionsListBox.ItemsSource = null;
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
@@ -174,59 +150,10 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
             }
         }
 
-        private void ShowDirections(object sender, EventArgs e)
+        private void ShowHideDirectionsList(object sender, EventArgs e)
         {
-            UITableViewController directionsTableController = new UITableViewController();
-            DirectionsTableSource directionsSource = new DirectionsTableSource(_directionsList);
-            directionsTableController.TableView.Source = directionsSource;
-            NavigationController.PushViewController(directionsTableController, true);
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Setup the visual frame for the Toolbar
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-
-            // Update toolbar item layouts
-            solveRouteButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
-            resetButton.Frame = new CoreGraphics.CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
-            showDirectionsButton.Frame = new CoreGraphics.CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
-
-
-            base.ViewDidLayoutSubviews();
-        }
-    }
-
-    public class DirectionsTableSource : UITableViewSource
-    {
-        private IReadOnlyList<DirectionManeuver> _directionsList;
-        private string _cellID = "TableCell";
-
-        public DirectionsTableSource(IReadOnlyList<DirectionManeuver> directions)
-        {
-            _directionsList = directions;
-        }
-
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            UITableViewCell cell = tableView.DequeueReusableCell(_cellID);
-            string directionText = _directionsList[indexPath.Row].DirectionText;
-
-            if(cell == null)
-            {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, _cellID);
-            }
-
-            cell.TextLabel.Text = directionText;
-            return cell;
-        }
-
-        public override nint RowsInSection(UITableView tableview, nint section)
-        {
-            return _directionsList != null ? _directionsList.Count : 0;
+            // Show the directions frame if it's hidden; hide if it's shown
+            DirectionsFrame.IsVisible = !DirectionsFrame.IsVisible;
         }
     }
 }

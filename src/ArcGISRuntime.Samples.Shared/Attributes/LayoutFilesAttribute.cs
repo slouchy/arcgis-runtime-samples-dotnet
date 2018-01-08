@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ArcGISRuntime.Samples.Shared.Attributes
 {
@@ -16,7 +15,22 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
         public IReadOnlyList<string> Files { get { return files; } }
     }
 
-    public class XamlFilesAttribute : AdditionalFilesAttribute { }
-    public class AndroidLayoutAttribute : AdditionalFilesAttribute { }
-    public class ClassFileAttribute : AdditionalFilesAttribute { }
+    public class XamlFilesAttribute : AdditionalFilesAttribute {
+        public XamlFilesAttribute(params string[] files) : base(files)
+        {
+        }
+    }
+
+    public class AndroidLayoutAttribute : AdditionalFilesAttribute {
+        public AndroidLayoutAttribute(params string[] files) : base(files)
+        {
+        }
+    }
+
+    public class ClassFileAttribute : AdditionalFilesAttribute
+    {
+        public ClassFileAttribute(params string[] files) : base(files)
+        {
+        }
+    }
 }

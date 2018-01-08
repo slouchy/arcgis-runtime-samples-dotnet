@@ -229,6 +229,7 @@
                 RelativePanel.AlignBottomWithPanel="True"
                 HorizontalAlignment="Stretch"
                 Margin="0,0,28,0"
+                Visibility="Collapsed"
                 Style="{StaticResource TabToggleButtonStyle}" />
             <CommandBar
                 x:DeferLoadStrategy="Lazy"
@@ -238,7 +239,7 @@
                 <CommandBar.SecondaryCommands>
                     <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}" />
                     <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"/>
-                    <AppBarToggleButton Label="Code" IsChecked="{Binding ElementName=CodeListing, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}" />
+                    <AppBarToggleButton Label="Code" Visibility="Collapsed"  IsChecked="{Binding ElementName=CodeListing, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}" />
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </RelativePanel>

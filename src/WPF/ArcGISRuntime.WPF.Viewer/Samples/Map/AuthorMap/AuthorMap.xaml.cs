@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -18,7 +18,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace ArcGISRuntime.WPF.Samples.MapSamples
 {
@@ -26,6 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
         "Author a map",
         "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.",
         "1. Pan and zoom to the extent you would like for your map.\n2. Choose a basemap from the list of available basemaps.\n3. Choose one or more operational layers to include.\n4. Provide a Client ID and Redirect URL for OAuth authentication with ArcGIS Online.\n5. Provide info for the new portal item, such as a Title, Description, and Tags.\n6. Click 'Save Map to Portal'.\n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("OAuthAuthorize.cs")]
     public partial class AuthorMap
     {
         // Constants for OAuth-related values ...
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -88,6 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
         }
 
         #region UI event handlers
+
         private void BasemapSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call a function to set the basemap to the one selected
@@ -185,9 +186,10 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
             {
                 // Hide the progress bar
                 SaveProgressBar.Visibility = Visibility.Hidden;
-            }            
+            }
         }
-        #endregion
+
+        #endregion UI event handlers
 
         private void ApplyBasemap(string basemapName)
         {
@@ -199,22 +201,27 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
                     // Set the basemap to Light Gray Canvas
                     myMap.Basemap = Basemap.CreateLightGrayCanvas();
                     break;
+
                 case "Topographic":
                     // Set the basemap to Topographic
                     myMap.Basemap = Basemap.CreateTopographic();
                     break;
+
                 case "Streets":
                     // Set the basemap to Streets
                     myMap.Basemap = Basemap.CreateStreets();
                     break;
+
                 case "Imagery":
                     // Set the basemap to Imagery
                     myMap.Basemap = Basemap.CreateImagery();
                     break;
+
                 case "Ocean":
                     // Set the basemap to Oceans
                     myMap.Basemap = Basemap.CreateOceans();
                     break;
+
                 default:
                     break;
             }
@@ -229,7 +236,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
             // Loop through the selected items in the operational layers list box
             foreach (var item in OperationalLayerListBox.SelectedItems)
             {
-                // Get the service uri for each selected item 
+                // Get the service uri for each selected item
                 var layerInfo = (KeyValuePair<string, string>)item;
                 var layerUri = new Uri(layerInfo.Value);
 
@@ -270,9 +277,9 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
 
             // Get the ArcGIS Online portal (will use credential from login above)
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
-            
+
             // Save the current state of the map as a portal item in the user's default folder
-            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumb);                      
+            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumb);
         }
 
         private void UpdateViewExtentLabels()
@@ -295,6 +302,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
         }
 
         #region OAuth helpers
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -323,7 +331,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
-        
+
         // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
         // resource is attempted
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
@@ -343,183 +351,7 @@ namespace ArcGISRuntime.WPF.Samples.MapSamples
 
             return credential;
         }
-        #endregion
+
+        #endregion OAuth helpers
     }
-
-    #region Helper class to display the OAuth authorization challenge
-    public class OAuthAuthorize : IOAuthAuthorizeHandler
-    {
-        // Window to contain the OAuth UI
-        private Window _window;
-
-        // Use a TaskCompletionSource to track the completion of the authorization
-        private TaskCompletionSource<IDictionary<string, string>> _tcs;
-
-        // URL for the authorization callback result (the redirect URI configured for your application)
-        private string _callbackUrl;
-
-        // URL that handles the OAuth request
-        private string _authorizeUrl;
-
-        // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
-        {
-            // If the TaskCompletionSource or Window are not null, authorization is in progress
-            if (_tcs != null || _window != null)
-            {
-                // Allow only one authorization process at a time
-                throw new Exception();
-            }
-
-            // Store the authorization and redirect URLs
-            _authorizeUrl = authorizeUri.AbsoluteUri;
-            _callbackUrl = callbackUri.AbsoluteUri;
-
-            // Create a task completion source
-            _tcs = new TaskCompletionSource<IDictionary<string, string>>();
-
-            // Call a function to show the login controls, make sure it runs on the UI thread for this app
-            var dispatcher = Application.Current.Dispatcher;
-            if (dispatcher == null || dispatcher.CheckAccess())
-                AuthorizeOnUIThread(_authorizeUrl);
-            else
-            {
-                var authorizeOnUIAction = new Action(() => AuthorizeOnUIThread(_authorizeUrl));
-                dispatcher.BeginInvoke(authorizeOnUIAction);
-            }
-
-            // Return the task associated with the TaskCompletionSource
-            return _tcs != null ? _tcs.Task : null;
-        }
-
-        // Challenge for OAuth credentials on the UI thread
-        private void AuthorizeOnUIThread(string authorizeUri)
-        {
-            // Create a WebBrowser control to display the authorize page
-            var webBrowser = new WebBrowser();
-
-            // Handle the navigation event for the browser to check for a response to the redirect URL
-            webBrowser.Navigating += WebBrowserOnNavigating;
-
-            // Display the web browser in a new window 
-            _window = new Window
-            {
-                Content = webBrowser,
-                Height = 430,
-                Width = 395,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-
-            // Set the app's window as the owner of the browser window (if main window closes, so will the browser)
-            if (Application.Current != null && Application.Current.MainWindow != null)
-            {
-                _window.Owner = Application.Current.MainWindow;
-            }
-
-            // Handle the window closed event then navigate to the authorize url
-            _window.Closed += OnWindowClosed;
-            webBrowser.Navigate(authorizeUri);
-
-            // Display the Window
-            _window.ShowDialog();
-        }
-
-        // Handle the browser window closing
-        void OnWindowClosed(object sender, EventArgs e)
-        {
-            // If the browser window closes, return the focus to the main window
-            if (_window != null && _window.Owner != null)
-            {
-                _window.Owner.Focus();
-            }
-
-            // If the task wasn't completed, the user must have closed the window without logging in
-            if (_tcs != null && !_tcs.Task.IsCompleted)
-            {
-                // Set the task completion source exception to indicate a canceled operation
-                _tcs.SetException(new OperationCanceledException());
-            }
-
-            // Set the task completion source and window to null to indicate the authorization process is complete
-            _tcs = null;
-            _window = null;
-        }
-
-        // Handle browser navigation (content changing)
-        void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            // Check for a response to the callback url
-            const string portalApprovalMarker = "/oauth2/approval";
-            var webBrowser = sender as WebBrowser;
-            Uri uri = e.Uri;
-
-            // If no browser, uri, task completion source, or an empty url, return
-            if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
-                return;
-
-            // Check for redirect
-            bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl) ||
-                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker);
-
-            if (isRedirected)
-            {
-                // If the web browser is redirected to the callbackUrl:
-                //    -close the window 
-                //    -decode the parameters (returned as fragments or query)
-                //    -return these parameters as result of the Task
-                e.Cancel = true;
-                var tcs = _tcs;
-                _tcs = null;
-                if (_window != null)
-                {
-                    _window.Close();
-                }
-
-                // Call a helper function to decode the response parameters
-                var authResponse = DecodeParameters(uri);
-
-                // Set the result for the task completion source
-                tcs.SetResult(authResponse);
-            }
-        }
-
-        private static IDictionary<string, string> DecodeParameters(Uri uri)
-        {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
-
-            // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
-            {
-                answer = uri.Fragment.Substring(1);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(uri.Query))
-                {
-                    answer = uri.Query.Substring(1);
-                }
-            }
-
-            // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
-            {
-                var pair = kvString.Split('=');
-                string key = pair[0];
-                string value = string.Empty;
-                if (key.Length > 1)
-                {
-                    value = Uri.UnescapeDataString(pair[1]);
-                }
-
-                keyValueDictionary.Add(key, value);
-            }
-
-            // Return the dictionary of string keys/values
-            return keyValueDictionary;
-        }
-    }
-    #endregion
 }

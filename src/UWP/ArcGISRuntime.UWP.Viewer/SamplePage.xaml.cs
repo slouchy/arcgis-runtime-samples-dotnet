@@ -215,8 +215,10 @@ namespace ArcGISRuntime.UWP.Viewer
             if (sample == null) { return; }
 
             // Read file
+            /*
             string content = File.ReadAllText(sample.CodeFiles.ElementAt(lstCodeFiles.SelectedIndex));
             txtCodeListing.NavigateToString(WrapCodeInHtml(content));
+            */
         }
     }
 }

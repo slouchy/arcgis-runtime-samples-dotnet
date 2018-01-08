@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.WPF.Samples.LocalServerSamples
+namespace ArcGISRuntime.WPF.Samples.Local_ServerSamples
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Dynamic workspace shapefile",

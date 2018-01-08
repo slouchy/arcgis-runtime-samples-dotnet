@@ -9,8 +9,8 @@
             <StackLayout>
                 <Label Text="{Binding SampleName}" FontSize="Large" />
                 <Label Text="Description:" FontSize="Medium" TextColor="#007ac2" />
-                <Label Text="{Binding Description}" />
-                <Label Text="Instructions:" FontSize="Medium" TextColor="#007ac2"/>
+                <Label Text="{Binding Description}"/>
+                <Label Text="Instructions:" FontSize="Medium" TextColor="#007ac2"  IsVisible="False" x:Name="lblInstr"/>
                 <Label Text="{Binding Instructions}" />
             </StackLayout>
         </ScrollView>

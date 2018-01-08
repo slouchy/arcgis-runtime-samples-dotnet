@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ArcGISRuntime.UWP.Viewer;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -125,7 +126,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchSamples
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             var resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.UWP.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISRuntime.UWP.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

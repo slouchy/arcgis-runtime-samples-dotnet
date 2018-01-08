@@ -7,31 +7,24 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Android.App;
-using Android.OS;
-using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
+namespace ArcGISRuntime.WPF.Samples.Network_AnalysisSamples
 {
-    [Activity(Label = "FindRoute")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find a route",
         "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
         "")]
-    public class FindRoute : Activity
-    {
-        private MapView _myMapView = new MapView();
-
+    public partial class FindRoute
+    {        
         // List of stops on the route ('from' and 'to')
         private List<Stop> _routeStops;
 
@@ -39,65 +32,20 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
         private GraphicsOverlay _routeGraphicsOverlay;
 
         // URI for the San Diego route service
-        private Uri _sanDiegoRouteServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private Uri _sanDiegoRouteServiceUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         // URIs for picture marker images
-        private Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
-        private Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
+        private Uri _checkedFlagIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+        private Uri _carIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
-        // UI control to show/hide directions dialog (private scope so it can be enabled/disabled as needed)
-        private Button _showHideDirectionsButton;
-
-        // Dialog for showing driving directions
-        private AlertDialog _directionsDialog;
-
-        protected override void OnCreate(Bundle bundle)
+        public FindRoute()
         {
-            base.OnCreate(bundle);
-
-            Title = "Find a route";
-
-            // Create the UI
-            CreateLayout();
-
-            // Initialize the app
+            InitializeComponent();
+            
+            // Create the map, graphics overlay, and the 'from' and 'to' locations for the route
             Initialize();
         }
-
-        private void CreateLayout()
-        {
-            // Create a new layout for the entire page
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Create a new layout for the toolbar (buttons)
-            var toolbar = new LinearLayout(this) { Orientation = Orientation.Horizontal };
-
-            // Create a button to solve the route and add it to the toolbar
-            var solveRouteButton = new Button(this) { Text = "Solve Route" };
-            solveRouteButton.Click += SolveRouteClick;
-            toolbar.AddView(solveRouteButton);
-
-            // Create a button to reset the route display, add it to the toolbar
-            var resetButton = new Button(this) { Text = "Reset" };
-            resetButton.Click += ResetClick;
-            toolbar.AddView(resetButton);
-
-            // Create a button to show or hide the route directions, add it to the toolbar
-            _showHideDirectionsButton = new Button(this) { Text = "Directions" };
-            _showHideDirectionsButton.Click += ShowDirectionsClick;
-            _showHideDirectionsButton.Enabled = false;
-            toolbar.AddView(_showHideDirectionsButton);
-
-            // Add the toolbar to the layout
-            layout.AddView(toolbar);
-
-            // Add the map view to the layout
-            layout.AddView(_myMapView);
-
-            // Show the layout in the app
-            SetContentView(layout);
-        }
-
+        
         private void Initialize()
         {
             // Define the route stop locations (points)
@@ -114,8 +62,8 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
             PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
 
             // Add a slight offset (pixels) to the picture symbols
-            carSymbol.OffsetX = -20;
-            flagSymbol.OffsetY = -5;
+            carSymbol.OffsetX = -30;
+            flagSymbol.OffsetY = -15;
 
             // Create graphics for the stops
             Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
@@ -133,14 +81,14 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
 
             // Create a new viewpoint apply it to the map view when the spatial reference changes
             Viewpoint sanDiegoViewpoint = new Viewpoint(envBuilder.ToGeometry());
-            _myMapView.SpatialReferenceChanged += (s, e) => _myMapView.SetViewpoint(sanDiegoViewpoint);
+            MyMapView.SpatialReferenceChanged += (s, e) => MyMapView.SetViewpoint(sanDiegoViewpoint);
 
             // Add a new Map and the graphics overlay to the map view
-            _myMapView.Map = new Map(Basemap.CreateStreets());
-            _myMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
+            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
+            MyMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
         }
 
-        private async void SolveRouteClick(object sender, EventArgs e)
+        private async void SolveRouteClick(object sender, System.Windows.RoutedEventArgs e)
         {
             // Create a new route task using the San Diego route service URI
             RouteTask solveRouteTask = await RouteTask.CreateAsync(_sanDiegoRouteServiceUri);
@@ -165,68 +113,34 @@ namespace ArcGISRuntime.Samples.NetworkAnalysisSamples
             Polyline routePolyline = firstRoute.RouteGeometry;
 
             // Create a thick purple line symbol for the route
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Purple, 8.0);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Purple, 8.0);
 
             // Create a new graphic for the route geometry and add it to the graphics overlay
             Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
-            _routeGraphicsOverlay.Graphics.Add(routeGraphic);
+            _routeGraphicsOverlay.Graphics.Add(routeGraphic);  
 
             // Get a list of directions for the route and display it in the list box
-            var directions = from d in firstRoute.DirectionManeuvers select d.DirectionText;
-            CreateDirectionsDialog(directions);
-            _showHideDirectionsButton.Enabled = true;
+            IReadOnlyList<DirectionManeuver> directionsList = firstRoute.DirectionManeuvers;
+            DirectionsListBox.ItemsSource = directionsList; 
         }
 
-        private void ResetClick(object sender, EventArgs e)
+        private void ResetClick(object sender, System.Windows.RoutedEventArgs e)
         {
+            // Clear the list of directions
+            DirectionsListBox.ItemsSource = null;
+
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
             for (var i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
-                Graphic g = _routeGraphicsOverlay.Graphics[i - 1];
+                Graphic g = _routeGraphicsOverlay.Graphics[i-1];
                 if (g.Geometry.GeometryType == GeometryType.Polyline)
                 {
                     // Remove the graphic from the overlay
                     _routeGraphicsOverlay.Graphics.Remove(g);
                 }
             }
-
-            // Disable the button to show the directions dialog
-            _showHideDirectionsButton.Enabled = false;
         }
-
-        private void ShowDirectionsClick(object sender, EventArgs e)
-        {
-            // Show the directions dialog
-            if (_directionsDialog != null)
-            {                
-                _directionsDialog.Show();
-            }
-        }
-
-        private void CreateDirectionsDialog(IEnumerable<string> directions)
-        {
-            // Create a dialog to show route directions
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
-            // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;            
-
-            // Create a list box for showing the route directions
-            var directionsList = new ListView(this);
-            var directionsAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, directions.ToArray());
-            directionsList.Adapter = directionsAdapter;
-            dialogLayout.AddView(directionsList);
-
-            // Add the controls to the dialog
-            dialogBuilder.SetView(dialogLayout);
-            dialogBuilder.SetTitle("Route Directions");
-
-            // Create the dialog (don't show it)
-            _directionsDialog = dialogBuilder.Create();
-        }
-
     }
 }

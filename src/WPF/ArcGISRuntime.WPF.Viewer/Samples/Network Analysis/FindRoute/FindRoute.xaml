@@ -1,24 +1,26 @@
-<UserControl 
-    x:Class="ArcGISRuntime.UWP.Samples.NetworkAnalysisSamples.FindRoute"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+<UserControl x:Class="ArcGISRuntime.WPF.Samples.Network_AnalysisSamples.FindRoute"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             mc:Ignorable="d">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"/>
-        <Border Background="LightGray" Opacity=".85" BorderBrush="Black" BorderThickness="1"
+        <esri:MapView x:Name="MyMapView"/>
+        <Border Background="WhiteSmoke" Opacity=".85" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
                 <TextBlock Text="Route directions:" 
                            Margin="0,0,0,2" />
-                <ListView x:Name="DirectionsListBox"
+                <ListBox x:Name="DirectionsListBox"
                          Width="325" Height="300">
-                    <ListView.ItemTemplate>
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding DirectionText}"/>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <Button x:Name="SolveRouteButton"
                         HorizontalAlignment="Stretch"
                         Height="30"
@@ -34,4 +36,3 @@
         </Border>
     </Grid>
 </UserControl>
-
