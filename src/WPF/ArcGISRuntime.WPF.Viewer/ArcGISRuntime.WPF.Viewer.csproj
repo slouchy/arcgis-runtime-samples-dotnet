@@ -160,10 +160,6 @@
       <Project>{0568fd2b-da73-434c-b955-4a149465c535}</Project>
       <Name>ArcGISRuntime.WPF.Samples.CSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ArcGISRuntime.WPF.Samples\ArcGISRuntime.WPF.Samples.VBNet.vbproj">
-      <Project>{586825ce-817b-45a8-bfdb-79a2f36b2c42}</Project>
-      <Name>ArcGISRuntime.WPF.Samples.VBNet</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
