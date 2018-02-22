@@ -1,0 +1,25 @@
+{
+  "Name": "Generate offline map",
+  "SampleName": "GenerateOfflineMap",
+  "Description": "This sample demonstrates how to take a map offline. Note: generating the offline map requires authenticating with ArcGIS Online.",
+  "Instructions": "Pan the map until the desired area is within the selection envelope. Click the button to take the map offline.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "GenerateOfflineMap.jpg",
+  "Link": "",
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateOfflineMapJob",
+    "T:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask",
+    "M:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask.CreateAsync(Esri.ArcGISRuntime.Mapping.Map)",
+    "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateOfflineMapParameters",
+    "M:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask.CreateDefaultGenerateOfflineMapParametersAsync(Esri.ArcGISRuntime.Geometry.Geometry)",
+    "P:RuntimeCoreNet.GeneratedWrappers.CoreGenerateOfflineMapParameters.ItemInfo",
+    "M:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask.GenerateOfflineMap(Esri.ArcGISRuntime.Tasks.Offline.GenerateOfflineMapParameters,System.String)",
+    "P:Esri.ArcGISRuntime.Tasks.Offline.GenerateOfflineMapResult.TableErrors",
+    "P:Esri.ArcGISRuntime.Tasks.Offline.GenerateOfflineMapResult.LayerErrors",
+    "P:RuntimeCoreNet.GeneratedWrappers.CoreGenerateOfflineMapResult.OfflineMap"
+  ],
+  "SampleFolder": "GenerateOfflineMap"
+}
