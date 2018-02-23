@@ -182,7 +182,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
             Dispatcher.Invoke(() =>
             {
                 // Update the UI.
-                Percentage.Text = job.Progress > 0 ? String.Format("{0} %", job.Progress) : string.Empty;
+                Percentage.Text = job.Progress > 0 ? string.Format("{0} %", job.Progress) : string.Empty;
                 ProgressBar.Value = job.Progress;
             });
         }
