@@ -5,10 +5,12 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ArcGISRuntimeXamarin.Samples.GenerateOfflineMap;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
+[assembly: ExportRenderer(typeof(GenerateOfflineMap), typeof(SaveMapPageRenderer))]
 namespace ArcGISRuntimeXamarin.AndroidPageRenderer
 {
     public class SaveMapPageRenderer : PageRenderer, IOAuthAuthorizeHandler

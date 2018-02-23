@@ -4,11 +4,13 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ArcGISRuntimeXamarin.Samples.GenerateOfflineMap;
 using Xamarin.Auth;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
+[assembly: ExportRenderer(typeof(GenerateOfflineMap), typeof(SaveMapPageRenderer))]
 namespace ArcGISRuntimeXamarin.iOSPageRenderer
 {
     public class SaveMapPageRenderer : PageRenderer, IOAuthAuthorizeHandler

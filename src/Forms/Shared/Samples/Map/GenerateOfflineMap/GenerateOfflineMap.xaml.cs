@@ -307,5 +307,13 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMap
                 return Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
 #endif
         }
+
+        #region OAUTH
+        // Note: this depends on the 'SaveMapPageRenderer' implementation on iOS and Android. 
+        //     The renderer handles platform-specific behavior for displaying the OAUTH login prompt. 
+        //     Note that the following line was needed to associate the renderer with this page:
+        // [assembly: ExportRenderer(typeof(GenerateOfflineMap), typeof(SaveMapPageRenderer))]
+
+        #endregion
     }
 }
