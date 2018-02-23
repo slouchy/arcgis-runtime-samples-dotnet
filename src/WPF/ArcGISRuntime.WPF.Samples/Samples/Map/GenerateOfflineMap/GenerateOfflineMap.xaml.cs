@@ -66,11 +66,11 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                 // Show the Map in the MapView.
                 MyMapView.Map = myMap;
 
-                // Hide the loading indicator.
-                LoadingIndicator.Visibility = Visibility.Collapsed;
-
                 // Configure authentication.
                 UpdateAuthenticationManager();
+
+                // Enable the 'take offline' button now that the sample is ready.
+                TakeMapOfflineButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -158,7 +158,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                 // Update the UI.
                 AreaOfInterestFrame.Visibility = Visibility.Collapsed;
                 BusyIndicator.Visibility = Visibility.Collapsed;
-                TakeOfflineArea.Visibility = Visibility.Collapsed;
+                TakeMapOfflineButton.Visibility = Visibility.Collapsed;
                 OfflineArea.Visibility = Visibility.Visible;
             }
             catch (TaskCanceledException)
