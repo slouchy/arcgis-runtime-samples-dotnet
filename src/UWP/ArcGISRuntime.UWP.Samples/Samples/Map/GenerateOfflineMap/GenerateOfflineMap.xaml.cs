@@ -121,7 +121,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
                 // If a job fails, something went wrong when creating the offline package.
                 if (_job.Status != JobStatus.Succeeded)
                 {
-                    await new MessageDialog("Creating offline map packaged failed.", "Error").ShowAsync();
+                    await new MessageDialog("Creating offline map package failed.", "Error").ShowAsync();
 
                     // Hide the loading indicator.
                     BusyIndicator.Visibility = Visibility.Collapsed;
@@ -133,11 +133,11 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
                     var errorBuilder = new StringBuilder();
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
-                        errorBuilder.AppendLine(string.Format("{0} : {1}", layerError.Key.Id, layerError.Value.Message));
+                        errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
                     }
                     foreach (KeyValuePair<FeatureTable, Exception> tableError in results.TableErrors)
                     {
-                        errorBuilder.AppendLine(string.Format("{0} : {1}", tableError.Key.TableName, tableError.Value.Message));
+                        errorBuilder.AppendLine($"{tableError.Key.TableName} : {tableError.Value.Message}");
                     }
                     var errorText = errorBuilder.ToString();
                     await new MessageDialog(errorText, "Errors on taking layers offline").ShowAsync();
@@ -176,7 +176,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Update the UI.
-                Percentage.Text = job.Progress > 0 ? string.Format("{0} %", job.Progress) : string.Empty;
+                Percentage.Text = job.Progress > 0 ? $"{job.Progress} %" : string.Empty;
                 ProgressBar.Value = job.Progress;
             });
         }

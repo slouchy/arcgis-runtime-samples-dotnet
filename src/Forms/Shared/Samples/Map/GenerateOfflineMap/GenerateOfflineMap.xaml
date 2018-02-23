@@ -1,10 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.GenerateOfflineMap.GenerateOfflineMap">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+             x:Class="ArcGISRuntimeXamarin.Samples.GenerateOfflineMap.GenerateOfflineMap"
+             Title="Generate offline map">
+    <RelativeLayout>
+        <Grid
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button x:Name="TakeMapOfflineButton" Grid.Row="0"
+                IsEnabled="False" HorizontalOptions="CenterAndExpand"
+                Clicked="OnTakeMapOfflineClicked" Text="Take map offline"/>
+            <Label x:Name="OfflineArea" Grid.Row="0"
+               Text="Map offline!" IsVisible="False"
+               HorizontalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"
+               FontAttributes="Bold" />
+            <!-- MapView -->
+            <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        </Grid>
+
+        <!-- Loading overlay, shown over the base layout -->
+        <AbsoluteLayout x:Name="BusyIndicator"
+                        BackgroundColor="#7f7f7f7f"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                        IsVisible="False">
+            <Grid AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                  AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="BusyText"
+                       TextColor="White"
+                       Margin="10"
+                       HorizontalOptions="Center"
+                       FontSize="18" />
+                <ProgressBar x:Name="ProgressBar"
+                             Grid.Row="1"
+                             IsEnabled="True"
+                             WidthRequest="100" HeightRequest="10"
+                             HorizontalOptions="Center" VerticalOptions="Center" />
+                <Button Grid.Row="2"
+                        WidthRequest="100" HorizontalOptions="Center" 
+                        Clicked="OnCancelClicked"
+                        Text="Cancel"/>
+            </Grid>
+        </AbsoluteLayout>
+    </RelativeLayout>
 </ContentPage>
