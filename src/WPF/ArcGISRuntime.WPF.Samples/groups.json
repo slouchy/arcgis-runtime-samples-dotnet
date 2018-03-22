@@ -608,10 +608,6 @@
             {
               "SampleName": "ListTransformations",
               "Path": "Samples/GeometryEngine/ListTransformations"
-            },
-            {
-              "SampleName": "SpatialOperations",
-              "Path": "Samples/GeometryEngine/SpatialOperations"
             }
           ] 
         }
