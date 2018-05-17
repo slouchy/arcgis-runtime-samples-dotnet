@@ -305,7 +305,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             }
             catch (Esri.ArcGISRuntime.ArcGISRuntimeException e)
             {
-                var alert = new UIAlertView("Map Load Error", e.Message, null, "OK", null);
+                var alert = new UIAlertView("Map Load Error", e.Message, (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
             }
 
@@ -327,7 +327,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 var err = map.LoadError;
                 if (err != null)
                 {
-                    var alert = new UIAlertView("Map Load Error", err.Message, null, "OK", null);
+                    var alert = new UIAlertView("Map Load Error", err.Message, (IUIAlertViewDelegate)null, "OK", null);
                     alert.Show();
                 }
             }
@@ -401,7 +401,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                var alert = new UIAlertView("Login Error", ex.Message, null, "OK", null);
+                var alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
             }
 
@@ -689,7 +689,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Make sure all required info was entered
             if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
             {
-                var alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", null, "OK", null);
+                var alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
                 return;
             }

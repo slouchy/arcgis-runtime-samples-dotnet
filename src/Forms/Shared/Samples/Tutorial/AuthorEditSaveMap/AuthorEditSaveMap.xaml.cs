@@ -71,18 +71,18 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             UpdateAuthenticationManager();
 
             // Change the style of the basemap list view for Android and UWP
-            Device.OnPlatform(
-                Android: () =>
-                {
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
                     // Black background on Android (transparent by default)
                     BasemapListBox.BackgroundColor = Color.Black;
-                },
-                WinPhone: () =>
-                {
+                    break;
+                case Device.WinPhone:
                     // Semi-transparent background on Windows with a small margin around the control
                     BasemapListBox.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     BasemapListBox.Margin = new Thickness(50);
-                });
+                    break;
+            }
 
             Title = "Author, edit, and save maps to your portal";
         }

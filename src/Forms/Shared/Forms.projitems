@@ -116,6 +116,16 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
@@ -965,18 +975,6 @@
   <!-- Misc Resources -->
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">

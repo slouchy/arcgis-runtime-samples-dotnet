@@ -589,7 +589,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             // Make sure all required info was entered
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
             {
-                new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", null, "OK", null).Show();
+                new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", (IUIAlertViewDelegate)null, "ok").Show();
                 return;
             }
 

@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
             }
             catch (Exception ex)
             {
-                UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, null, "OK");
+                UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, (IUIAlertViewDelegate)null, "OK");
                 alert.Show();
             }
         }

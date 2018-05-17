@@ -120,7 +120,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
                 // Make sure that the UI changes are done in the UI thread
                 InvokeOnMainThread(() =>
                 {
-                    var alert = new UIAlertView("", "Tapped on graphic", null, "OK", null);
+                    var alert = new UIAlertView("", "Tapped on graphic", (IUIAlertViewDelegate)null, "OK");
                     alert.Show();
                 });
             }

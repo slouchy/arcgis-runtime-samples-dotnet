@@ -326,7 +326,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                UIAlertView alert = new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, null, "OK", null);
+                UIAlertView alert = new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK");
             }
         }
 
@@ -351,7 +351,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                UIAlertView alert = new UIAlertView("Error", "Error editing shape: " + ex.Message, null, "OK", null);
+                UIAlertView alert = new UIAlertView("Error", "Error editing shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null);
             }
         }
     }

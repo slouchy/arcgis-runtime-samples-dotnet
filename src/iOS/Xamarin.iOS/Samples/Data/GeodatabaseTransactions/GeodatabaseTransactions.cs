@@ -236,7 +236,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private void ShowMessage(string title, string message, string buttonText)
         {
             // Display the message to the user
-            UIAlertView alertView = new UIAlertView(title, message, null, buttonText, null);
+            UIAlertView alertView = new UIAlertView(title, message, (IUIAlertViewDelegate)null, buttonText, null);
             alertView.Show();
         }
         

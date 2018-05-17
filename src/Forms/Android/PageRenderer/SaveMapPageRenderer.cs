@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Android.Content;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
 namespace ArcGISRuntime.AndroidPageRenderer
@@ -15,9 +16,9 @@ namespace ArcGISRuntime.AndroidPageRenderer
     {
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-        
+
         // ctor
-        public SaveMapPageRenderer()
+        public SaveMapPageRenderer(Context context)
         {
             // Set the OAuth authorization handler to this class (Implements IOAuthAuthorize interface)
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;

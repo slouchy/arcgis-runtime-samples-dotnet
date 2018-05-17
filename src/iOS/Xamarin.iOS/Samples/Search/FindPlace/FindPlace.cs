@@ -317,7 +317,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
 
                 // return if there are no results
-                if (locations.Count() < 1) { return null; }
+                if (locations.Count < 1) { return null; }
 
                 // Get the first result
                 GeocodeResult result = locations.First();
@@ -398,7 +398,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
 
                 // Add the first suitable address if possible
-                if (addresses.Count() > 0)
+                if (addresses.Count > 0)
                 {
                     point.Attributes["Match_Address"] = addresses.First().Label;
                 }
@@ -528,7 +528,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user
-            UIAlertView alertView = new UIAlertView("alert", message, null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
             alertView.Show();
         }
 
@@ -550,7 +550,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             IEnumerable<String> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Get a modifiable list from the results
             List<String> mutableResults = results.ToList();
@@ -589,7 +589,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Update the list of options
             _mySuggestionSource.TableItems = results.ToList();
