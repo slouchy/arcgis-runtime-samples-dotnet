@@ -18,7 +18,7 @@ namespace ArcGISRuntime.AndroidPageRenderer
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
         // ctor
-        public SaveMapPageRenderer(Context context)
+        public SaveMapPageRenderer(Context context) : base(context)
         {
             // Set the OAuth authorization handler to this class (Implements IOAuthAuthorize interface)
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
