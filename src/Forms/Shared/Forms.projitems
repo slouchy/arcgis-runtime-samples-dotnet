@@ -1001,7 +1001,6 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
