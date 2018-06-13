@@ -112,17 +112,25 @@ namespace ArcGISRuntime.UWP.Samples.MapImageLayerTables
             // Query the comments table to get the related service request feature for the selected comment.
             IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
 
-            // Get the first result. 
+            // Get the first (only) result. If querying all relationships for a feature, there would be one result for each relationship.
             RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
 
-            // Get the first feature from the result. If it's null, warn the user and return.
-            ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
+            // Get the first feature from the result that has valid geometry.
+            ArcGISFeature serviceRequestFeature = null;
+            foreach (Feature relatedFeature in result.AsEnumerable())
+            {
+                if (!relatedFeature.Geometry.IsEmpty)
+                {
+                    serviceRequestFeature = relatedFeature as ArcGISFeature;
+                    break;
+                }
+            }
+
+            // If a valid related feature was not found, warn the user and return.
             if (serviceRequestFeature == null)
             {
                 MessageDialog message = new MessageDialog("Related feature not found.", "No Feature");
                 await message.ShowAsync();
-
-                return;
             }
 
             // Load the related service request feature (so its geometry is available).
