@@ -31,9 +31,8 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
         "")]
     public partial class AnalyzeViewshed
     {
-        // Url for the geoprocessing service
-        private const string _viewshedUrl =
-            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
+        // URL for the geoprocessing service
+        private const string ViewshedUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
 
         // Used to store state of the geoprocessing task
         private bool _isExecutingGeoprocessing;
@@ -106,7 +105,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed
 
             // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
+            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(ViewshedUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference
             var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, MyMapView.SpatialReference);
@@ -121,11 +120,11 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             await myInputFeatures.AddFeatureAsync(myInputFeature);
 
             // Create the parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters myViewshedParameters =
-                new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
-
-            // Request the output features to use the same SpatialReference as the map view
-            myViewshedParameters.OutputSpatialReference = MyMapView.SpatialReference;
+            GeoprocessingParameters myViewshedParameters = new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
+            {
+                // Request the output features to use the same SpatialReference as the map view
+                OutputSpatialReference = MyMapView.SpatialReference
+            };
 
             // Add an input location to the geoprocessing parameters
             myViewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(myInputFeatures));
@@ -175,9 +174,9 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             // viewshed analysis. Note: the overlays will not be populated with any graphics at this point
 
             // Create renderer for input graphic. Set the size and color properties for the simple renderer
-            SimpleRenderer myInputRenderer = new SimpleRenderer()
+            SimpleRenderer myInputRenderer = new SimpleRenderer
             {
-                Symbol = new SimpleMarkerSymbol()
+                Symbol = new SimpleMarkerSymbol
                 {
                     Size = 15,
                     Color = Color.Red
@@ -185,22 +184,22 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             };
 
             // Create overlay to where input graphic is shown
-            _inputOverlay = new GraphicsOverlay()
+            _inputOverlay = new GraphicsOverlay
             {
                 Renderer = myInputRenderer
             };
 
             // Create fill renderer for output of the viewshed analysis. Set the color property of the simple renderer
-            SimpleRenderer myResultRenderer = new SimpleRenderer()
+            SimpleRenderer myResultRenderer = new SimpleRenderer
             {
-                Symbol = new SimpleFillSymbol()
+                Symbol = new SimpleFillSymbol
                 {
                     Color = Color.FromArgb(100, 226, 119, 40)
                 }
             };
 
             // Create overlay to where viewshed analysis graphic is shown
-            _resultOverlay = new GraphicsOverlay()
+            _resultOverlay = new GraphicsOverlay
             {
                 Renderer = myResultRenderer
             };
@@ -221,15 +220,15 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             {
                 // Change UI to indicate that the geoprocessing is running
                 _isExecutingGeoprocessing = true;
-                busyOverlay.Visibility = Visibility.Visible;
-                progress.IsIndeterminate = true;
+                BusyOverlay.Visibility = Visibility.Visible;
+                Progress.IsIndeterminate = true;
             }
             else
             {
                 // Change UI to indicate that the geoprocessing is not running
                 _isExecutingGeoprocessing = false;
-                busyOverlay.Visibility = Visibility.Collapsed;
-                progress.IsIndeterminate = false;
+                BusyOverlay.Visibility = Visibility.Collapsed;
+                Progress.IsIndeterminate = false;
             }
         }
     }

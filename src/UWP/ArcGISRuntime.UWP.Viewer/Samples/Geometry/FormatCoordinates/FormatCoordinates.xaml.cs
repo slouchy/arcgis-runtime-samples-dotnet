@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
             // Update the UI with the initial point
-            UpdateUIFromMapPoint(startingPoint);
+            UpdateUiFromMapPoint(startingPoint);
 
             // Subscribe to text change events
             UtmTextField.TextChanged += InputTextChanged;
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             UsngTextField.TextChanged += InputTextChanged;
 
             // Subscribe to map tap events to enable tapping on map to update coordinates
-            MyMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
+            MyMapView.GeoViewTapped += (sender, args) => { UpdateUiFromMapPoint(args.Location); };
         }
 
         private void InputTextChanged(object sender, TextChangedEventArgs e)
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             _selectedTextField = (TextBox)sender;
         }
 
-        private void UpdateUIFromMapPoint(MapPoint startingPoint)
+        private void UpdateUiFromMapPoint(MapPoint startingPoint)
         {
             // Update the decimal degrees text
             DecimalDegreesTextField.Text =
@@ -133,7 +133,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             }
 
             // Update the UI from the MapPoint
-            UpdateUIFromMapPoint(enteredPoint);
+            UpdateUiFromMapPoint(enteredPoint);
         }
     }
 }

@@ -38,16 +38,17 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the Uri for the service feature table (US state polygons)
-                var myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the Uri
-                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
+                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(serviceUri);
 
                 // Create a new feature layer from the service feature table
-                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable);
-
-                // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
-                myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
+                {
+                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
+                    RenderingMode = FeatureRenderingMode.Dynamic
+                };
 
                 // Create a new simple line symbol for the feature layer
                 SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
@@ -109,17 +110,17 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (Button_ToggleExtrusionData.Content.ToString() == "Population Density")
+            if (DataToggleButton.Content.ToString() == "Population Density")
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
-                Button_ToggleExtrusionData.Content = "Total Population";
+                DataToggleButton.Content = "Total Population";
             }
-            else if (Button_ToggleExtrusionData.Content.ToString() == "Total Population")
+            else if (DataToggleButton.Content.ToString() == "Total Population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                Button_ToggleExtrusionData.Content = "Population Density";
+                DataToggleButton.Content = "Population Density";
             }
         }
 

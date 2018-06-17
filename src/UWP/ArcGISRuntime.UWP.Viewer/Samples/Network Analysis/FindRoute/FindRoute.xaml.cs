@@ -33,11 +33,11 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
         private GraphicsOverlay _routeGraphicsOverlay;
 
         // URI for the San Diego route service
-        private Uri _sanDiegoRouteServiceUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private readonly Uri _sanDiegoRouteServiceUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         // URIs for picture marker images
-        private Uri _checkedFlagIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
-        private Uri _carIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
+        private readonly Uri _checkedFlagIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+        private readonly Uri _carIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
         {
@@ -131,7 +131,7 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
-            for (var i = graphicsCount; i > 0; i--)
+            for (int i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
                 Graphic g = _routeGraphicsOverlay.Graphics[i - 1];

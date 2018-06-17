@@ -32,17 +32,11 @@ namespace ArcGISRuntime.UWP.Samples.SurfacePlacements
 
         private void Initialize()
         {
-            // Create new Scene
-            Scene myScene = new Scene();
-
-            // Set Scene's base map property
-            myScene.Basemap = Basemap.CreateImagery();
+            // Create and show a new Scene
+            MySceneView.Scene = new Scene(Basemap.CreateImagery());
 
             // Create a camera with coordinates showing layer data 
             Camera camera = new Camera(53.04, -4.04, 1300, 0, 90.0, 0);
-
-            // Assign the Scene to the SceneView
-            MySceneView.Scene = myScene;
 
             // Create ElevationSource from elevation data Uri
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(
@@ -55,16 +49,22 @@ namespace ArcGISRuntime.UWP.Samples.SurfacePlacements
             MySceneView.SetViewpointCameraAsync(camera);
 
             // Create overlays with elevation modes
-            GraphicsOverlay drapedOverlay = new GraphicsOverlay();
-            drapedOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Draped;
+            GraphicsOverlay drapedOverlay = new GraphicsOverlay
+            {
+                SceneProperties = {SurfacePlacement = SurfacePlacement.Draped}
+            };
             MySceneView.GraphicsOverlays.Add(drapedOverlay);
 
-            GraphicsOverlay relativeOverlay = new GraphicsOverlay();
-            relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            GraphicsOverlay relativeOverlay = new GraphicsOverlay
+            {
+                SceneProperties = {SurfacePlacement = SurfacePlacement.Relative}
+            };
             MySceneView.GraphicsOverlays.Add(relativeOverlay);
 
-            GraphicsOverlay absoluteOverlay = new GraphicsOverlay();
-            absoluteOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
+            GraphicsOverlay absoluteOverlay = new GraphicsOverlay
+            {
+                SceneProperties = {SurfacePlacement = SurfacePlacement.Absolute}
+            };
             MySceneView.GraphicsOverlays.Add(absoluteOverlay);
 
             // Create point for graphic location

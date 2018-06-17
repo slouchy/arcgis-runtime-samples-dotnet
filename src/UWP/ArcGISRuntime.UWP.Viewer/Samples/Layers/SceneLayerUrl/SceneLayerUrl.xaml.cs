@@ -20,10 +20,10 @@ namespace ArcGISRuntime.UWP.Samples.SceneLayerUrl
     public partial class SceneLayerUrl
     {
         // URL for a service to use as an elevation source
-        private Uri _elevationSourceUrl = new Uri(@"https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
+        private readonly Uri _elevationSourceUrl = new Uri(@"https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
 
         // URL for the scene layer
-        private Uri _serviceUri = new Uri(
+        private readonly Uri _serviceUri = new Uri(
                "https://scene.arcgis.com/arcgis/rest/services/Hosted/Buildings_Brest/SceneServer/0");
 
         public SceneLayerUrl()
@@ -37,10 +37,7 @@ namespace ArcGISRuntime.UWP.Samples.SceneLayerUrl
         private void Initialize()
         {
             // Create new Scene
-            Scene myScene = new Scene();
-
-            // Set Scene's base map property
-            myScene.Basemap = Basemap.CreateImagery();
+            Scene myScene = new Scene(Basemap.CreateImagery());
 
             // Create and add an elevation source for the Scene
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(_elevationSourceUrl);

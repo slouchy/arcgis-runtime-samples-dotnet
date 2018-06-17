@@ -25,7 +25,7 @@
                            Margin="10"
                            Text="Initial Extent"/>
                 <TextBlock Text="X Min:"
-                           Grid.Row="1"
+                           Grid.Row="1" Grid.Column="0"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
                            Margin="5,0"/>
                 <TextBox x:Name="XMinTextBox"
@@ -35,7 +35,7 @@
                          IsReadOnly="True"
                          Margin="0,3"/>
                 <TextBlock Text="Y Min:"
-                           Grid.Row="2"
+                           Grid.Row="2" Grid.Column="0"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
                            Margin="5,0"/>
                 <TextBox x:Name="YMinTextBox" 
@@ -45,7 +45,7 @@
                          IsReadOnly="True"
                          Margin="0,3"/>
                 <TextBlock Text="X Max:"
-                           Grid.Row="3"
+                           Grid.Row="3" Grid.Column="0"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
                            Margin="5,0"/>
                 <TextBox x:Name="XMaxTextBox" 
@@ -55,7 +55,7 @@
                          IsReadOnly="True"
                          Margin="0,3"/>
                 <TextBlock Text="Y Max:"
-                           Grid.Row="4"
+                           Grid.Row="4" Grid.Column="0"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
                            Margin="5,0"/>
                 <TextBox x:Name="YMaxTextBox" 
@@ -90,7 +90,7 @@
                          IsReadOnly="True"
                          Margin="0,3"/>
                 <TextBlock Text="Redirect URL:"
-                           Grid.Row="1"
+                           Grid.Row="1" Grid.Column="0"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
                            Margin="5,0"/>
                 <TextBox x:Name="RedirectUrlTextBox" 
@@ -147,7 +147,7 @@
                                      Width="150"
                                      Margin="10,0"
                                      Text="My Map"/>
-                            <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1" Grid.Column="0"
                                        VerticalAlignment="Top" HorizontalAlignment="Right"
                                        Margin="0,10"
                                        Text="Description:"/>
@@ -158,7 +158,7 @@
                                      Margin="10"
                                      TextWrapping="Wrap"
                                      Text="Authored using ArcGIS Runtime SDK."/>
-                            <TextBlock Grid.Row="2"
+                            <TextBlock Grid.Row="2" Grid.Column="0"
                                        VerticalAlignment="Top" HorizontalAlignment="Right"
                                        Text="Tags:"/>
                             <TextBox x:Name="TagsTextBox" 
@@ -167,7 +167,7 @@
                                      Width="150"
                                      Margin="10,0"
                                      Text="ArcGIS Runtime, Sample"/>
-                            <Button Grid.Row="3" Grid.ColumnSpan="2" 
+                            <Button Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
                                     IsEnabled="{Binding ElementName=MyMapView }"
                                     Content="Save Map to Portal"
                                     Width="170" Height="35"

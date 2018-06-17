@@ -62,8 +62,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerRasterFunction
             //}
 
             // Define the JSON string needed for the raster function
-            String theJSON_String =
-             @"{
+            const string theJsonString = @"{
                 ""raster_function_arguments"":
                 {
                   ""z_factor"":{ ""double"":25.0,""type"":""Raster_function_variable""},
@@ -79,7 +78,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerRasterFunction
             }";
 
             // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(json as String)
-            RasterFunction myRasterFunction = RasterFunction.FromJson(theJSON_String);
+            RasterFunction myRasterFunction = RasterFunction.FromJson(theJsonString);
 
             // NOTE: Depending on your platform/device, you could have alternatively created the raster function via a JSON string that is contained in a 
             // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String)

@@ -22,7 +22,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
     public sealed partial class FeatureLayerTimeOffset
     {
         // Hold the feature layer URI
-        private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
+        private readonly Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
 
         // Hold a reference to the original time extent
         private TimeExtent _originalExtent;
@@ -118,7 +118,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
             MyMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label
-            lblCurrentDate.Text = String.Format("{0} - {1}", newStart.ToString("d"), newEnd.ToString("d"));
+            CurrentDateLabel.Text = $"{newStart:d} - {newEnd:d}";
         }
     }
 }

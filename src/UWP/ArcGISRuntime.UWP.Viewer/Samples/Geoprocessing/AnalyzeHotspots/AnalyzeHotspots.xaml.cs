@@ -25,8 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
     public partial class AnalyzeHotspots
     {
         // Url for the geoprocessing service
-        private const string _hotspotUrl =
-            "http://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
+        private const string HotspotUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
         // The geoprocessing task for hot spot analysis 
         private GeoprocessingTask _hotspotTask;
@@ -48,7 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create a new geoprocessing task
-            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
+            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(HotspotUrl));
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
@@ -101,7 +100,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
-            var myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
+            string myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
                 myFromDate.ToString("yyyy-MM-dd"),
                 myToDate.ToString("yyyy-MM-dd"));
 
@@ -139,7 +138,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
                 }
                 else
                 {
-                    var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    var message = new MessageDialog("An error occurred. " + ex, "Sample error");
                     await message.ShowAsync();
                 }
             }
@@ -160,14 +159,14 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             if (visibility)
             {
                 // The geoprocessing task is processing. The busyOverly is present.
-                busyOverlay.Visibility = Visibility.Visible;
-                progress.IsIndeterminate = true;
+                BusyOverlay.Visibility = Visibility.Visible;
+                Progress.IsIndeterminate = true;
             }
             else
             {
                 // The user can interact with the date pickers. The busyOverlay is invisible.
-                busyOverlay.Visibility = Visibility.Collapsed;
-                progress.IsIndeterminate = false;
+                BusyOverlay.Visibility = Visibility.Collapsed;
+                Progress.IsIndeterminate = false;
             }
         }
     }

@@ -31,17 +31,17 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
     {
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with
-        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store names of the available basemaps
-        private string[] _basemapNames = new string[]
+        private readonly string[] _basemapNames =
         {
             "Light Gray",
             "Topographic",
@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         };
 
         // Dictionary of operational layer names and URLs
-        private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
             {"World Elevations", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
             {"World Cities", "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
@@ -82,11 +82,6 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         }
 
         #region UI event handlers
-        private void BasemapItemClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void LayerSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call a function to add operational layers to the map
@@ -98,7 +93,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             try
             {
                 // Don't attempt to save if the OAuth settings weren't provided
-                if(string.IsNullOrEmpty(AppClientId) || string.IsNullOrEmpty(OAuthRedirectUrl))
+                if(string.IsNullOrEmpty(_appClientId) || string.IsNullOrEmpty(_oAuthRedirectUrl))
                 {
                     var dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
                     await dialog.ShowAsync();
@@ -124,9 +119,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 if (myMap.Item == null)
                 {
                     // Get information for the new portal item
-                    var title = TitleTextBox.Text;
-                    var description = DescriptionTextBox.Text;
-                    var tagText = TagsTextBox.Text;
+                    string title = TitleTextBox.Text;
+                    string description = DescriptionTextBox.Text;
+                    string tagText = TagsTextBox.Text;
 
                     // Make sure all required info was entered
                     if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(tagText))
@@ -228,12 +223,15 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             foreach (var item in LayerListView.SelectedItems)
             {
                 // Get the service uri for each selected item 
-                var layerInfo = (KeyValuePair<string, string>)item;
+                KeyValuePair<string, string> layerInfo = (KeyValuePair<string, string>)item;
                 var layerUri = new Uri(layerInfo.Value);
 
                 // Create a new map image layer, set it 50% opaque, and add it to the map
-                ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
-                layer.Opacity = 0.5;
+                ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri)
+                {
+                    Opacity = 0.5
+                };
+
                 myMap.OperationalLayers.Add(layer);
             }
         }
@@ -296,16 +294,16 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         private async void ShowOAuthSettingsDialog()
         {
             // Show default settings for client ID and redirect URL
-            ClientIdTextBox.Text = AppClientId;
-            RedirectUrlTextBox.Text = OAuthRedirectUrl;
+            ClientIdTextBox.Text = _appClientId;
+            RedirectUrlTextBox.Text = _oAuthRedirectUrl;
 
             // Display inputs for a client ID and redirect URL to use for OAuth authentication
             ContentDialogResult result = await OAuthSettingsDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
                 // Settings were provided, update the configuration settings for OAuth authorization
-                AppClientId = ClientIdTextBox.Text.Trim();
-                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+                _appClientId = ClientIdTextBox.Text.Trim();
+                _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
 
                 // Update authentication manager with the OAuth settings
                 UpdateAuthenticationManager();
@@ -316,8 +314,8 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 var messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to save your map.");
                 await messageDlg.ShowAsync();
 
-                AppClientId = string.Empty;
-                OAuthRedirectUrl = string.Empty;
+                _appClientId = string.Empty;
+                _oAuthRedirectUrl = string.Empty;
             }
         }
 
@@ -329,8 +327,8 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
+                    ClientId = _appClientId,
+                    RedirectUri = new Uri(_oAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit
@@ -349,9 +347,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
         // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
         // resource is attempted
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            OAuthTokenCredential credential = null;
+            OAuthTokenCredential credential;
 
             try
             {
@@ -368,10 +366,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

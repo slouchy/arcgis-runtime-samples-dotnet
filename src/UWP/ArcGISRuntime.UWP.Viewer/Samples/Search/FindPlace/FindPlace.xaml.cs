@@ -37,7 +37,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         private LocatorTask _geocoder;
 
         // Service Uri to be provided to the LocatorTask (geocoder)
-        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         public FindPlace()
         {
@@ -104,7 +104,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
 
                 // return if there are no results
-                if (locations.Count() < 1) { return null; }
+                if (!locations.Any()) { return null; }
 
                 // Get the first result
                 GeocodeResult result = locations.First();
@@ -112,11 +112,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
                 // Return the map point
                 return result.DisplayLocation;
             }
-            else
-            {
-                // Get the current device location
-                return MyMapView.LocationDisplay.Location.Position;
-            }
+
+            // Get the current device location
+            return MyMapView.LocationDisplay.Location.Position;
         }
 
         /// <summary>
@@ -185,7 +183,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
 
                 // Add the first suitable address if possible
-                if (addresses.Count() > 0)
+                if (addresses.Any())
                 {
                     point.Attributes["Match_Address"] = addresses.First().Label;
                 }
@@ -246,10 +244,10 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             Graphic matchingGraphic = results.First().Graphics.First();
 
             // Get the title; manually added to the point's attributes in UpdateSearch
-            String title = matchingGraphic.Attributes["Match_Title"] as String;
+            string title = matchingGraphic.Attributes["Match_Title"].ToString();
 
             // Get the address; manually added to the point's attributes in UpdateSearch
-            String address = matchingGraphic.Attributes["Match_Address"] as String;
+            string address = matchingGraphic.Attributes["Match_Address"].ToString();
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(title, address);
@@ -266,7 +264,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results</param>
         /// <returns>List of suggestions as strings</returns>
-        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        private async Task<IEnumerable<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace
             if (String.IsNullOrWhiteSpace(searchText)) { return null; }
@@ -297,7 +295,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
             // Convert the list into a list of strings (corresponding to the label property on each result)
-            IEnumerable<String> formattedResults = results.Select(result => result.Label);
+            IEnumerable<string> formattedResults = results.Select(result => result.Label);
 
             // Return the list
             return formattedResults;
@@ -329,10 +327,10 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box
-            IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
+            IEnumerable<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Update the list of options
             MySearchBox.ItemsSource = results;
@@ -350,13 +348,13 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string searchText = MyLocationBox.Text;
 
             // Get the results
-            IEnumerable<String> results = await GetSuggestResults(searchText);
+            IEnumerable<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Get a modifiable list from the results
-            List<String> mutableResults = results.ToList();
+            List<string> mutableResults = results.ToList();
 
             // Add a 'current location' option to the list
             mutableResults.Insert(0, "Current Location");

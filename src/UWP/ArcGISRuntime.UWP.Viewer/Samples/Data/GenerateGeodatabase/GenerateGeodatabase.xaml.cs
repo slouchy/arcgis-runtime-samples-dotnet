@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
     public partial class GenerateGeodatabase
     {
         // URL for a feature service that supports geodatabase generation.
-        private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
+        private readonly Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
 
         // Path to the geodatabase file on disk.
         private string _gdbPath;
@@ -58,16 +59,16 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             try
             {
                 // Create a tile cache and load it with the SanFrancisco streets tpk.
-                TileCache _tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
+                TileCache tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
 
                 // Create the corresponding layer based on the tile cache.
-                ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
+                ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
 
                 // Create the basemap based on the tile cache.
-                Basemap _sfBasemap = new Basemap(_tileLayer);
+                Basemap sfBasemap = new Basemap(tileLayer);
 
                 // Create the map with the tile-based basemap.
-                Map myMap = new Map(_sfBasemap);
+                Map myMap = new Map(sfBasemap);
 
                 // Assign the map to the MapView.
                 MyMapView.Map = myMap;
@@ -179,10 +180,10 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += ((sender, e) =>
+            _generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 UpdateProgressBar();
-            });
+            };
 
             // Show the progress bar.
             MyProgressBar.Visibility = Visibility.Visible;
@@ -212,10 +213,10 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 foreach (GeodatabaseFeatureTable table in resultGdb.GeodatabaseFeatureTables)
                 {
                     // Create a new feature layer for the table.
-                    FeatureLayer _layer = new FeatureLayer(table);
+                    FeatureLayer layer = new FeatureLayer(table);
 
                     // Add the new layer to the map.
-                    MyMapView.Map.OperationalLayers.Add(_layer);
+                    MyMapView.Map.OperationalLayers.Add(layer);
                 }
                 // Best practice is to unregister the geodatabase.
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
@@ -241,7 +242,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 else
                 {
                     // If no error, show messages from the job.
-                    var m = from msg in _generateGdbJob.Messages select msg.Message;
+                    IEnumerable<string> m = from msg in _generateGdbJob.Messages select msg.Message;
                     message += ": " + string.Join<string>("\n", m);
                 }
 

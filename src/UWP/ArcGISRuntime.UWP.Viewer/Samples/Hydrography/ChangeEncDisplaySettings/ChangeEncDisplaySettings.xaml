@@ -2,12 +2,7 @@
     x:Class="ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings.ChangeEncDisplaySettings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:esri="using:Esri.ArcGISRuntime"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
-    mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="300">
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Background="White" BorderBrush="Black" BorderThickness="1"
@@ -16,19 +11,19 @@
             <StackPanel>
                 <TextBlock FontWeight="ExtraBold" >Color Scheme</TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="ColorScheme" Content="Day" Margin="0,3,10,0" x:Name="radDay" IsChecked="True" />
-                    <RadioButton GroupName="ColorScheme" Content="Dusk" Margin="0,3,10,0" x:Name="radDusk" />
-                    <RadioButton GroupName="ColorScheme" Content="Night" Margin="0,3,10,0" x:Name="radNight" />
+                    <RadioButton GroupName="ColorScheme" Content="Day" Margin="0,3,10,0" x:Name="DayRadioButton" IsChecked="True" />
+                    <RadioButton GroupName="ColorScheme" Content="Dusk" Margin="0,3,10,0" x:Name="DuskRadioButton" />
+                    <RadioButton GroupName="ColorScheme" Content="Night" Margin="0,3,10,0" x:Name="NightRadioButton" />
                 </StackPanel>
                 <TextBlock FontWeight="ExtraBold">Area Symbolization Type</TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="Area" Content="Plain" Margin="0,3,10,0" x:Name="radAreaPlain" IsChecked="True" />
-                    <RadioButton GroupName="Area" Content="Symbolized" Margin="0,3,10,0" x:Name="radAreaSymbolized" />
+                    <RadioButton GroupName="Area" Content="Plain" Margin="0,3,10,0" x:Name="AreaPlainRadioButton" IsChecked="True" />
+                    <RadioButton GroupName="Area" Content="Symbolized" Margin="0,3,10,0" />
                 </StackPanel>
                 <TextBlock FontWeight="ExtraBold">Point Symbolization Type</TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="Point" Content="Paper Chart" Margin="0,3,10,0" x:Name="radPointPaper" IsChecked="True" />
-                    <RadioButton GroupName="Point" Content="Simplified" Margin="0,3,10,0" x:Name="radPointSimple" />
+                    <RadioButton GroupName="Point" Content="Paper Chart" Margin="0,3,10,0" x:Name="PointPaperRadioButton" IsChecked="True" />
+                    <RadioButton GroupName="Point" Content="Simplified" Margin="0,3,10,0" />
                 </StackPanel>
                 <Button Content="Apply" Click="Button_Click" />
             </StackPanel>

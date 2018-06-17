@@ -45,7 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.SpatialRelationships
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Create the graphics overlay and set the selection color
-            _graphicsOverlay = new GraphicsOverlay()
+            _graphicsOverlay = new GraphicsOverlay
             {
                 SelectionColor = System.Drawing.Color.Yellow
             };

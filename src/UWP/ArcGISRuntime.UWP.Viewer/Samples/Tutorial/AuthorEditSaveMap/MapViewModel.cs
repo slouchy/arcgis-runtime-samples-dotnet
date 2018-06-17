@@ -23,7 +23,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         }
 
         // String array to store basemap constructor types
-        private string[] _basemapTypes = new string[]
+
+        // Read-only property to return the available basemap names
+        public string[] BasemapChoices { get; } =
         {
             "Topographic",
             "Topographic Vector",
@@ -32,12 +34,6 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             "Imagery",
             "Oceans"
         };
-
-        // Read-only property to return the available basemap names
-        public string[] BasemapChoices
-        {
-            get { return _basemapTypes; }
-        }
 
         // Create a default map with the vector streets basemap
         private Map _map = new Map(Basemap.CreateStreets());
@@ -94,11 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 
-        public bool MapIsSaved
-        {
-            // Return True if the current map has a value for the Item property
-            get { return (_map != null && _map.Item != null); }
-        }
+        public bool MapIsSaved => _map?.Item != null;
 
         public async void UpdateMapItem()
         {
@@ -120,8 +112,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var propertyChangedHandler = PropertyChanged;
-            if (propertyChangedHandler != null)
-                propertyChangedHandler(this, new PropertyChangedEventArgs(propertyName));
+            propertyChangedHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

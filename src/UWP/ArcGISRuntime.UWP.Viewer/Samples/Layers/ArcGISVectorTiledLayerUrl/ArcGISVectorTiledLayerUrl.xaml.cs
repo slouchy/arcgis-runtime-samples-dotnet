@@ -23,7 +23,7 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
     public partial class ArcGISVectorTiledLayerUrl
     {
         // Dictionary associates layer names with URIs
-        private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()
+        private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>
         {
             {"Mid-Century", new Uri("http://www.arcgis.com/home/item.html?id=7675d44bb1e4428aa2c30a9b68f97822")},
             {"Colored Pencil", new Uri("http://www.arcgis.com/home/item.html?id=4cf7e1fb9f254dcda9c8fbadb15cf0f8")},
@@ -49,10 +49,10 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
             Map myMap = new Map(new Basemap(vectorTiledLayer));
 
             // Set titles as a items source
-            vectorLayersChooser.ItemsSource = _layerUrls.Keys;
+            VectorLayerPicker.ItemsSource = _layerUrls.Keys;
 
             // Set the initial selection
-            vectorLayersChooser.SelectedIndex = 0;
+            VectorLayerPicker.SelectedIndex = 0;
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
         private void OnVectorLayersChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the user's selection
-            var selectedVectorLayer = e.AddedItems[0].ToString();
+            string selectedVectorLayer = e.AddedItems[0].ToString();
 
             // Get the URL from the dictionary
             Uri vectorTiledLayerUrl = _layerUrls[selectedVectorLayer];

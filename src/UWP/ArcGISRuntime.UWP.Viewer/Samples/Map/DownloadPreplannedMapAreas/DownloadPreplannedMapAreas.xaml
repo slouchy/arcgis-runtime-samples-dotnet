@@ -30,14 +30,14 @@
         <!-- Show the map. -->
         <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
         <!-- Show a download prompt when map isn't visible. -->
-        <Grid Background="White" Visibility="Collapsed" x:Name="DownloadNotificationText">
+        <Grid Grid.Row="0" Background="White" Visibility="Collapsed" x:Name="DownloadNotificationText">
             <TextBlock Text="Download preplanned map area"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontSize="20" />
         </Grid>
 
         <!-- Controls for use on wide displays. -->
-        <Border Grid.Row="0" x:Name="PreplannedAreasLarge"
+        <Border Grid.Row="0"
                 Background="White" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="auto"
@@ -62,15 +62,14 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button x:Name="DeleteMapAreaButton"
-                        Content="Delete offline areas"
+                <Button Content="Delete offline areas"
                         HorizontalAlignment="Stretch" Margin="5"
                         Click="OnDeleteAllMapAreasClicked" />
             </StackPanel>
         </Border>
 
         <!-- Controls for narrow view -->
-        <CommandBar x:Name="AppBar" Grid.Row="1">
+        <CommandBar Grid.Row="1">
             <AppBarButton Icon="List" Label="Map areas">
                 <AppBarButton.Flyout>
                     <MenuFlyout x:Name="MapAreaFlyout" />

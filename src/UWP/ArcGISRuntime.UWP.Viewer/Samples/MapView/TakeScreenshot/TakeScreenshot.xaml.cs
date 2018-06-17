@@ -44,7 +44,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
             var exportedImage = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
 
             // Create dialog that is used to show the picture
-            var dialog = new ContentDialog()
+            var dialog = new ContentDialog
             {
                 Title = "Screenshot",
                 MaxWidth = ActualWidth,
@@ -52,7 +52,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
             };
 
             // Create Image
-            var imageView = new Image()
+            var imageView = new Image
             {
                 Source = exportedImage,
                 Margin = new Thickness(10)  

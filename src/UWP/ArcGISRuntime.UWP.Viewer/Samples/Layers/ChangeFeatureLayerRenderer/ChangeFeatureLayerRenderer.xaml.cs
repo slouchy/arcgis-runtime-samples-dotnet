@@ -75,7 +75,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
         private void OnOverrideButtonClicked(object sender, RoutedEventArgs e)
         {
             // Create a symbol to be used in the renderer
-            SimpleLineSymbol symbol = new SimpleLineSymbol()
+            SimpleLineSymbol symbol = new SimpleLineSymbol
             {
                 Color = Color.Blue,
                 Width = 2,

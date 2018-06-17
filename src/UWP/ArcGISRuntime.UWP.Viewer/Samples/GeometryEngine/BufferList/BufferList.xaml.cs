@@ -27,13 +27,13 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
     public partial class BufferList
     {
         // Graphics overlay to display buffer related graphics.
-        private GraphicsOverlay _graphicsOverlay;
+        private readonly GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.Buffer operation.
-        private List<Geometry> _bufferPointsList = new List<Geometry>();
+        private readonly List<Geometry> _bufferPointsList = new List<Geometry>();
 
         // List of buffer distance values (in meters) that will be used by the GeometryEngine.Buffer operation.
-        private List<double> _bufferDistancesList = new List<double>();
+        private readonly List<double> _bufferDistancesList = new List<double>();
 
         public BufferList()
         {
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
                 MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
 
                 // Get the buffer size (in miles) from the text box.
-                double bufferDistanceInMiles = System.Convert.ToDouble(BufferDistanceMilesTextBox.Text);
+                double bufferDistanceInMiles = Convert.ToDouble(BufferDistanceMilesTextBox.Text);
 
                 // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
                 double bufferDistanceInMeters = bufferDistanceInMiles * 1609.34;
@@ -85,18 +85,19 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
-
-                // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
-                // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
-                // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                userTappedGraphic.ZIndex = 2;
+                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol)
+                {
+                    // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
+                    // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
+                    // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
+                    ZIndex = 2
+                };
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message.
                 MessageDialog theMessageDialog = new MessageDialog("Error creating list of map points for buffer: " + ex.Message);
@@ -109,7 +110,7 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
             try
             {
                 // Get the boolean value whether to create a single unioned buffer (true) or independent buffer around each map point (false).
-                bool unionBufferBool = (bool)UnionCheckBox.IsChecked;
+                bool unionBufferBool = UnionCheckBox.IsChecked == true;
 
                 // Create an IEnumerable that contains buffered polygon(s) from the GeometryEngine Buffer operation based on a list of map 
                 // points and list of buffered distances. The input distances used in the Buffer operation are in meters; this matches the 
@@ -133,12 +134,13 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
                     SimpleFillSymbol bufferPolygonSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonFillColor, bufferPolygonSimpleLineSymbol);
 
                     // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol);
-
-                    // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
-                    // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
-                    // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                    bufferPolygonGraphic.ZIndex = 0;
+                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol)
+                    {
+                        // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
+                        // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
+                        // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
+                        ZIndex = 0
+                    };
 
                     // Add the buffered polygon graphic to the graphic overlay.
                     // NOTE: While you can control the positional placement of a graphic within the GraphicCollection of a GraphicsOverlay, 
@@ -147,7 +149,7 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
                     _graphicsOverlay.Graphics.Insert(0, bufferPolygonGraphic);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 MessageDialog theMessageDialog = new MessageDialog("Geometry Engine Failed: " + ex.Message);

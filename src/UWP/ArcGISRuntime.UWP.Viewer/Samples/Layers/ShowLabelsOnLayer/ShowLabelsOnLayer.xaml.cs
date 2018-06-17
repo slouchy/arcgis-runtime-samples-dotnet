@@ -37,7 +37,7 @@ namespace ArcGISRuntime.UWP.Samples.ShowLabelsOnLayer
             MyMapView.Map = sampleMap;
 
             // Define the Url string for the US highways feature layer.
-            string highwaysUrlString = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1";
+            const string highwaysUrlString = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1";
 
             // Create a service feature table from the url to the US highways feature service.
             ServiceFeatureTable highwaysServiceFeatureTable = new ServiceFeatureTable(new System.Uri(highwaysUrlString));
@@ -63,8 +63,7 @@ namespace ArcGISRuntime.UWP.Samples.ShowLabelsOnLayer
             // (3) The 'where' clause restricts the labels to be displayed that has valid (non-empty) data. Empty data
             //     for this service has a single blank space in the 'rte_num1' field.
             // (4) The 'symbol' for the labeled text will be blue with a yellow halo.
-            string theJSON_String =
-             @"{
+            const string theJsonString = @"{
                     ""labelExpressionInfo"":{""expression"":""'I - ' + $feature.rte_num1""},
                     ""labelPlacement"":""esriServerLinePlacementAboveAlong"",
                     ""where"":""rte_num1 <> ' '"",
@@ -94,7 +93,7 @@ namespace ArcGISRuntime.UWP.Samples.ShowLabelsOnLayer
                }";
 
             // Create a label definition from the JSON string. 
-            LabelDefinition highwaysLabelDefinition = LabelDefinition.FromJson(theJSON_String);
+            LabelDefinition highwaysLabelDefinition = LabelDefinition.FromJson(theJsonString);
 
             // Add the label definition to the feature layer's label definition collection.
             highwaysFeatureLayer.LabelDefinitions.Add(highwaysLabelDefinition);

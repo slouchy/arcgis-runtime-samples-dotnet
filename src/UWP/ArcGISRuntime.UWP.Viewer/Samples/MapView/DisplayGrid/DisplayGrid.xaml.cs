@@ -36,32 +36,32 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
             MyMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
 
             // Configure the UI options.
-            gridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
-            var colorItemsSource = new[] { "Red", "Green", "Blue", "White", "Purple" };
-            gridColorCombo.ItemsSource = colorItemsSource;
-            labelColorCombo.ItemsSource = colorItemsSource;
-            haloColorCombo.ItemsSource = colorItemsSource;
-            labelPositionCombo.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
-            labelFormatCombo.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            foreach (var combo in new[] { gridTypeCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
+            GridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
+            string[] colorItemsSource = { "Red", "Green", "Blue", "White", "Purple" };
+            GridColorCombo.ItemsSource = colorItemsSource;
+            LabelColorCombo.ItemsSource = colorItemsSource;
+            HaloColorCombo.ItemsSource = colorItemsSource;
+            LabelPositionCombo.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
+            LabelFormatCombo.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
+            foreach (var combo in new[] { GridTypeCombo, GridColorCombo, LabelColorCombo, LabelPositionCombo, LabelFormatCombo })
             {
                 combo.SelectedIndex = 0;
             }
 
             // Apply a good default halo color selection.
-            haloColorCombo.SelectedIndex = 3;
+            HaloColorCombo.SelectedIndex = 3;
 
             // Subscribe to grid type change events in order to disable the format change option when it doesn't apply.
-            gridTypeCombo.SelectionChanged += (o, e) =>
+            GridTypeCombo.SelectionChanged += (o, e) =>
             {
-                labelFormatCombo.IsEnabled = gridTypeCombo.SelectedItem.ToString() == "LatLong";
+                LabelFormatCombo.IsEnabled = GridTypeCombo.SelectedItem.ToString() == "LatLong";
             };
 
             // Subscribe to the button click event.
-            applySettingsButton.Click += ApplySettingsButton_Click;
+            ApplySettingsButton.Click += ApplySettingsButton_Click;
 
             // Enable the action button.
-            applySettingsButton.IsEnabled = true;
+            ApplySettingsButton.IsEnabled = true;
 
             // Zoom to a default scale that will show the grid labels if they are enabled.
             MyMapView.SetViewpointCenterAsync(
@@ -76,12 +76,12 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
             Grid grid;
 
             // First, update the grid based on the type selected.
-            switch (gridTypeCombo.SelectedValue.ToString())
+            switch (GridTypeCombo.SelectedValue.ToString())
             {
                 case "LatLong":
                     grid = new LatitudeLongitudeGrid();
                     // Apply the label format setting.
-                    string selectedFormatString = labelFormatCombo.SelectedValue.ToString();
+                    string selectedFormatString = LabelFormatCombo.SelectedValue.ToString();
                     ((LatitudeLongitudeGrid)grid).LabelFormat =
                         (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat), selectedFormatString);
                     break;
@@ -101,32 +101,32 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
             }
 
             // Next, apply the label visibility setting.
-            grid.IsLabelVisible = labelVisibilityCheckbox.IsChecked.Value;
+            grid.IsLabelVisible = LabelVisibilityCheckbox.IsChecked == true;
 
             // Next, apply the grid visibility setting.
-            grid.IsVisible = gridVisibilityCheckbox.IsChecked.Value;
+            grid.IsVisible = GridVisibilityCheckbox.IsChecked == true;
 
             // Next, apply the grid color and label color settings for each zoom level.
             for (long level = 0; level < grid.LevelCount; level++)
             {
                 // Set the line symbol.
-                Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.FromName(gridColorCombo.SelectedItem.ToString()), 2);
+                Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.FromName(GridColorCombo.SelectedItem.ToString()), 2);
                 grid.SetLineSymbol(level, lineSymbol);
 
                 // Set the text symbol.
                 Symbol textSymbol = new TextSymbol
                 {
-                    Color = Colors.FromName(labelColorCombo.SelectedItem.ToString()),
-                    OutlineColor = Colors.FromName(haloColorCombo.SelectedItem.ToString()),
+                    Color = Colors.FromName(LabelColorCombo.SelectedItem.ToString()),
+                    OutlineColor = Colors.FromName(HaloColorCombo.SelectedItem.ToString()),
                     Size = 16,
-                    HaloColor = Colors.FromName(haloColorCombo.SelectedItem.ToString()),
+                    HaloColor = Colors.FromName(HaloColorCombo.SelectedItem.ToString()),
                     HaloWidth = 3
                 };
                 grid.SetTextSymbol(level, textSymbol);
             }
 
             // Next, apply the label position setting.
-            grid.LabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), labelPositionCombo.SelectedValue.ToString());
+            grid.LabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), LabelPositionCombo.SelectedValue.ToString());
 
             // Apply the updated grid.
             MyMapView.Grid = grid;

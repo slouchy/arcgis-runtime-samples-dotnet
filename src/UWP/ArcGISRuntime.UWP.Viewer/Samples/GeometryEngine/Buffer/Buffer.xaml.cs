@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
     public partial class Buffer
     {
         // Graphics overlay to display buffer related graphics.
-        private GraphicsOverlay _graphicsOverlay;
+        private readonly GraphicsOverlay _graphicsOverlay;
 
         public Buffer()
         {
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
                 MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
 
                 // Get the buffer size from the textbox.
-                double bufferInMiles = System.Convert.ToDouble(BufferDistanceMilesTextBox.Text);
+                double bufferInMiles = Convert.ToDouble(BufferDistanceMilesTextBox.Text);
 
                 // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
                 double bufferInMeters = bufferInMiles * 1609.34;
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 MessageDialog theMessageDialog = new MessageDialog("Geometry Engine Failed: " + ex.Message);

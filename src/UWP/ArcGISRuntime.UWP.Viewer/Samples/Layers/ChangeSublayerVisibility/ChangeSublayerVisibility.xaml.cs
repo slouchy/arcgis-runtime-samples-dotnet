@@ -60,7 +60,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
             // If layer is already loaded, this returns directly
             await _imageLayer.LoadAsync();
 
-            var dialog = new ContentDialog()
+            var dialog = new ContentDialog
             {
                 Title = "Sublayers",
                 FullSizeDesired = true
@@ -73,7 +73,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
             foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
             {
                 // Using a toggle that provides on/off functionality
-                var toggle = new ToggleSwitch()
+                var toggle = new ToggleSwitch
                 {
                     Header = sublayer.Name,
                     IsOn = sublayer.IsVisible,

@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Drawing;
@@ -52,7 +53,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
             MyMapView.Map = myMap;
 
             // Fill the combo box with choices for the sketch modes (shapes)
-            SketchModeComboBox.ItemsSource = System.Enum.GetValues(typeof(SketchCreationMode));
+            SketchModeComboBox.ItemsSource = Enum.GetValues(typeof(SketchCreationMode));
             SketchModeComboBox.SelectedIndex = 0;
 
             // Set the sketch editor configuration to allow vertex editing, resizing, and moving
@@ -66,7 +67,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
         }
 
         #region Graphic and symbol helpers
-        private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)
+        private Graphic CreateGraphic(Geometry geometry)
         {
             // Create a graphic to display the specified geometry
             Symbol symbol = null;
@@ -76,17 +77,17 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
                 case GeometryType.Envelope:
                 case GeometryType.Polygon:
                     {
-                        symbol = new SimpleFillSymbol()
+                        symbol = new SimpleFillSymbol
                         {
                             Color = Color.Red,
-                            Style = SimpleFillSymbolStyle.Solid,
+                            Style = SimpleFillSymbolStyle.Solid
                         };
                         break;
                     }
                 // Symbolize with a line symbol
                 case GeometryType.Polyline:
                     {
-                        symbol = new SimpleLineSymbol()
+                        symbol = new SimpleLineSymbol
                         {
                             Color = Color.Red,
                             Style = SimpleLineSymbolStyle.Solid,
@@ -99,7 +100,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
                 case GeometryType.Multipoint:
                     {
 
-                        symbol = new SimpleMarkerSymbol()
+                        symbol = new SimpleMarkerSymbol
                         {
                             Color = Color.Red,
                             Style = SimpleMarkerSymbolStyle.Circle,
@@ -122,7 +123,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
             var screenCoordinate = MyMapView.LocationToScreen(mapPoint);
 
             // Identify graphics in the graphics overlay using the point
-            var results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
 
             // If results were found, get the first graphic
             Graphic graphic = null;
@@ -146,7 +147,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
 
                 // Let the user draw on the map view using the chosen sketch mode
                 SketchCreationMode creationMode = (SketchCreationMode)SketchModeComboBox.SelectedItem;
-                Esri.ArcGISRuntime.Geometry.Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
+                Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew
                 Graphic graphic = CreateGraphic(geometry);

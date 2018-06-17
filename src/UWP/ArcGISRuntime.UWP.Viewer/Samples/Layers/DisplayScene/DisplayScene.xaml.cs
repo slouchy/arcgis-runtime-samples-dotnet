@@ -45,16 +45,17 @@ namespace ArcGISRuntime.UWP.Samples.DisplayScene
             Surface mySurface = new Surface();
 
             // Define the string that points to the elevation image service
-            string myElevationImageService = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+            const string myElevationImageService = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
             // Create a Uri from the elevation image service string
             Uri myUri = new Uri(myElevationImageService);
 
             // Create an ArcGIS tiled elevation 
-            ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource();
-
-            // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service
-            myArcGISTiledElevationSource.Source = myUri;
+            ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource
+            {
+                // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service
+                Source = myUri
+            };
 
             // Add the ArcGIS tiled elevation source to the surface's elevated sources collection
             mySurface.ElevationSources.Add(myArcGISTiledElevationSource);

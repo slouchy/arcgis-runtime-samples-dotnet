@@ -60,13 +60,11 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
             var featureTable = new ServiceFeatureTable(featureServiceUri);
 
             // Initialize a new feature layer based on the feature table
-            _featureLayer = new FeatureLayer(featureTable);
-
-            // Set the selection color for feature layer
-            _featureLayer.SelectionColor = Color.Cyan;
-
-            // Set the selection width
-            _featureLayer.SelectionWidth = 3;
+            _featureLayer = new FeatureLayer(featureTable)
+            {
+                SelectionColor = Color.Cyan,
+                SelectionWidth = 3
+            };
 
             // Make sure that used feature layer is loaded before we hook into the tapped event
             // This prevents us trying to do selection on the layer that isn't initialized
@@ -88,7 +86,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
             try
             {
                 // Define the selection tolerance
-                double tolerance = 5;
+                const double tolerance = 5;
 
                 // Convert the tolerance to map units
                 double mapTolerance = tolerance * MyMapView.UnitsPerPixel;
@@ -106,17 +104,18 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
                     geometry.Y + mapTolerance, MyMapView.Map.SpatialReference);
 
                 // Define the query parameters for selecting features
-                var queryParams = new QueryParameters();
-
-                // Set the geometry to selection envelope for selection by geometry
-                queryParams.Geometry = selectionEnvelope;
+                var queryParams = new QueryParameters
+                {
+                    // Set the geometry to selection envelope for selection by geometry
+                    Geometry = selectionEnvelope
+                };
 
                 // Select the features based on query parameters defined above
                 await _featureLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);
             }
             catch (Exception ex)
             {
-                var message = new MessageDialog(ex.ToString(), "An error occurred").ShowAsync();
+                new MessageDialog(ex.ToString(), "An error occurred").ShowAsync();
             }
         }
     }

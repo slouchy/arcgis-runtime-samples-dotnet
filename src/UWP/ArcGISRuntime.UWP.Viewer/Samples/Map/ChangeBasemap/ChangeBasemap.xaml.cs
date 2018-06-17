@@ -22,7 +22,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBasemap
     public partial class ChangeBasemap
     {
         // Dictionary that associates names with basemaps
-        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
+        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>
         {
             {"Streets (Raster)", Basemap.CreateStreets()},
             {"Streets (Vector)", Basemap.CreateStreetsVector()},
@@ -54,13 +54,13 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBasemap
             MyMapView.Map = myMap;
 
             // Set titles as a items source
-            basemapChooser.ItemsSource = _basemapOptions.Keys;
+            BasemapChooser.ItemsSource = _basemapOptions.Keys;
         }
 
         private void OnBasemapListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the title of the selected basemap
-            var selectedBasemapTtile = e.AddedItems[0].ToString();
+            string selectedBasemapTtile = e.AddedItems[0].ToString();
 
             // Retrieve the basemap from the dictionary
             MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTtile];

@@ -22,16 +22,14 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
     public partial class OpenMapURL
     {
         // String array to hold urls to publicly available web maps
-        private string[] _itemURLs = new string[]
-        {
+        private readonly string[] _itemURLs = {
             "http://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
             "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
             "http://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private string[] _titles = new string[]
-        {
+        private readonly string[] _titles = {
             "Population Pressure",
             "USA Tapestry Segmentation",
             "Geology of United States"
@@ -54,18 +52,18 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
             MyMapView.Map = myMap;
    
             // Set titles as a items source
-            mapsChooser.ItemsSource = _titles;
+            MapsChooser.ItemsSource = _titles;
 
             // Update selected item in list
-            mapsChooser.SelectedIndex = 0;
+            MapsChooser.SelectedIndex = 0;
         }
 
         private void OnMapsChooseSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedMap = e.AddedItems[0].ToString();
+            string selectedMap = e.AddedItems[0].ToString();
 
             // Get index that is used to get the selected url
-            var selectedIndex = _titles.ToList().IndexOf(selectedMap);
+            int selectedIndex = _titles.ToList().IndexOf(selectedMap);
 
             // Create a new Map instance with url of the webmap that selected
             MyMapView.Map = new Map(new Uri(_itemURLs[selectedIndex]));

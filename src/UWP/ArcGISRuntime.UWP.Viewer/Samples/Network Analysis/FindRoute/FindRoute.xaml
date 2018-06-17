@@ -19,14 +19,12 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button x:Name="SolveRouteButton"
-                        HorizontalAlignment="Stretch"
+                <Button HorizontalAlignment="Stretch"
                         Height="30"
                         Margin="0,5"
                         Content="Solve Route"
                         Click="SolveRouteClick"/>
-                <Button x:Name="ResetButton"
-                        HorizontalAlignment="Stretch"
+                <Button HorizontalAlignment="Stretch"
                         Height="30"
                         Content="Reset"
                         Click="ResetClick"/>

@@ -40,7 +40,7 @@
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Text="Statistics: US States"/>
-        <TextBlock Grid.Row="1" 
+        <TextBlock Grid.Row="1" Grid.Column="0"
                    HorizontalAlignment="Right" VerticalAlignment="Center"
                    Text="Field:"/>
         <ComboBox x:Name="FieldsComboBox" 
@@ -60,13 +60,12 @@
                   Grid.Row="1" Grid.Column="3"
                   HorizontalAlignment="Stretch"
                   Margin="5" VerticalAlignment="Center"/>
-        <Button x:Name="AddStatisticButton"
-                Grid.Row="1" Grid.Column="4"
+        <Button Grid.Row="1" Grid.Column="4"
                 Margin="3"
                 Content="+"
                 Click="AddStatisticClicked"/>
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="5"
-                 Margin="25,5">
+        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="5" Grid.Column="0"
+                      Margin="25,5">
             <ListBox x:Name="StatFieldsListBox"                 
                  Height="120">
                 <ListBox.ItemTemplate>
@@ -81,18 +80,17 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </ScrollViewer>
-        <Button x:Name="RemoveStatField"
-                Grid.Row="3" Grid.Column="3"
+        <Button Grid.Row="3" Grid.Column="3"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top"
                 Content="Remove" 
                 Height="30"
                 Click="RemoveStatisticClicked"/>
         <TextBlock Text="Group by"
-                   Grid.Row="4" Grid.ColumnSpan="2"
+                   Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0"
                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    Margin="25,0,0,5"/>
         <ListBox x:Name="GroupFieldsListBox"
-                 Grid.Row="5" Grid.ColumnSpan="5"
+                 Grid.Row="5" Grid.ColumnSpan="5" Grid.Column="0"
                  MinHeight="110"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                  Margin="25,0">
@@ -106,11 +104,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <TextBlock Text="Order by"
-                   Grid.Row="6" Grid.ColumnSpan="2"
+                   Grid.Row="6" Grid.ColumnSpan="2" Grid.Column="0"
                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    Margin="25,0,0,5"/>
         <ListBox x:Name="OrderByFieldsListBox"
-                 Grid.Row="7" Grid.ColumnSpan="5"
+                 Grid.Row="7" Grid.ColumnSpan="5" Grid.Column="0"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                  MinHeight="110"
                  Margin="25,0">
@@ -131,21 +129,19 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="SortOrderButton"
-                Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="2"
+        <Button Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="2"
                 HorizontalAlignment="Center" VerticalAlignment="Top"
                 Margin="0,5,25,0"
                 Padding="5,0"
                 Content="Change sort order"
                 Click="ChangeFieldSortOrder"/>
-        <Button x:Name="GetStatisticsButton"
-                Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5"
+        <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Padding="10,0" Margin="25,5,30,5"
                 Content="Get Statistics"
                 Click="OnExecuteStatisticsQueryClicked" Height="40"/>
 
-        <ScrollViewer x:Name="SmallResultsPanel" Grid.Row="10" Grid.ColumnSpan="5"
+        <ScrollViewer Grid.Row="10" Grid.ColumnSpan="5" Grid.Column="0"
                       Margin="25,0">
             <ListView ItemsSource="{Binding Source={StaticResource GroupedResultData}}">
                 <ListView.GroupStyle>
@@ -176,8 +172,7 @@
             </ListView>
         </ScrollViewer>
 
-        <ScrollViewer x:Name="LargeResultsPanel"
-                      Grid.Row="0" Grid.Column="5" Grid.RowSpan="10"
+        <ScrollViewer Grid.Row="0" Grid.Column="5" Grid.RowSpan="10"
                       Margin="15,0">
             <ListView Width="300"
                       ItemsSource="{Binding Source={StaticResource GroupedResultData}}">

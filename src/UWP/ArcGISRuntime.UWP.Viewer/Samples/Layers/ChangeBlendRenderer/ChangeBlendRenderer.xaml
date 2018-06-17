@@ -18,19 +18,19 @@
                            Margin="0,0,0,2" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <StackPanel Grid.Row="1" >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="Label_Altitude" Text="Altitude" Margin="10,5"/>
-                        <Slider x:Name="Altitude_Slider" Width="200" />
+                        <TextBlock Text="Altitude" Margin="10,5"/>
+                        <Slider x:Name="AltitudeSlider" Width="200" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="Label_Azimuth"  Text="Azimuth" Margin="10, 5"/>
-                        <Slider x:Name="Azimuth_Slider" Width="200" />
+                        <TextBlock Text="Azimuth" Margin="10, 5"/>
+                        <Slider x:Name="AzimuthSlider" Width="200" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="Label_SlopeTypes"  Text="Slope Type" Margin="10, 5"/>
+                        <TextBlock Text="Slope Type" Margin="10, 5"/>
                         <ComboBox x:Name="SlopeTypes" Margin="10,5" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="Label_ColorRamps"  Text="Color Ramp" Margin="10, 5"/>
+                        <TextBlock Text="Color Ramp" Margin="10, 5"/>
                         <ComboBox x:Name="ColorRamps" Margin="10,5" />
                     </StackPanel>
                 </StackPanel>

@@ -55,9 +55,8 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
         // For taxi animation - tracks animation state
         private int _pointIndex = 0;
-
         private int _frameIndex = 0;
-        private readonly int _frameMax = 150;
+        private const int FrameMax = 150;
 
         public LineOfSightGeoElement()
         {
@@ -82,7 +81,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
             // Add the observer to the scene
             // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted
-            GraphicsOverlay overlay = new GraphicsOverlay() { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
+            GraphicsOverlay overlay = new GraphicsOverlay { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
             // Create the symbol that will symbolize the observation point
             SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
             // Create the observation point graphic from the point and symbol
@@ -104,9 +103,11 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
             // Create GeoElement Line of sight analysis (taxi to building)
             // Create the analysis
-            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic);
-            // Apply an offset to the target. This helps avoid some false negatives
-            _geoLine.TargetOffsetZ = 2;
+            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic)
+            {
+                // Apply an offset to the target. This helps avoid some false negatives
+                TargetOffsetZ = 2
+            };
             // Create the analysis overlay
             AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
             // Add the analysis to the overlay
@@ -115,7 +116,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             MySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
             // Create a timer; this will enable animating the taxi
-            Windows.UI.Xaml.DispatcherTimer animationTimer = new Windows.UI.Xaml.DispatcherTimer()
+            Windows.UI.Xaml.DispatcherTimer animationTimer = new Windows.UI.Xaml.DispatcherTimer
             {
                 Interval = new TimeSpan(0, 0, 0, 0, 60)
             };
@@ -142,7 +143,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             _frameIndex++;
 
             // Reset the frame counter once one segment of the path has been travelled
-            if (_frameIndex == _frameMax)
+            if (_frameIndex == FrameMax)
             {
                 _frameIndex = 0;
 
@@ -161,7 +162,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             // Get the point the taxi is travelling to
             MapPoint ending = _points[(_pointIndex + 1) % _points.Length];
             // Calculate the progress based on the current frame
-            double progress = _frameIndex / (double)_frameMax;
+            double progress = _frameIndex / (double)FrameMax;
             // Calculate the position of the taxi when it is {progress}% of the way through
             MapPoint intermediatePoint = InterpolatedPoint(starting, ending, progress);
             // Update the taxi geometry
@@ -220,8 +221,8 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             // Update the height of the observer based on the slider value
 
             // Constrain the min and max to 20 and 150 units
-            double minHeight = 20;
-            double maxHeight = 150;
+            const double minHeight = 20;
+            const double maxHeight = 150;
 
             // Scale the slider value; its default range is 0-100
             double value = e.NewValue / 100;

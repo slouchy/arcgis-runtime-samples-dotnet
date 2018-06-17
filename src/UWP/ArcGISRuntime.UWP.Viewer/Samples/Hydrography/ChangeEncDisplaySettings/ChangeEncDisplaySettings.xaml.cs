@@ -45,7 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
 
             // Create the Exchange Set
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data
-            EncExchangeSet myEncExchangeSet = new EncExchangeSet(new string[] { encPath });
+            EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
 
             // Wait for the exchange set to load
             await myEncExchangeSet.LoadAsync();
@@ -97,16 +97,16 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
             EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;
 
             // Apply color scheme
-            if ((bool)radDay.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
-            else if ((bool)radDusk.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
-            else if ((bool)radNight.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
+            if (DayRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
+            else if (DuskRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
+            else if (NightRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
 
             // Apply area symbolization
-            if ((bool)radAreaPlain.IsChecked) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
+            if (AreaPlainRadioButton.IsChecked == true) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
             else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization
-            if ((bool)radPointPaper.IsChecked) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            if (PointPaperRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 

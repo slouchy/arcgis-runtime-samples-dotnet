@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
     public partial class FeatureLayerQuery
     {
         // Create reference to service of US States  
-        private string _statesUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
+        private const string StatesUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
 
         // Create globally available feature table for easy referencing 
         private ServiceFeatureTable _featureTable;
@@ -55,13 +56,14 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 100000000);
 
             // Create feature table using a url
-            _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
+            _featureTable = new ServiceFeatureTable(new Uri(StatesUrl));
 
             // Create feature layer using this feature table
-            _featureLayer = new FeatureLayer(_featureTable);
-
-            // Set the Opacity of the Feature Layer
-            _featureLayer.Opacity = 0.6;
+            _featureLayer = new FeatureLayer(_featureTable)
+            {
+                // Set the Opacity of the Feature Layer
+                Opacity = 0.6
+            };
 
             // Create a new renderer for the States Feature Layer
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(
@@ -87,7 +89,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
                 QueryParameters queryParams = new QueryParameters();
 
                 // Trim whitespace on the state name to prevent broken queries
-                String formattedStateName = stateName.Trim().ToUpper();
+                string formattedStateName = stateName.Trim().ToUpper();
 
                 // Construct and assign the where clause that will be used to query the feature table 
                 queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + formattedStateName + "%'";
@@ -96,7 +98,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
 
                 // Cast the QueryResult to a List so the results can be interrogated
-                var features = queryResult.ToList();
+                List<Feature> features = queryResult.ToList();
 
                 if (features.Any())
                 {

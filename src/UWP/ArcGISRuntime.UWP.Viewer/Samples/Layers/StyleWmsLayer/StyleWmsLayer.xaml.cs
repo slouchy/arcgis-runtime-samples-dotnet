@@ -23,10 +23,10 @@ namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
     public partial class StyleWmsLayer
     {
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota. 
-        private Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
+        private readonly Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private List<String> _wmsLayerNames = new List<string> { "fsa2017" };
+        private readonly List<string> _wmsLayerNames = new List<string> { "fsa2017" };
 
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;

@@ -90,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
             IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult = await myFeatureTable.QueryRelatedFeaturesAsync(myFeature);
 
             // Create a list to hold the formatted results of the query
-            List<String> queryResultsForUi = new List<string>();
+            List<string> queryResultsForUi = new List<string>();
 
             // For each query result
             foreach (RelatedFeatureQueryResult result in relatedFeaturesResult)
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
                     string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
 
                     // Create a formatted result string
-                    string formattedResult = String.Format("{0} - {1}", tableName, featureDisplayname);
+                    string formattedResult = $"{tableName} - {featureDisplayname}";
 
                     // Add the result to the list
                     queryResultsForUi.Add(formattedResult);

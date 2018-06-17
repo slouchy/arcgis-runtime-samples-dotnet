@@ -14,7 +14,7 @@
             <StackPanel>
                 <TextBlock Text="Select Vector Layer" HorizontalAlignment="Center"
                            Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ComboBox Name="vectorLayersChooser" SelectionChanged="OnVectorLayersChooserSelectionChanged" HorizontalAlignment="Stretch" />
+                <ComboBox Name="VectorLayerPicker" SelectionChanged="OnVectorLayersChooserSelectionChanged" HorizontalAlignment="Stretch" />
             </StackPanel>
         </Border>
     </Grid>

@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace ArcGISRuntime.UWP.Samples.ShowMagnifier
 {

@@ -26,10 +26,10 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
     public partial class WmsIdentify
     {
         // Create and hold the URL to the WMS service showing EPA water info
-        private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private readonly Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Create and hold a list of uniquely-identifying WMS layer names to display
-        private List<String> _wmsLayerNames = new List<string> { "4" };
+        private readonly List<string> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
         private WmsLayer _wmsLayer;
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
             IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
 
             // Return if there's nothing to show
-            if (myIdentifyResult.GeoElements.Count() < 1)
+            if (!myIdentifyResult.GeoElements.Any())
             {
                 return;
             }
@@ -90,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
         private void ShowHtmlCallout(string htmlContent, MapPoint position)
         {
             // Create the web browser control
-            WebView htmlView = new WebView() { Height = 100, Width = 200 };
+            WebView htmlView = new WebView { Height = 100, Width = 200 };
 
             // Display the string content as an HTML document
             htmlView.NavigateToString(htmlContent);

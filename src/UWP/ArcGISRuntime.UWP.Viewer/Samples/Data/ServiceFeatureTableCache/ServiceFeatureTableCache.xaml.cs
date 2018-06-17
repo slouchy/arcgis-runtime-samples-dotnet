@@ -45,10 +45,10 @@ namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableCache
                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Create feature table for the pools feature service
-            ServiceFeatureTable poolsFeatureTable = new ServiceFeatureTable(serviceUri);
-
-            // Define the request mode
-            poolsFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
+            ServiceFeatureTable poolsFeatureTable = new ServiceFeatureTable(serviceUri)
+            {
+                FeatureRequestMode = FeatureRequestMode.OnInteractionCache
+            };
 
             // Create FeatureLayer that uses the created table
             FeatureLayer poolsFeatureLayer = new FeatureLayer(poolsFeatureTable);

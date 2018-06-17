@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.RenderSimpleMarkers
@@ -53,7 +52,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderSimpleMarkers
             MyMapView.GraphicsOverlays.Add(overlay);
 
             // Create a simple marker symbol
-            SimpleMarkerSymbol simpleSymbol = new SimpleMarkerSymbol()
+            SimpleMarkerSymbol simpleSymbol = new SimpleMarkerSymbol
             {
                 Color = Color.Red,
                 Size = 10,

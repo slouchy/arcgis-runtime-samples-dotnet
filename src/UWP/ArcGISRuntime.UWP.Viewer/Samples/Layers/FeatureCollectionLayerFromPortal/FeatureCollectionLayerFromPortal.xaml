@@ -14,7 +14,7 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Create a feature collection layer:"
-                       Grid.Row="0" Grid.Column="1"
+                       Grid.Row="0"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
                        Margin="20,0"/>
             <StackPanel Grid.Row="1" 
@@ -29,8 +29,7 @@
                          VerticalAlignment="Center"
                          Height="30" Width="240"/>
             </StackPanel>
-            <Button x:Name="OpenPortalFeatureCollectionButton" 
-                    Click="OpenPortalFeatureCollectionClick"
+            <Button Click="OpenPortalFeatureCollectionClick"
                     Content="Open from portal item"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
                     Grid.Row="2"

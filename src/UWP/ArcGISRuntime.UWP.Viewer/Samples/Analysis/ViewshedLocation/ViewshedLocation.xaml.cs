@@ -119,11 +119,11 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             _viewshed.MaxDistance = MaximumDistanceSlider.Value;
 
             // Update visibility of the viewshed analysis.
-            _viewshed.IsVisible = (bool)AnalysisVisibilityCheck.IsChecked;
+            _viewshed.IsVisible = AnalysisVisibilityCheck.IsChecked == true;
 
             // Update visibility of the frustum. Note that the frustum will be invisible
             //     regardless of this setting if the viewshed analysis is not visible.
-            _viewshed.IsFrustumOutlineVisible = (bool)FrustumVisibilityCheck.IsChecked;
+            _viewshed.IsFrustumOutlineVisible = FrustumVisibilityCheck.IsChecked == true;
         }
     }
 }

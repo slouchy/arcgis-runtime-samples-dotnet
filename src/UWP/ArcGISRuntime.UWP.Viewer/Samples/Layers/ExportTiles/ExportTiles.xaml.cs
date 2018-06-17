@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
     public partial class ExportTiles
     {
         // URL to the service that tiles will be exported from.
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private readonly Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
         // Path to the tile package on disk.
         private string _tilePath;
@@ -54,22 +54,22 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
                 await myLayer.LoadAsync();
 
                 // Create the basemap with the layer.
-                Map myMap = new Map(new Basemap(myLayer));
-
-                // Set the min and max scale - export task fails if the scale is too big or small.
-                myMap.MaxScale = 5000000;
-                myMap.MinScale = 10000000;
-
-                // Assign the map to the mapview.
-                MyMapView.Map = myMap;
+                MyMapView.Map = new Map(new Basemap(myLayer))
+                {
+                    // Set the min and max scale - export task fails if the scale is too big or small.
+                    MaxScale = 5000000,
+                    MinScale = 10000000
+                };
 
                 // Create a new symbol for the extent graphic.
                 //     This is the red box that visualizes the extent for which tiles will be exported.
                 SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
                 // Create a graphics overlay for the extent graphic and apply a renderer.
-                GraphicsOverlay extentOverlay = new GraphicsOverlay();
-                extentOverlay.Renderer = new SimpleRenderer(myExtentSymbol);
+                GraphicsOverlay extentOverlay = new GraphicsOverlay
+                {
+                    Renderer = new SimpleRenderer(myExtentSymbol)
+                };
 
                 // Add the graphics overlay to the map view.
                 MyMapView.GraphicsOverlays.Add(extentOverlay);
@@ -168,34 +168,35 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
 
         private async Task HandleExportComplete(ExportTileCacheJob job, TileCache cache)
         {
-            // Update the view if the job is complete.
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            switch (job.Status)
             {
-                // Show the exported tiles on the preview map.
-                await UpdatePreviewMap(cache);
+                // Update the view if the job is complete.
+                case Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded:
+                    // Show the exported tiles on the preview map.
+                    await UpdatePreviewMap(cache);
 
-                // Show the preview window.
-                MyPreviewMapView.Visibility = Visibility.Visible;
+                    // Show the preview window.
+                    MyPreviewMapView.Visibility = Visibility.Visible;
 
-                // Show the 'close preview' button.
-                MyClosePreviewButton.Visibility = Visibility.Visible;
+                    // Show the 'close preview' button.
+                    MyClosePreviewButton.Visibility = Visibility.Visible;
 
-                // Hide the 'export tiles' button.
-                MyExportButton.Visibility = Visibility.Collapsed;
+                    // Hide the 'export tiles' button.
+                    MyExportButton.Visibility = Visibility.Collapsed;
 
-                // Hide the progress bar.
-                MyProgressBar.Visibility = Visibility.Collapsed;
+                    // Hide the progress bar.
+                    MyProgressBar.Visibility = Visibility.Collapsed;
 
-                // Enable the 'export tiles' button.
-                MyExportButton.IsEnabled = true;
-            }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
-            {
-                // Notify the user.
-                ShowStatusMessage("Job failed");
+                    // Enable the 'export tiles' button.
+                    MyExportButton.IsEnabled = true;
+                    break;
+                case Esri.ArcGISRuntime.Tasks.JobStatus.Failed:
+                    // Notify the user.
+                    ShowStatusMessage("Job failed");
 
-                // Hide the progress bar.
-                MyProgressBar.Visibility = Visibility.Collapsed;
+                    // Hide the progress bar.
+                    MyProgressBar.Visibility = Visibility.Collapsed;
+                    break;
             }
         }
 

@@ -26,13 +26,13 @@ namespace ArcGISRuntime.UWP.Samples.CutGeometry
     public partial class CutGeometry
     {
         // Graphics overlay to display the graphics.
-        private GraphicsOverlay _graphicsOverlay;
+        private readonly GraphicsOverlay _graphicsOverlay;
 
         // Graphic that represents the polygon of Lake Superior.
-        private Graphic _lakeSuperiorPolygonGraphic;
+        private readonly Graphic _lakeSuperiorPolygonGraphic;
 
         // Graphic that represents the Canada and USA border (polyline) of Lake Superior.
-        private Graphic _countryBorderPolylineGraphic;
+        private readonly Graphic _countryBorderPolylineGraphic;
 
         public CutGeometry()
         {
@@ -112,7 +112,7 @@ namespace ArcGISRuntime.UWP.Samples.CutGeometry
                 // Disable the button after has been used.
                 CutButton.IsEnabled = false;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating cut operation.
                 MessageDialog theMessageDialog = new MessageDialog("Geometry Engine Failed: " + ex.Message);

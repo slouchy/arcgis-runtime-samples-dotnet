@@ -60,10 +60,10 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             MyMapView.Map = myMap;
         }
 
-        private async void BtnZoomToFeaturesClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryStates = new QueryParameters() { WhereClause = $"upper(ST) LIKE '%{StateEntry.Text.ToUpper()}%'" };
+            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(ST) LIKE '%{StateEntry.Text.ToUpper()}%'" };
 
             // Get the extent from the query
             Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             ResultView.Visibility = Visibility.Visible;
         }
 
-        private async void BtnCountFeaturesClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
         {
             // Create the query parameters
             QueryParameters queryCityCount = new QueryParameters

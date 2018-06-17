@@ -134,9 +134,11 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
 
             // Create the plane graphic; this is symbolized as a blue triangle because of renderer implemented above
             // Create the attribute dictionary
-            Dictionary<string, object> plane2DAttributes = new Dictionary<string, object>();
+            Dictionary<string, object> plane2DAttributes = new Dictionary<string, object>
+            {
+                ["ANGLE"] = 0f
+            };
             // Set the angle for the plane graphic
-            plane2DAttributes["ANGLE"] = 0f;
             // Create the graphic from the attributes and the initial point
             _plane2D = new Graphic(new MapPoint(0, 0, SpatialReferences.Wgs84), plane2DAttributes);
             // Add the plane graphic to the inset map via the overlay
@@ -160,7 +162,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             MySceneView.CameraController = _orbitCameraController;
 
             // Create a timer; this will enable animating the plane
-            _animationTimer = new DispatcherTimer()
+            _animationTimer = new DispatcherTimer
             {
                 // This is the duration of the timer in milliseconds. This controls the animation speed (fps)
                 Interval = new TimeSpan(0, 0, 0, 0, 60)

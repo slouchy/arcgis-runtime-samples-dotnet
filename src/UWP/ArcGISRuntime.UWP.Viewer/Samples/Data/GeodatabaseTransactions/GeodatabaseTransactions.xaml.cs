@@ -33,7 +33,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         private const string SyncServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer/";
 
         // Work in a small extent south of Galveston, TX
-        private Envelope _extent = new Envelope(-95.3035, 29.0100, -95.1053, 29.1298, SpatialReferences.Wgs84);
+        private readonly Envelope _extent = new Envelope(-95.3035, 29.0100, -95.1053, 29.1298, SpatialReferences.Wgs84);
 
         // Store the local geodatabase to edit
         private Geodatabase _localGeodatabase;
@@ -68,7 +68,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         private async Task GetLocalGeodatabase()
         {
             // Get the path to the local geodatabase for this platform (temp directory, for example)
-            var localGeodatabasePath = GetGdbPath();
+            string localGeodatabasePath = GetGdbPath();
 
             try
             {
@@ -100,24 +100,25 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready
                     generateGdbJob.JobChanged += async (s, e) =>
                     {
-                        // See if the job succeeded
-                        if (generateGdbJob.Status == JobStatus.Succeeded)
+                        switch (generateGdbJob.Status)
                         {
-                            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                            {
-                                // Hide the progress control and update the message
-                                LoadingProgressBar.Visibility = Visibility.Collapsed;
-                                MessageTextBlock.Text = "Created local geodatabase";
-                            });
-                        }
-                        else if (generateGdbJob.Status == JobStatus.Failed)
-                        {
-                            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                            {
-                                // Hide the progress control and report the exception
-                                LoadingProgressBar.Visibility = Visibility.Collapsed;
-                                MessageTextBlock.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
-                            });
+                            // See if the job succeeded
+                            case JobStatus.Succeeded:
+                                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                {
+                                    // Hide the progress control and update the message
+                                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                                    MessageTextBlock.Text = "Created local geodatabase";
+                                });
+                                break;
+                            case JobStatus.Failed:
+                                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                {
+                                    // Hide the progress control and report the exception
+                                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                                    MessageTextBlock.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
+                                });
+                                break;
                         }
                     };
 
@@ -334,7 +335,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         }
 
         // Synchronize edits in the local geodatabase with the service
-        public async void SynchronizeEdits(object sender, RoutedEventArgs e)
+        private async void SynchronizeEdits(object sender, RoutedEventArgs e)
         {
             // Show the progress bar while the sync is working
             LoadingProgressBar.Visibility = Visibility.Visible;
@@ -353,26 +354,25 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                 // Handle the JobChanged event for the job
                 job.JobChanged += (s, arg) =>
                 {
-                    // Report changes in the job status
-                    if (job.Status == JobStatus.Succeeded)
+                    switch (job.Status)
                     {
-                        // Report success ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
-                    }
-                    else if (job.Status == JobStatus.Failed)
-                    {
-                        // Report failure ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
-                    }
-                    else
-                    {
-                        // Report that the job is in progress ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
+                        // Report changes in the job status
+                        case JobStatus.Succeeded:
+                            // Report success ...
+                            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
+                            break;
+                        case JobStatus.Failed:
+                            // Report failure ...
+                            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
+                            break;
+                        default:
+                            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
+                            break;
                     }
                 };
 
                 // Await the completion of the job
-                var result = await job.GetResultAsync();
+                await job.GetResultAsync();
             }
             catch (Exception ex)
             {

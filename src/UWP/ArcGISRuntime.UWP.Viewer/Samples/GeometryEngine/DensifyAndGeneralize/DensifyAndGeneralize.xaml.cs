@@ -25,11 +25,11 @@ namespace ArcGISRuntime.UWP.Samples.DensifyAndGeneralize
     public partial class DensifyAndGeneralize
     {
         // Graphic used to refer to the original geometry.
-        private Polyline _originalPolyline;
+        private readonly Polyline _originalPolyline;
 
         // Graphics used to show the densify or generalize result.
-        private Graphic _resultPolylineGraphic;
-        private Graphic _resultPointGraphic;
+        private readonly Graphic _resultPolylineGraphic;
+        private readonly Graphic _resultPointGraphic;
 
         public DensifyAndGeneralize()
         {

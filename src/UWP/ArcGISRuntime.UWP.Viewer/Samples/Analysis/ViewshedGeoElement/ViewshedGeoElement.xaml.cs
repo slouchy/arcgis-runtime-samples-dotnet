@@ -16,7 +16,6 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
 {
@@ -74,9 +73,10 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
 
             // Configure heading expression for tank; this will allow the
             //     viewshed to update automatically based on the tank's position.
-            SimpleRenderer renderer3D = new SimpleRenderer();
-            renderer3D.SceneProperties.HeadingExpression = "[HEADING]";
-            _tankOverlay.Renderer = renderer3D;
+            _tankOverlay.Renderer = new SimpleRenderer
+            {
+                SceneProperties = {HeadingExpression = "[HEADING]"}
+            };
 
             // Create the tank graphic - get the model path.
             string modelPath = GetModelPath();
@@ -122,7 +122,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             MySceneView.CameraController = cameraController;
 
             // Create a timer; this will enable animating the tank.
-            Windows.UI.Xaml.DispatcherTimer animationTimer = new Windows.UI.Xaml.DispatcherTimer()
+            Windows.UI.Xaml.DispatcherTimer animationTimer = new Windows.UI.Xaml.DispatcherTimer
             {
                 Interval = new TimeSpan(0, 0, 0, 0, 60)
             };
@@ -149,13 +149,13 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
                 location, _tankEndPoint, _metersUnit, _degreesUnit, GeodeticCurveType.Geodesic);
 
             // Move the tank a short distance.
-            location = GeometryEngine.MoveGeodetic(new List<MapPoint>() { location }, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
+            location = GeometryEngine.MoveGeodetic(new List<MapPoint> { location }, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
                 GeodeticCurveType.Geodesic).First();
             _tank.Geometry = location;
 
             // Rotate to face the destination.
             double heading = (double)_tank.Attributes["HEADING"];
-            heading = heading + ((distance.Azimuth1 - heading) / 10);
+            heading = heading + (distance.Azimuth1 - heading) / 10;
             _tank.Attributes["HEADING"] = heading;
 
             // Clear the destination if the tank already arrived.

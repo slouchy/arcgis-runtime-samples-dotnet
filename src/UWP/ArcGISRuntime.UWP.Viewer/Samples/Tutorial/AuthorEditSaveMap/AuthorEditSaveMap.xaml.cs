@@ -59,13 +59,13 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         private void OnBasemapsClicked(object sender, SelectionChangedEventArgs e)
         {
             // Get the text (basemap name) selected in the list box
-            var basemapName = e.AddedItems[0].ToString();
+            string basemapName = e.AddedItems[0].ToString();
 
             // Pass the basemap name to the view model method to change the basemap
             ViewModel.ChangeBasemap(basemapName);
 
             // Hide the basemaps flyout
-            flyguy.Hide();
+            BasemapFlyout.Hide();
         }
 
         private async void OnSaveMapClick(object sender, RoutedEventArgs e)
@@ -88,9 +88,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
                 await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
 
                 // Get information for the new portal item
-                var title = TitleTextBox.Text;
-                var description = DescriptionTextBox.Text;
-                var tags = TagsTextBox.Text.Split(',');
+                string title = TitleTextBox.Text;
+                string description = DescriptionTextBox.Text;
+                string[] tags = TagsTextBox.Text.Split(',');
 
                 // Return if the text is null or empty
                 if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description))
@@ -141,21 +141,17 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo();
-
-            // ArcGIS Online URI
-            portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
-            
-            // Type of token authentication to use
-            portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
-
-            // Define the OAuth information
-            OAuthClientInfo oAuthInfo = new OAuthClientInfo
+            ServerInfo portalServerInfo = new ServerInfo
             {
-                ClientId = AppClientId,
-                RedirectUri = new Uri(OAuthRedirectUrl)
+                ServerUri = new Uri(ArcGISOnlineUrl),
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
+                // Define the OAuth information
+                OAuthClientInfo = new OAuthClientInfo
+                {
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
+                }
             };
-            portalServerInfo.OAuthClientInfo = oAuthInfo;
 
             // Get a reference to the (singleton) AuthenticationManager for the app
             AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
@@ -169,17 +165,17 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
 
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            Credential credential = null;
+            Credential credential;
 
             try
             {
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

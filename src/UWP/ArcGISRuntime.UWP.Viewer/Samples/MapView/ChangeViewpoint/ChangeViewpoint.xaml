@@ -28,8 +28,7 @@
                         Width="Auto"
                         Click="OnButtonClick"
                         RelativePanel.RightOf="GeomButton"/>
-                    <Button x:Name="AnimateButton"
-                        Content="Animate"
+                    <Button Content="Animate"
                         Margin="10,10,0,0"
                         Width="Auto"
                         Click="OnButtonClick"

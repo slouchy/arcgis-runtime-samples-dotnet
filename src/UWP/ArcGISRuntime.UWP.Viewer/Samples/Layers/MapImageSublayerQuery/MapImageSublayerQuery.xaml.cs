@@ -69,7 +69,7 @@ namespace ArcGISRuntime.UWP.Samples.MapImageSublayerQuery
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // If the population value entered is not numeric, warn the user and exit.
-            double populationNumber = 0.0;
+            double populationNumber;
             if (!double.TryParse(PopulationTextBox.Text.Trim(), out populationNumber))
             {
                 MessageDialog dialog = new MessageDialog("The population value must be numeric.", "Query error");

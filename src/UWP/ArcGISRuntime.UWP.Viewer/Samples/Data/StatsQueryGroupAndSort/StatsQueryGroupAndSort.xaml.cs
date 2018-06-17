@@ -27,19 +27,19 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
     public partial class StatsQueryGroupAndSort
     {
         // URI for the US states map service
-        private Uri _usStatesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+        private readonly Uri _usStatesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
         // US states feature table
         private FeatureTable _usStatesTable;
 
         // Collection of (user-defined) statistics to use in the query
-        private ObservableCollection<StatisticDefinition> _statDefinitions = new ObservableCollection<StatisticDefinition>();
+        private readonly ObservableCollection<StatisticDefinition> _statDefinitions = new ObservableCollection<StatisticDefinition>();
 
         // Selected fields for grouping results
-        private List<string> _groupByFields = new List<string>();
+        private readonly List<string> _groupByFields = new List<string>();
 
         // Collection to hold fields to order results by
-        private ObservableCollection<OrderFieldOption> _orderByFields = new ObservableCollection<OrderFieldOption>();
+        private readonly ObservableCollection<OrderFieldOption> _orderByFields = new ObservableCollection<OrderFieldOption>();
 
         public StatsQueryGroupAndSort()
         {
@@ -117,7 +117,7 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
         private void GroupFieldCheckChanged(object sender, RoutedEventArgs e)
         {
             // Get the check box that raised the event (group field)
-            CheckBox groupFieldCheckBox = (sender as CheckBox);
+            CheckBox groupFieldCheckBox = sender as CheckBox;
 
             // Get the field name
             string fieldName = groupFieldCheckBox.Content.ToString();
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             // If it doesn't exist, create it and add it to the collection (use the field name and statistic type to build the output alias)
             if (existingStatDefinition == null)
             {
-                StatisticDefinition statDefinition = new StatisticDefinition(fieldName, statType, fieldName + "_" + statType.ToString());
+                StatisticDefinition statDefinition = new StatisticDefinition(fieldName, statType, fieldName + "_" + statType);
                 _statDefinitions.Add(statDefinition);
             }
         }
@@ -252,10 +252,10 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
     public class OrderFieldOption
     {
         // Whether or not to use this field to order results
-        public bool OrderWith { get; set; }
+        public bool OrderWith { get; }
 
         // The order by info: field name and sort order
-        public OrderBy OrderInfo { get; set; }
+        public OrderBy OrderInfo { get; }
 
         public OrderFieldOption(bool orderWith, OrderBy orderInfo)
         {

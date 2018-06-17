@@ -25,12 +25,12 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
     public partial class ChangeViewpoint
     {
         // Coordinates for London
-        private MapPoint _londonCoords = new MapPoint(
-            -13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
-        private double _londonScale = 8762.7156655228955;
+        private readonly MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+
+        private const double LondonScale = 8762.7156655228955;
 
         // Coordinates for Redlands
-        private Polygon _redlandsEnvelope = new Polygon(
+        private readonly Polygon _redlandsEnvelope = new Polygon(
             new List<MapPoint>
                 {
                     new MapPoint(-13049785.1566222, 4032064.6003424),
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
             SpatialReferences.WebMercator);
 
         // Coordinates for Edinburgh
-        private Polygon _edinburghEnvelope = new Polygon(
+        private readonly Polygon _edinburghEnvelope = new Polygon(
             new List<MapPoint>
             {
                 new MapPoint(-354262.156621384, 7548092.94093301),
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
         {
             // Get .Content from the selected item
             Button myButton = sender as Button;
-            var selectedMapTitle = myButton.Content.ToString();
+            string selectedMapTitle = myButton.Content.ToString();
 
             switch (selectedMapTitle)
             {
@@ -87,7 +87,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
                     await MyMapView.SetViewpointCenterAsync(_londonCoords);
 
                     // Set the Viewpoint scale to match the specified scale 
-                    await MyMapView.SetViewpointScaleAsync(_londonScale);
+                    await MyMapView.SetViewpointScaleAsync(LondonScale);
                     break;
 
                 case "Animate":
@@ -101,9 +101,6 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
 
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
-                    break;
-
-                default:
                     break;
             }
         }

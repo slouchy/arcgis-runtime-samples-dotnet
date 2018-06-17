@@ -197,7 +197,7 @@ namespace ArcGISRuntime.UWP.Samples.ClipGeometry
                 // Disable the button after has been used.
                 ClipButton.IsEnabled = false;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating clip operation.
                 MessageDialog theMessageDialog = new MessageDialog("Geometry Engine Failed: " + ex.Message);

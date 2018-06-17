@@ -44,7 +44,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         }
 
         // URL for a feature service that supports geodatabase generation.
-        private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
+        private readonly Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
 
         // Path to the geodatabase file on disk.
         private string _gdbPath;
@@ -131,90 +131,92 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         {
             try
             {
-                // Disregard if not ready for edits.
-                if (_readyForEdits == EditState.NotReady) { return; }
-
-                // If an edit is in process, finish it.
-                if (_readyForEdits == EditState.Editing)
+                switch (_readyForEdits)
                 {
-                    // Hold a list of any selected features.
-                    List<Feature> selectedFeatures = new List<Feature>();
+                    // Disregard if not ready for edits.
+                    case EditState.NotReady:
+                        return;
+                    // If an edit is in process, finish it.
+                    case EditState.Editing:
+                        // Hold a list of any selected features.
+                        List<Feature> selectedFeatures = new List<Feature>();
 
-                    // Get all selected features then clear selection.
-                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
-                    {
-                        // Get the selected features.
-                        FeatureQueryResult layerFeatures = await layer.GetSelectedFeaturesAsync();
-
-                        // FeatureQueryResult implements IEnumerable, so it can be treated as a collection of features.
-                        selectedFeatures.AddRange(layerFeatures);
-
-                        // Clear the selection.
-                        layer.ClearSelection();
-                    }
-
-                    // Update all selected feature geometry.
-                    foreach (Feature feature in selectedFeatures)
-                    {
-                        // Get a reference to the correct feature table for the feature.
-                        GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
-
-                        // Ensure the geometry type of the table is point.
-                        if (table.GeometryType != GeometryType.Point)
+                        // Get all selected features then clear selection.
+                        foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
                         {
-                            continue;
+                            // Get the selected features.
+                            FeatureQueryResult layerFeatures = await layer.GetSelectedFeaturesAsync();
+
+                            // FeatureQueryResult implements IEnumerable, so it can be treated as a collection of features.
+                            selectedFeatures.AddRange(layerFeatures);
+
+                            // Clear the selection.
+                            layer.ClearSelection();
                         }
 
-                        // Set the new geometry.
-                        feature.Geometry = e.Location;
-
-                        try
+                        // Update all selected feature geometry.
+                        foreach (Feature feature in selectedFeatures)
                         {
-                            // Update the feature in the table.
-                            await table.UpdateFeatureAsync(feature);
+                            // Get a reference to the correct feature table for the feature.
+                            GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+
+                            // Ensure the geometry type of the table is point.
+                            if (table.GeometryType != GeometryType.Point)
+                            {
+                                continue;
+                            }
+
+                            // Set the new geometry.
+                            feature.Geometry = e.Location;
+
+                            try
+                            {
+                                // Update the feature in the table.
+                                await table.UpdateFeatureAsync(feature);
+                            }
+                            catch (Esri.ArcGISRuntime.ArcGISException)
+                            {
+                                ShowStatusMessage("Feature must be within extent of geodatabase.");
+                            }
                         }
-                        catch (Esri.ArcGISRuntime.ArcGISException)
+
+                        // Update the edit state.
+                        _readyForEdits = EditState.Ready;
+
+                        // Enable the sync button.
+                        MySyncButton.IsEnabled = true;
+
+                        // Update the help label.
+                        MyHelpLabel.Text = "4. Click 'Sync' or edit more features";
+                        break;
+                    case EditState.Ready:
+                        // Define a tolerance for use with identifying the feature.
+                        double tolerance = 15 * MyMapView.UnitsPerPixel;
+
+                        // Define the selection envelope.
+                        Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
+
+                        // Define query parameters for feature selection.
+                        QueryParameters query = new QueryParameters
                         {
-                            ShowStatusMessage("Feature must be within extent of geodatabase.");
+                            Geometry = selectionEnvelope
+                        };
+
+                        // Select the feature in all applicable tables.
+                        foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
+                        {
+                            await layer.SelectFeaturesAsync(query, SelectionMode.New);
                         }
-                    }
 
-                    // Update the edit state.
-                    _readyForEdits = EditState.Ready;
+                        // Set the edit state.
+                        _readyForEdits = EditState.Editing;
 
-                    // Enable the sync button.
-                    MySyncButton.IsEnabled = true;
-
-                    // Update the help label.
-                    MyHelpLabel.Text = "4. Click 'Sync' or edit more features";
+                        // Update the help label.
+                        MyHelpLabel.Text = "3. Tap on the map to move the point";
+                        break;
                 }
+
                 // Otherwise, start an edit.
-                else
-                {
-                    // Define a tolerance for use with identifying the feature.
-                    double tolerance = 15 * MyMapView.UnitsPerPixel;
-
-                    // Define the selection envelope.
-                    Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
-
-                    // Define query parameters for feature selection.
-                    QueryParameters query = new QueryParameters()
-                    {
-                        Geometry = selectionEnvelope
-                    };
-
-                    // Select the feature in all applicable tables.
-                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
-                    {
-                        await layer.SelectFeaturesAsync(query, SelectionMode.New);
-                    }
-
-                    // Set the edit state.
-                    _readyForEdits = EditState.Editing;
-
-                    // Update the help label.
-                    MyHelpLabel.Text = "3. Tap on the map to move the point";
-                }
             }
             catch (Exception ex)
             {
@@ -286,11 +288,11 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += ((sender, e) =>
+            generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Update the progress bar.
                 UpdateProgressBar(generateGdbJob.Progress);
-            });
+            };
 
             // Show the progress bar.
             MyProgressBar.Visibility = Visibility.Visible;
@@ -310,52 +312,48 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
         private void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
-            // If the job completed successfully, add the geodatabase data to the map.
-            if (job.Status == JobStatus.Succeeded)
+            switch (job.Status)
             {
-                // Clear out the existing layers.
-                MyMapView.Map.OperationalLayers.Clear();
+                // If the job completed successfully, add the geodatabase data to the map.
+                case JobStatus.Succeeded:
+                    // Clear out the existing layers.
+                    MyMapView.Map.OperationalLayers.Clear();
 
-                // Loop through all feature tables in the geodatabase and add a new layer to the map.
-                foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
-                {
-                    // Create a new feature layer for the table.
-                    FeatureLayer layer = new FeatureLayer(table);
-
-                    // Add the new layer to the map.
-                    MyMapView.Map.OperationalLayers.Add(layer);
-                }
-
-                // Enable editing features.
-                _readyForEdits = EditState.Ready;
-
-                // Update the help label.
-                MyHelpLabel.Text = "2. Tap a point feature to select";
-            }
-
-            // See if the job failed.
-            if (job.Status == JobStatus.Failed)
-            {
-                // Create a message to show the user.
-                string message = "Generate geodatabase job failed";
-
-                // Show an error message (if there is one).
-                if (job.Error != null)
-                {
-                    message += ": " + job.Error.Message;
-                }
-                else
-                {
-                    // If no error, show messages from the job.
-                    foreach (JobMessage m in job.Messages)
+                    // Loop through all feature tables in the geodatabase and add a new layer to the map.
+                    foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
                     {
-                        // Get the text from the JobMessage and add it to the output string.
-                        message += "\n" + m.Message;
-                    }
-                }
+                        // Create a new feature layer for the table.
+                        FeatureLayer layer = new FeatureLayer(table);
 
-                // Show the message.
-                ShowStatusMessage(message);
+                        // Add the new layer to the map.
+                        MyMapView.Map.OperationalLayers.Add(layer);
+                    }
+
+                    // Enable editing features.
+                    _readyForEdits = EditState.Ready;
+
+                    // Update the help label.
+                    MyHelpLabel.Text = "2. Tap a point feature to select";
+                    break;
+                // See if the job failed.
+                case JobStatus.Failed:
+                    // Create a message to show the user.
+                    string message = "Generate geodatabase job failed";
+
+                    // Show an error message (if there is one).
+                    if (job.Error != null)
+                    {
+                        message += ": " + job.Error.Message;
+                    }
+                    else
+                    {
+                        // If no error, show messages from the job.
+                        message = job.Messages.Aggregate(message, (current, m) => current + "\n" + m.Message);
+                    }
+
+                    // Show the message.
+                    ShowStatusMessage(message);
+                    break;
             }
         }
 
@@ -368,7 +366,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             MySyncButton.IsEnabled = false;
 
             // Create parameters for the sync task.
-            SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters()
+            SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters
             {
                 GeodatabaseSyncDirection = SyncDirection.Bidirectional,
                 RollbackOnFailure = false
@@ -420,35 +418,31 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         {
             JobStatus status = job.Status;
 
-            // Tell the user about job completion.
-            if (status == JobStatus.Succeeded)
+            switch (status)
             {
-                ShowStatusMessage("Sync task completed");
-            }
+                // Tell the user about job completion.
+                case JobStatus.Succeeded:
+                    ShowStatusMessage("Sync task completed");
+                    break;
+                // See if the job failed.
+                case JobStatus.Failed:
+                    // Create a message to show the user.
+                    string message = "Sync geodatabase job failed";
 
-            // See if the job failed.
-            if (status == JobStatus.Failed)
-            {
-                // Create a message to show the user.
-                string message = "Sync geodatabase job failed";
-
-                // Show an error message (if there is one).
-                if (job.Error != null)
-                {
-                    message += ": " + job.Error.Message;
-                }
-                else
-                {
-                    // If no error, show messages from the job.
-                    foreach (JobMessage m in job.Messages)
+                    // Show an error message (if there is one).
+                    if (job.Error != null)
                     {
-                        // Get the text from the JobMessage and add it to the output string.
-                        message += "\n" + m.Message;
+                        message += ": " + job.Error.Message;
                     }
-                }
+                    else
+                    {
+                        // If no error, show messages from the job.
+                        message = job.Messages.Aggregate(message, (current, m) => current + "\n" + m.Message);
+                    }
 
-                // Show the message.
-                ShowStatusMessage(message);
+                    // Show the message.
+                    ShowStatusMessage(message);
+                    break;
             }
         }
 

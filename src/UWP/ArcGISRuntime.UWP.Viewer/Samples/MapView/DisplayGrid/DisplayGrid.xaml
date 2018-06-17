@@ -48,42 +48,42 @@
                 <TextBlock Text="Grid type"
                            Grid.Row="0" />
                 <TextBlock Text="Show labels"
-                           Grid.Row="1" />
+                           Grid.Row="1" Grid.Column="0" />
                 <TextBlock Text="Show grid"
-                           Grid.Row="2" />
+                           Grid.Row="2" Grid.Column="0" />
                 <TextBlock Text="Grid color"
-                           Grid.Row="3" />
+                           Grid.Row="3" Grid.Column="0" />
                 <TextBlock Text="Label color"
-                           Grid.Row="4" />
+                           Grid.Row="4" Grid.Column="0" />
                 <TextBlock Text="Halo color"
-                           Grid.Row="5" />
+                           Grid.Row="5" Grid.Column="0" />
                 <TextBlock Text="Label position"
-                           Grid.Row="6" />
+                           Grid.Row="6" Grid.Column="0" />
                 <TextBlock Text="Label format"
-                           Grid.Row="7" />
+                           Grid.Row="7" Grid.Column="0" />
                 <!-- Inputs -->
-                <ComboBox x:Name="gridTypeCombo"
+                <ComboBox x:Name="GridTypeCombo"
                           Grid.Row="0" Grid.Column="1" />
-                <CheckBox x:Name="labelVisibilityCheckbox"
+                <CheckBox x:Name="LabelVisibilityCheckbox"
                           Margin="5,0,0,0" IsChecked="True"
                           Grid.Row="1" Grid.Column="1" />
-                <CheckBox x:Name="gridVisibilityCheckbox"
+                <CheckBox x:Name="GridVisibilityCheckbox"
                           Margin="5,0,0,0" IsChecked="True"
                           Grid.Row="2" Grid.Column="1" />
-                <ComboBox x:Name="gridColorCombo"
+                <ComboBox x:Name="GridColorCombo"
                           Grid.Row="3" Grid.Column="1" />
-                <ComboBox x:Name="labelColorCombo"
+                <ComboBox x:Name="LabelColorCombo"
                           Grid.Row="4" Grid.Column="1" />
-                <ComboBox x:Name="haloColorCombo"
+                <ComboBox x:Name="HaloColorCombo"
                           Grid.Row="5" Grid.Column="1" />
-                <ComboBox x:Name="labelPositionCombo"
+                <ComboBox x:Name="LabelPositionCombo"
                           Grid.Row="6" Grid.Column="1" />
-                <ComboBox x:Name="labelFormatCombo"
+                <ComboBox x:Name="LabelFormatCombo"
                           Grid.Row="7" Grid.Column="1" />
                 <!-- Apply -->
-                <Button x:Name="applySettingsButton"
+                <Button x:Name="ApplySettingsButton"
                         Content="Apply settings"
-                        Grid.ColumnSpan="2" Grid.Row="8"
+                        Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="8"
                         IsEnabled="False" />
             </Grid>
         </Border>

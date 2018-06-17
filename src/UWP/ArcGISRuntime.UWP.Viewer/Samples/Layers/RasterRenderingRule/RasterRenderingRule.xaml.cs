@@ -36,15 +36,15 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
         private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
 
         // Create a Uri for the image server
-        private Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
+        private readonly Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
 
         private async void Initialize()
         {
-            // Assign a new map to the MapView
-            MyMapView.Map = new Map();
-
-            // Set the basemap to Streets
-            MyMapView.Map.Basemap = Basemap.CreateStreets();
+            // Show a map with streets basemap
+            MyMapView.Map = new Map
+            {
+                Basemap = Basemap.CreateStreets()
+            };
 
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
@@ -74,11 +74,11 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
                 string myRenderingRuleName = myRenderingRuleInfo.Name;
 
                 // Add the name of the rendering rule info to the combo box
-                comboBox_RenderingRuleChooser.Items.Add(myRenderingRuleName);
+                RenderingRuleChooser.Items.Add(myRenderingRuleName);
             }
 
             // Set the combo box index to the first rendering rule info name
-            comboBox_RenderingRuleChooser.SelectedIndex = 0;
+            RenderingRuleChooser.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -93,16 +93,17 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
                 string myRenderingRuleName = myRenderingRuleInfo.Name;
 
                 // If the name of the rendering rule info matches what was chosen in the combo box, proceed
-                if (myRenderingRuleName == (string)comboBox_RenderingRuleChooser.SelectedItem)
+                if (myRenderingRuleName == (string)RenderingRuleChooser.SelectedItem)
                 {
                     // Create a new rendering rule from the rendering rule info
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
                     // Create a new image service raster
-                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
-
-                    // Set the image service raster's rendering rule to the rendering rule created earlier
-                    myImageServiceRaster.RenderingRule = myRenderingRule;
+                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri)
+                    {
+                        // Set the image service raster's rendering rule to the rendering rule created earlier
+                        RenderingRule = myRenderingRule
+                    };
 
                     // Create a new raster layer from the image service raster
                     RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);

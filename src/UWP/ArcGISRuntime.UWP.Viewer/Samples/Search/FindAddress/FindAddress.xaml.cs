@@ -31,21 +31,12 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindAddress
-    {
-        // Addresses for suggestion
-        private string[] _addresses = {
-            "277 N Avenida Caballeros, Palm Springs, CA",
-            "380 New York St, Redlands, CA 92373",
-            "Београд",
-            "Москва",
-            "北京"
-        };
-
+    {        
         // The LocatorTask provides geocoding services
         private LocatorTask _geocoder;
 
         // Service Uri to be provided to the LocatorTask (geocoder)
-        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         public FindAddress()
         {
@@ -82,7 +73,7 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
         private async void UpdateSearch()
         {
             // Get the text in the search bar
-            String enteredText = MySearchBox.Text;
+            string enteredText = MySearchBox.Text;
 
             // Clear existing marker
             MyMapView.GraphicsOverlays.Clear();
@@ -166,9 +157,9 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             // Get the first result
             GeocodeResult address = addresses.First();
             // Use the city and region for the Callout Title
-            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
             // Use the metro area for the Callout Detail
-            String calloutDetail = address.Attributes["MetroArea"].ToString();
+            string calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Use the MapView to convert from the on-screen location to the on-map location
             MapPoint point = MyMapView.ScreenToLocation(e.Position);

@@ -20,16 +20,16 @@ namespace ArcGISRuntime.UWP.Samples.LoadWebTiledLayer
     public partial class LoadWebTiledLayer
     {
         // Templated URL to the tile service
-        private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
+        private const string TemplateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
 
         // List of subdomains for use when constructing the web tiled layer
         private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
 
         // Attribution string for the Stamen service
-        private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." +
-                                               "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
+        private const string Attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," + 
+                                           "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." + 
+                                           "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," + 
+                                           "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
 
         public LoadWebTiledLayer()
         {
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.UWP.Samples.LoadWebTiledLayer
         private async void Initialize()
         {
             // Create the layer from the URL and the subdomain list
-            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
+            WebTiledLayer myBaseLayer = new WebTiledLayer(TemplateUri, _tiledLayerSubdomains);
 
             // Wait for the layer to load
             await myBaseLayer.LoadAsync();
@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.LoadWebTiledLayer
             Basemap layerBasemap = new Basemap(myBaseLayer);
 
             // Apply the attribution for the layer
-            myBaseLayer.Attribution = _attribution;
+            myBaseLayer.Attribution = Attribution;
 
             // Create a map to hold the basemap
             Map myMap = new Map(layerBasemap);

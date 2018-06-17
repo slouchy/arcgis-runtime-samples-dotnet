@@ -38,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
         // the layer itself (RasterLayer or FeatureLayer) - object
         // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
         // of elements in a dictionary is unknown
-        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
+        readonly HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
         private async void Initialize()
         {
@@ -58,10 +58,11 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
             foreach (GeoPackageRaster oneGeoPackageRaster in myReadOnlyListOfGeoPackageRasters)
             {
                 // Create a RasterLayer from the GeoPackageRaster
-                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster);
-
-                // Set the opacity on the RasterLayer to partially visible 
-                myRasterLayer.Opacity = 0.55;
+                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
+                {
+                    // Set the opacity on the RasterLayer to partially visible 
+                    Opacity = 0.55
+                };
 
                 // Load the RasterLayer - that way we can get to it's properties
                 await myRasterLayer.LoadAsync();
@@ -91,7 +92,7 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
 
                 // Add the name of the RasterLayer to the ListBox of layers not in map
-                ListBox_LayersNotInTheMap.Items.Add(myRasterLayerName);
+                LayersNotInTheMapList.Items.Add(myRasterLayerName);
 
             }
 
@@ -119,14 +120,14 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
 
                 // Add the name of the FeatureLayer to the ListBox of layers not in map
-                ListBox_LayersNotInTheMap.Items.Add(myFeatureLayerName);
+                LayersNotInTheMapList.Items.Add(myFeatureLayerName);
             }
         }
 
         private void Button_AddLayerToMap_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Get the user selected value from the ListBox_LayersNotInTheMap
-            object myLayerSelection = ListBox_LayersNotInTheMap.SelectedValue;
+            // Get the user selected value from the LayersNotInTheMapList
+            object myLayerSelection = LayersNotInTheMapList.SelectedValue;
 
             // Ensure we have a valid selection
             if (myLayerSelection != null)
@@ -142,17 +143,17 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 MyMapView.Map.OperationalLayers.Add(myLayer);
 
                 // Remove the human-readable layer name from the ListBox_LayersNoInTheMap
-                ListBox_LayersNotInTheMap.Items.Remove(myLayerName);
+                LayersNotInTheMapList.Items.Remove(myLayerName);
 
-                // Add the human-readable layer name to the ListBox_LayersInTheMap
-                ListBox_LayersInTheMap.Items.Add(myLayerName);
+                // Add the human-readable layer name to the LayersInTheMapList
+                LayersInTheMapList.Items.Add(myLayerName);
             }
         }
 
         private void Button_RemoveLayerFromMap_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Get the user selected value from the ListBox_LayersInTheMap
-            object myLayerSelection = ListBox_LayersInTheMap.SelectedValue;
+            // Get the user selected value from the LayersInTheMapList
+            object myLayerSelection = LayersInTheMapList.SelectedValue;
 
             // Ensure we have a valid selection
             if (myLayerSelection != null)
@@ -167,11 +168,11 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 // Remove the layer from the map
                 MyMapView.Map.OperationalLayers.Remove(myLayer);
 
-                // Remove the human-readable layer name from the ListBox_LayersInTheMap
-                ListBox_LayersInTheMap.Items.Remove(myLayerName);
+                // Remove the human-readable layer name from the LayersInTheMapList
+                LayersInTheMapList.Items.Remove(myLayerName);
 
-                // Add the human-readable layer name to the ListBox_LayersNotInTheMap
-                ListBox_LayersNotInTheMap.Items.Add(myLayerName);
+                // Add the human-readable layer name to the LayersNotInTheMapList
+                LayersNotInTheMapList.Items.Add(myLayerName);
             }
 
         }

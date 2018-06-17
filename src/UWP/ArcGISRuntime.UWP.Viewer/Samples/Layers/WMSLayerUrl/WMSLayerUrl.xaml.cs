@@ -22,10 +22,10 @@ namespace ArcGISRuntime.UWP.Samples.WMSLayerUrl
     public partial class WMSLayerUrl
     {
         // Hold the URL to the WMS service showing the geology of Africa
-        private Uri wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private readonly Uri wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display
-        private List<String> wmsLayerNames = new List<string> { "0" };
+        private readonly List<string> wmsLayerNames = new List<string> { "0" };
 
         public WMSLayerUrl()
         {
@@ -37,11 +37,10 @@ namespace ArcGISRuntime.UWP.Samples.WMSLayerUrl
         private void Initialize()
         {
             // Apply an imagery basemap to the map
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Set the initial viewpoint
-            myMap.InitialViewpoint = new Viewpoint(
-                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
+            Map myMap = new Map(Basemap.CreateImagery())
+            {
+                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000)
+            };
 
             // Add the map to the mapview
             MyMapView.Map = myMap;

@@ -22,15 +22,15 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerRenderingModeScene
     public partial class FeatureLayerRenderingModeScene
     {
         // Points for demonstrating zoom
-        private MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
-        private MapPoint _zoomedInPoint = new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84);
+        private readonly MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
+        private readonly MapPoint _zoomedInPoint = new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84);
 
         // Viewpoints for each zoom level
         private Camera _zoomedOutCamera;
         private Camera _zoomedInCamera;
 
         // URI for the feature service
-        private string _featureService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
+        private const string FeatureServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
 
         // Hold the current zoom state
         private bool _zoomed;
@@ -50,21 +50,31 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerRenderingModeScene
             _zoomedInCamera = new Camera(_zoomedInPoint, 2500, 90, 75, 0);
 
             // Create the scene for displaying the feature layer in static mode
-            Scene staticScene = new Scene(); // Basemap omitted to make it easier to distinguish the rendering modes
-            staticScene.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Static;
-            staticScene.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
-            staticScene.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static;
+            Scene staticScene = new Scene
+            {
+                LoadSettings =
+                {
+                    PreferredPointFeatureRenderingMode = FeatureRenderingMode.Static,
+                    PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static,
+                    PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static
+                }
+            }; // Basemap omitted to make it easier to distinguish the rendering modes
 
             // Create the scene for displaying the feature layer in dynamic mode
-            Scene dynamicScene = new Scene();
-            dynamicScene.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Dynamic;
-            dynamicScene.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Dynamic;
-            dynamicScene.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Dynamic;
+            Scene dynamicScene = new Scene
+            {
+                LoadSettings =
+                {
+                    PreferredPointFeatureRenderingMode = FeatureRenderingMode.Dynamic,
+                    PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Dynamic,
+                    PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Dynamic
+                }
+            };
 
             // Create the service feature tables
-            ServiceFeatureTable faultTable = new ServiceFeatureTable(new Uri(_featureService + "0"));
-            ServiceFeatureTable contactTable = new ServiceFeatureTable(new Uri(_featureService + "8"));
-            ServiceFeatureTable outcropTable = new ServiceFeatureTable(new Uri(_featureService + "9"));
+            ServiceFeatureTable faultTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl + "0"));
+            ServiceFeatureTable contactTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl + "8"));
+            ServiceFeatureTable outcropTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl + "9"));
 
             // Create the feature layers
             FeatureLayer faultLayer = new FeatureLayer(faultTable);

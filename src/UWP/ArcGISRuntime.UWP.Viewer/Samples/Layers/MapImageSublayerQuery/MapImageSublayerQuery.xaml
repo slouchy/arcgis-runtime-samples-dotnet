@@ -26,8 +26,7 @@
                          Margin="5" 
                          HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Right"
                          Text="1810000" />
-                <Button x:Name="QuerySublayers" 
-                        Grid.Row="2" Grid.ColumnSpan="2"
+                <Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0"
                         HorizontalAlignment="Center" VerticalAlignment="Center"                        
                         Margin="10" Padding="10,5"
                         Content="Query in extent"

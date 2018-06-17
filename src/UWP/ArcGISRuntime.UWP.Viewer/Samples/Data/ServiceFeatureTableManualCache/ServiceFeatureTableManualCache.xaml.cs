@@ -44,14 +44,13 @@ namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableManualCache
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 500000);
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
-               "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
+            var serviceUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
             // Create feature table for the incident feature service
-            _incidentsFeatureTable = new ServiceFeatureTable(serviceUri);
-
-            // Define the request mode
-            _incidentsFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+            _incidentsFeatureTable = new ServiceFeatureTable(serviceUri)
+            {
+                FeatureRequestMode = FeatureRequestMode.ManualCache
+            };
 
             // When feature table is loaded, populate data
             _incidentsFeatureTable.LoadStatusChanged += OnLoadedPopulateData;
@@ -73,13 +72,13 @@ namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableManualCache
                 return;
 
             // Create new query object that contains parameters to query specific request types
-            QueryParameters queryParameters = new QueryParameters()
+            QueryParameters queryParameters = new QueryParameters
             {
                 WhereClause = "req_Type = 'Tree Maintenance or Damage'"
             };
 
             // Create list of the fields that are returned from the service
-            var outputFields = new string[] { "*" };
+            string[] outputFields = { "*" };
 
             // Populate feature table with the data based on query
             await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);

@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
     public sealed partial class UseDistanceCompositeSym
     {
         // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private const string ElevationSourceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public UseDistanceCompositeSym()
         {
@@ -40,15 +40,17 @@ namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
             Scene myScene = new Scene(Basemap.CreateImagery());
 
             // Create an elevation source for the Scene
-            ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl));
+            ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(ElevationSourceUrl));
             myScene.BaseSurface.ElevationSources.Add(elevationSrc);
 
             // Add the Scene to the SceneView
             MySceneView.Scene = myScene;
 
             // Create a new GraphicsOverlay and add it to the SceneView
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-            graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay
+            {
+                SceneProperties = {SurfacePlacement = SurfacePlacement.Relative}
+            };
             MySceneView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Call a function to create a new distance composite symbol with three ranges

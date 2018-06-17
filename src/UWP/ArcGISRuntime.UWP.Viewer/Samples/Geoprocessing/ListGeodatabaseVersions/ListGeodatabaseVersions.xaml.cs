@@ -11,10 +11,10 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
 {
@@ -56,14 +56,14 @@ namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
                 foreach (var version in versionsFeatureSet)
                 {
                     // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                    var myDictionary = version.Attributes;
+                    IDictionary<string, object> myDictionary = version.Attributes;
 
                     // Loop through each attribute (a <key,value> pair)
-                    foreach (var oneAttribute in myDictionary)
+                    foreach (KeyValuePair<string, object> oneAttribute in myDictionary)
                     {
 
                         // Get the key
-                        var myKey = oneAttribute.Key;
+                        string myKey = oneAttribute.Key;
 
                         // Get the value
                         var myValue = oneAttribute.Value;
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
                 }
 
                 // Display the result in the textbox
-                theTextBox.Text = myStringBuilder.ToString();
+                DisplayTextbox.Text = myStringBuilder.ToString();
             }
 
             // Set the UI to indicate that the geoprocessing is not running
@@ -119,7 +119,7 @@ namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
 
                 else
                 {
-                    var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    var message = new MessageDialog("An error occurred. " + ex, "Sample error");
                     await message.ShowAsync();
                 }
             }
@@ -137,14 +137,14 @@ namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
             if (isBusy)
             {
                 // Change UI to indicate that the geoprocessing is running
-                busyOverlay.Visibility = Visibility.Visible;
-                progress.IsIndeterminate = true;
+                BusyOverlay.Visibility = Visibility.Visible;
+                Progress.IsIndeterminate = true;
             }
             else
             {
                 // Change UI to indicate that the geoprocessing is not running
-                busyOverlay.Visibility = Visibility.Collapsed;
-                progress.IsIndeterminate = false;
+                BusyOverlay.Visibility = Visibility.Collapsed;
+                Progress.IsIndeterminate = false;
             }
         }
     }

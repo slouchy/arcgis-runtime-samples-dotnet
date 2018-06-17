@@ -39,8 +39,10 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
             // Create a tiled layer using url
-            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri);
-            tiledLayer.Name = "Tiled Layer";
+            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)
+            {
+                Name = "Tiled Layer"
+            };
 
             // Add the tiled layer to map
             myMap.OperationalLayers.Add(tiledLayer);
@@ -50,12 +52,13 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
             // Create ArcGISMapImage layer using a url
-            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri);
-            imageLayer.Name = "Image Layer";
-
-            // Set the visible scale range for the image layer
-            imageLayer.MinScale = 40000000;
-            imageLayer.MaxScale = 2000000;
+            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
+            {
+                Name = "Image Layer",
+                // Set the visible scale range for the image layer
+                MinScale = 40000000,
+                MaxScale = 2000000
+            };
 
             // Add the image layer to map
             myMap.OperationalLayers.Add(imageLayer);
@@ -65,8 +68,10 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
             // Create a feature layer using url
-            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri);
-            myFeatureLayer.Name = "Feature Layer";
+            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)
+            {
+                Name = "Feature Layer"
+            };
 
             // Add the feature layer to map
             myMap.OperationalLayers.Add(myFeatureLayer);
@@ -95,15 +100,13 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
             switch (lName)
             {
                 case "Tiled Layer":
-                    StatusLabel_TiledLayer.Text = lName + " - " + lViewStatus;
+                    TiledLayerStatusLabel.Text = lName + " - " + lViewStatus;
                     break;
                 case "Image Layer":
-                    StatusLabel_ImageLayer.Text = lName + " - " + lViewStatus;
+                    ImageLayerStatusLabel.Text = lName + " - " + lViewStatus;
                     break;
                 case "Feature Layer":
-                    StatusLabel_FeatureLayer.Text = lName + " - " + lViewStatus;
-                    break;
-                default:
+                    FeatureLayerStatusLabel.Text = lName + " - " + lViewStatus;
                     break;
             }
         }

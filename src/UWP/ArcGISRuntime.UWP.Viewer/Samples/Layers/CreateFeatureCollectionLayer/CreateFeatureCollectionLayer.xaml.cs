@@ -90,16 +90,14 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
             Feature lineFeature = linesTable.CreateFeature();
             lineFeature.SetAttributeValue(boundaryField, "AManAPlanACanalPanama");
             MapPoint point2 = new MapPoint(-80.035568, 9.432302, SpatialReferences.Wgs84);
-            Polyline line = new Polyline(new MapPoint[] { point1, point2 });
-            lineFeature.Geometry = line;
+            lineFeature.Geometry = new Polyline(new[] { point1, point2 });
 
             // Create a new polygon feature, provide geometry and attribute values
             Feature polyFeature = polysTable.CreateFeature();
             polyFeature.SetAttributeValue(areaField, "Restricted area");
             MapPoint point3 = new MapPoint(-79.337936, 8.638903, SpatialReferences.Wgs84);
             MapPoint point4 = new MapPoint(-79.11409, 8.895422, SpatialReferences.Wgs84);
-            Polygon poly = new Polygon(new MapPoint[] { point1, point3, point4 });
-            polyFeature.Geometry = poly;
+            polyFeature.Geometry = new Polygon(new[] { point1, point3, point4 });
 
             // Add the new features to the appropriate feature collection table 
             await pointsTable.AddFeatureAsync(pointFeature);
@@ -150,8 +148,6 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
                     // Create a fill symbol
                     var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, lineSym);
-                    break;
-                default:
                     break;
             }
 

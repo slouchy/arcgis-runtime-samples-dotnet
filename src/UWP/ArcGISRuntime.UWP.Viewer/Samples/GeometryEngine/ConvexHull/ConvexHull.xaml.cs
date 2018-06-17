@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Collections.Generic;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using System.Drawing;
@@ -31,10 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHull
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private List<Geometry> _inputPointsList = new List<Geometry>();
-
-        // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
+        private readonly PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
 
         public ConvexHull()
         {
@@ -76,15 +72,16 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHull
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
-
-                // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
-                userTappedGraphic.ZIndex = 1;
+                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol)
+                {
+                    // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
+                    ZIndex = 1
+                };
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem adding user tapped graphics.
                 MessageDialog theMessageDialog = new MessageDialog("Can't add user tapped graphic: " + ex.Message);
@@ -111,11 +108,12 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHull
                     convexHullSimpleLineSymbol);
 
                 // Create the graphic for the convex hull - comprised of a polygon shape and fill symbol.
-                Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol);
-
-                // Set the Z index for the convex hull graphic so that it appears below the initial input user 
-                // tapped map point graphics added earlier.
-                convexHullGraphic.ZIndex = 0;
+                Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol)
+                {
+                    // Set the Z index for the convex hull graphic so that it appears below the initial input user 
+                    // tapped map point graphics added earlier.
+                    ZIndex = 0
+                };
 
                 // Add the convex hull graphic to the graphics overlay collection.
                 _graphicsOverlay.Graphics.Add(convexHullGraphic);

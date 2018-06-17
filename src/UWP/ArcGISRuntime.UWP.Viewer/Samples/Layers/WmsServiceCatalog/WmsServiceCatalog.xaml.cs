@@ -24,10 +24,10 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
     public partial class WmsServiceCatalog
     {
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
-        private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private readonly Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of LayerDisplayVM; this is the ViewModel
-        private ObservableCollection<LayerDisplayVM> _viewModelList = new ObservableCollection<LayerDisplayVM>();
+        private readonly ObservableCollection<LayerDisplayVm> _viewModelList = new ObservableCollection<LayerDisplayVm>();
         public WmsServiceCatalog()
         {
             InitializeComponent();
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
             foreach (WmsLayerInfo layerInfo in expandedList)
             {
                 // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
-                _viewModelList.Add(new LayerDisplayVM(layerInfo));
+                _viewModelList.Add(new LayerDisplayVm(layerInfo));
             }
 
             MyDisplayList.ItemsSource = _viewModelList;
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         /// <summary>
         /// Updates the map with the latest layer selection
         /// </summary>
-        private void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
+        private void UpdateMapDisplay(ObservableCollection<LayerDisplayVm> displayList)
         {
             // Remove all existing layers
             MyMapView.Map.OperationalLayers.Clear();
@@ -104,7 +104,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
             IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
 
             // Return if no layers selected
-            if (selectedLayers.Count() < 1) { return; }
+            if (!selectedLayers.Any()) { return; }
 
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);
@@ -119,12 +119,12 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         private void MyDisplayList_SelectionChanged_1(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
             // Update items
-            foreach (LayerDisplayVM item in e.AddedItems)
+            foreach (LayerDisplayVm item in e.AddedItems)
             {
                 item.IsEnabled = true;
             }
 
-            foreach (LayerDisplayVM item in e.RemovedItems)
+            foreach (LayerDisplayVm item in e.RemovedItems)
             {
                 item.IsEnabled = false;
             }
@@ -138,19 +138,19 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
     /// This is a ViewModel class for maintaining the state of a layer selection.
     /// Typically, this would go in a separate file, but it is included here for clarity
     /// </summary>
-    public class LayerDisplayVM
+    public class LayerDisplayVm
     {
         /// <summary>
         /// Metadata for the individual selected layer
         /// </summary>
-        public WmsLayerInfo Info { get; set; }
+        public WmsLayerInfo Info { get; }
 
         /// <summary>
         /// True if the layer is selected for display
         /// </summary>
-        public Boolean IsEnabled { get; set; }
+        public bool IsEnabled { get; set; }
 
-        public LayerDisplayVM(WmsLayerInfo info)
+        public LayerDisplayVm(WmsLayerInfo info)
         {
             Info = info;
         }
