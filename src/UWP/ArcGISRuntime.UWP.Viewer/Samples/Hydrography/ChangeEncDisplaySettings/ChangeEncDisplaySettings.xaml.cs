@@ -102,11 +102,11 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
             else if (NightRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
 
             // Apply area symbolization
-            if (AreaPlainRadioButton.IsChecked == true) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
+            if (PlainAreaRadioButton.IsChecked == true) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
             else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization
-            if (PointPaperRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            if (PaperPointRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 

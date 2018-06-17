@@ -92,7 +92,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
         private void OnUpdateRendererClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Define the RasterLayer that will be used to display in the map
-            RasterLayer rasterLayer;
+            RasterLayer layerForDisplayInMap;
 
             // Define the ColorRamp that will be used by the BlendRenderer
             ColorRamp myColorRamp;
@@ -110,7 +110,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 Raster rasterImagery = new Raster(GetRasterPath_Imagery());
 
                 // Create the raster layer from the raster
-                rasterLayer = new RasterLayer(rasterImagery);
+                layerForDisplayInMap = new RasterLayer(rasterImagery);
 
                 // Set up the ColorRamp as being null
                 myColorRamp = null;
@@ -127,7 +127,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 Raster rasterElevation = new Raster(GetRasterPath_Elevation());
 
                 // Create the raster layer from the raster
-                rasterLayer = new RasterLayer(rasterElevation);
+                layerForDisplayInMap = new RasterLayer(rasterElevation);
 
                 // Create a ColorRamp based on the user choice, translated into an Enumeration
                 PresetColorRampType myPresetColorRampType = (PresetColorRampType)Enum.Parse(typeof(PresetColorRampType), ColorRamps.SelectedValue.ToString());
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             IEnumerable<double> myGammas = new List<double>();
             SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), SlopeTypes.SelectedValue.ToString());
 
-            rasterLayer.Renderer = new BlendRenderer(
+            BlendRenderer myBlendRenderer = new BlendRenderer(
                 rasterForMakingBlendRenderer, // elevationRaster - Raster based on a elevation source
                 myOutputMinValues, // outputMinValues - Output stretch values, one for each band
                 myOutputMaxValues, // outputMaxValues - Output stretch values, one for each band
@@ -161,8 +161,11 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 1, // pixelSizePower - Pixel size power value, default is 1
                 8); // outputBitDepth - Output bit depth, default is 8-bi
 
+            // Set the RasterLayer.Renderer to be the BlendRenderer
+            layerForDisplayInMap.Renderer = myBlendRenderer;
+
             // Set the new base map to be the RasterLayer with the BlendRenderer applied
-            MyMapView.Map.Basemap = new Basemap(rasterLayer);
+            MyMapView.Map.Basemap = new Basemap(layerForDisplayInMap);
         }
 
         private static string GetRasterPath_Imagery()

@@ -74,6 +74,9 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
 
             // Update the time extent set on the map
             UpdateTimeExtent();
+
+            // Enable the slider
+            TimeSlider.IsEnabled = true;
         }
 
         private void MyTimeSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
@@ -84,7 +87,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
         private void UpdateTimeExtent()
         {
             // Get the value of the slider
-            double value = MyTimeSlider.Value / 100;
+            double value = TimeSlider.Value / 100;
 
             // Calculate the number of days that value corresponds to
             // 1. Get the interval
