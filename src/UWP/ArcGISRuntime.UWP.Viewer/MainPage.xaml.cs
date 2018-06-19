@@ -164,7 +164,7 @@ namespace ArcGISRuntime.UWP.Viewer
                 OnSampleItemTapped(sender, new TappedRoutedEventArgs());
             };
 
-            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
+            dialog.Content = new SampleInfoDialog { DataContext = sampleModel };
 
             // Show dialog as a full screen overlay.
             await dialog.ShowAsync();

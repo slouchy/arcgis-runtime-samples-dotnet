@@ -22,7 +22,7 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
     public partial class ArcGISVectorTiledLayerUrl
     {
         // Dictionary associates layer names with URIs.
-        private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()
+        private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>
         {
             {"Mid-Century", new Uri("http://www.arcgis.com/home/item.html?id=7675d44bb1e4428aa2c30a9b68f97822")},
             {"Colored Pencil", new Uri("http://www.arcgis.com/home/item.html?id=4cf7e1fb9f254dcda9c8fbadb15cf0f8")},

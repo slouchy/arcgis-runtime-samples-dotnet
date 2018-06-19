@@ -126,7 +126,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             _viewshed.Location = geoViewInputEventArgs.Location;
 
             // Update the viewshed.
-            _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + _viewHeight); ;
+            _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + _viewHeight);
 
             // Update the viewpoint symbol.
             _viewpointOverlay.Graphics.Clear();
@@ -140,6 +140,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             {
                 return;
             }
+
             // Calculate the difference between the old and new height.
             double difference = HeightSlider.Value - _viewHeight;
 

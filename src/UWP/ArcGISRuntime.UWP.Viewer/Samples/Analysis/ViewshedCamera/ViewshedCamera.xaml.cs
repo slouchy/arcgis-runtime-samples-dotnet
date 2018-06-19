@@ -69,7 +69,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedCamera
             MySceneView.AnalysisOverlays.Add(viewshedOverlay);
         }
 
-        private void UpdateObserverWithCamera(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void ViewshedFromHere_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Use the current camera to update the observer for the location viewshed analysis
             _viewshedForCamera.UpdateFromCamera(MySceneView.Camera);

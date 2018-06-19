@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
         "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
         "Tap on the scene to see the tank move to that point.",
         "Featured")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     public partial class ViewshedGeoElement
     {
         // URLs to the scene layer with buildings and the elevation source
@@ -40,8 +40,8 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
         private MapPoint _tankEndPoint;
 
         // Units for geodetic calculation (used in animating tank)
-        private readonly LinearUnit _metersUnit = (LinearUnit)Unit.FromUnitId(9001);
-        private readonly AngularUnit _degreesUnit = (AngularUnit)Unit.FromUnitId(9102);
+        private readonly LinearUnit _metersUnit = (LinearUnit) Unit.FromUnitId(9001);
+        private readonly AngularUnit _degreesUnit = (AngularUnit) Unit.FromUnitId(9102);
 
         public ViewshedGeoElement()
         {
@@ -57,12 +57,10 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             MySceneView.Scene = new Scene(Basemap.CreateImagery());
 
             // Add the elevation surface.
-            ArcGISTiledElevationSource tiledElevationSource = new ArcGISTiledElevationSource(_elevationUri);
-            Surface baseSurface = new Surface
+            MySceneView.Scene.BaseSurface = new Surface
             {
-                ElevationSources = { tiledElevationSource }
+                ElevationSources = {new ArcGISTiledElevationSource(_elevationUri)}
             };
-            MySceneView.Scene.BaseSurface = baseSurface;
 
             // Add buildings.
             MySceneView.Scene.OperationalLayers.Add(new ArcGISSceneLayer(_buildingsUri));
@@ -79,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             };
 
             // Create the tank graphic - get the model path.
-            string modelPath = GetModelPath();
+            string modelPath = DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
             // - Create the symbol and make it 10x larger (to be the right size relative to the scene).
             ModelSceneSymbol tankSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 10);
             // - Adjust the position.
@@ -114,12 +112,10 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             MySceneView.AnalysisOverlays.Add(overlay);
 
             // Create a camera controller to orbit the tank.
-            OrbitGeoElementCameraController cameraController = new OrbitGeoElementCameraController(_tank, 200.0)
+            MySceneView.CameraController = new OrbitGeoElementCameraController(_tank, 200.0)
             {
                 CameraPitchOffset = 45.0
             };
-            // - Apply the camera controller to the SceneView.
-            MySceneView.CameraController = cameraController;
 
             // Create a timer; this will enable animating the tank.
             Windows.UI.Xaml.DispatcherTimer animationTimer = new Windows.UI.Xaml.DispatcherTimer
@@ -127,12 +123,12 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
                 Interval = new TimeSpan(0, 0, 0, 0, 60)
             };
             // - Move the tank every time the timer expires.
-            animationTimer.Tick += (o, e) => { AnimateTank(); };
+            animationTimer.Tick += (o, e) => AnimateTank();
             // - Start the timer.
             animationTimer.Start();
 
             // Allow the user to click to define a new destination.
-            MySceneView.GeoViewTapped += (sender, args) => { _tankEndPoint = args.Location; };
+            MySceneView.GeoViewTapped += (sender, args) => _tankEndPoint = args.Location;
         }
 
         private void AnimateTank()
@@ -144,18 +140,18 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             }
 
             // Get the current location and distance from the destination.
-            MapPoint location = (MapPoint)_tank.Geometry;
+            MapPoint location = (MapPoint) _tank.Geometry;
             GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(
                 location, _tankEndPoint, _metersUnit, _degreesUnit, GeodeticCurveType.Geodesic);
 
             // Move the tank a short distance.
-            location = GeometryEngine.MoveGeodetic(new List<MapPoint> { location }, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
+            location = GeometryEngine.MoveGeodetic(new List<MapPoint> {location}, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
                 GeodeticCurveType.Geodesic).First();
             _tank.Geometry = location;
 
             // Rotate to face the destination.
-            double heading = (double)_tank.Attributes["HEADING"];
-            heading = heading + (distance.Azimuth1 - heading) / 10;
+            double heading = (double) _tank.Attributes["HEADING"];
+            heading += (distance.Azimuth1 - heading) / 10;
             _tank.Attributes["HEADING"] = heading;
 
             // Clear the destination if the tank already arrived.
@@ -163,12 +159,6 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             {
                 _tankEndPoint = null;
             }
-        }
-
-        private static string GetModelPath()
-        {
-            // Returns the tank model.
-            return DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
         }
     }
 }

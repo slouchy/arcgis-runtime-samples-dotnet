@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
     public sealed partial class LineOfSightLocation
     {
         // URL for an image service to use as an elevation source
-        private const string ElevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private const string ElevationSourceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         // Location line of sight analysis
         private LocationLineOfSight _lineOfSightAnalysis;
@@ -44,9 +44,6 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
 
             // Create the Scene, basemap, line of sight analysis, and analysis overlay
             Initialize();
-
-            // Handle taps on the scene view to define the observer or target point for the line of sight
-            MySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private void Initialize()
@@ -77,6 +74,9 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();
             lineOfSightOverlay.Analyses.Add(_lineOfSightAnalysis);
             MySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
+
+            // Handle taps on the scene view to define the observer or target point for the line of sight
+            MySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)

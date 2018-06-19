@@ -26,7 +26,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
         private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
 
         // Feature table to query
-        private ServiceFeatureTable _myFeatureTable;
+        private ServiceFeatureTable _citiesFeatureTable;
 
         public QueryFeatureCountAndExtent()
         {
@@ -42,31 +42,34 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             Map myMap = new Map(Basemap.CreateStreetsVector());
 
             // Create the feature table from the service URL
-            _myFeatureTable = new ServiceFeatureTable(_usaCitiesSource);
+            _citiesFeatureTable = new ServiceFeatureTable(_usaCitiesSource);
 
             // Create the feature layer from the table
-            FeatureLayer myFeatureLayer = new FeatureLayer(_myFeatureTable);
+            FeatureLayer citiesFeatureLayer = new FeatureLayer(_citiesFeatureTable);
 
             // Add the feature layer to the map
-            myMap.OperationalLayers.Add(myFeatureLayer);
+            myMap.OperationalLayers.Add(citiesFeatureLayer);
 
             // Wait for the feature layer to load
-            await myFeatureLayer.LoadAsync();
+            await citiesFeatureLayer.LoadAsync();
 
             // Set the map initial extent to the extent of the feature layer
-            myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
+            myMap.InitialViewpoint = new Viewpoint(citiesFeatureLayer.FullExtent);
 
             // Add the map to the MapView
             MyMapView.Map = myMap;
         }
 
-        private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
+        private async void ZoomToFeatures_Click(object sender, RoutedEventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(ST) LIKE '%{StateEntry.Text.ToUpper()}%'" };
+            QueryParameters queryStates = new QueryParameters
+            {
+                WhereClause = $"upper(ST) LIKE '%{StateEntry.Text.ToUpper()}%'"
+            };
 
             // Get the extent from the query
-            Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
+            Envelope resultExtent = await _citiesFeatureTable.QueryExtentAsync(queryStates);
 
             // Return if there is no result (might happen if query is invalid)
             if (resultExtent?.SpatialReference == null)
@@ -74,18 +77,15 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
                 return;
             }
 
-            // Create a viewpoint from the extent
-            Viewpoint resultViewpoint = new Viewpoint(resultExtent);
-
             // Zoom to the viewpoint
-            await MyMapView.SetViewpointAsync(resultViewpoint);
+            await MyMapView.SetViewpointGeometryAsync(resultExtent, 50);
 
             // Update the UI
             ResultView.Text = $"Zoomed to features in {StateEntry.Text}";
             ResultView.Visibility = Visibility.Visible;
         }
 
-        private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
+        private async void CountFeatures_Click(object sender, RoutedEventArgs e)
         {
             // Create the query parameters
             QueryParameters queryCityCount = new QueryParameters
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             };
 
             // Get the count of matching features
-            long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
+            long count = await _citiesFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
             // Update the UI
             ResultView.Text = $"{count} features in extent";

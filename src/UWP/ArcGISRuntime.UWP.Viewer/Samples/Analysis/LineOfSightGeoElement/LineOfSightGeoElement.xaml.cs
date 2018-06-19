@@ -46,7 +46,8 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         private GeoElementLineOfSight _geoLine;
 
         // For taxi animation - four points in a loop.
-        private readonly MapPoint[] _points = {
+        private readonly MapPoint[] _points =
+        {
             new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84),
             new MapPoint(-73.985068, 40.747786, SpatialReferences.Wgs84),
             new MapPoint(-73.983452, 40.747091, SpatialReferences.Wgs84),
@@ -84,7 +85,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
             // Add the observer to the scene.
             // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted.
-            GraphicsOverlay overlay = new GraphicsOverlay() { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
+            GraphicsOverlay overlay = new GraphicsOverlay {SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative)};
             // Create the symbol that will symbolize the observation point.
             SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
             // Create the observation point graphic from the point and symbol.
@@ -112,14 +113,14 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
                 TargetOffsetZ = 2
             };
             // Create the analysis overlay.
-            AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
+            AnalysisOverlay sceneAnalysisOverlay = new AnalysisOverlay();
             // Add the analysis to the overlay.
-            myAnalysisOverlay.Analyses.Add(_geoLine);
+            sceneAnalysisOverlay.Analyses.Add(_geoLine);
             // Add the analysis overlay to the scene.
-            MySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
+            MySceneView.AnalysisOverlays.Add(sceneAnalysisOverlay);
 
             // Create a timer; this will enable animating the taxi.
-            Windows.UI.Xaml.DispatcherTimer animationTimer = new Windows.UI.Xaml.DispatcherTimer()
+            Windows.UI.Xaml.DispatcherTimer animationTimer = new Windows.UI.Xaml.DispatcherTimer
             {
                 Interval = new TimeSpan(0, 0, 0, 0, 60)
             };
@@ -162,11 +163,9 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             // Get the point the taxi is traveling to.
             MapPoint ending = _points[(_pointIndex + 1) % _points.Length];
             // Calculate the progress based on the current frame.
-            double progress = _frameIndex / (double)FrameMax;
-            // Calculate the position of the taxi when it is {progress}% of the way through.
-            MapPoint intermediatePoint = InterpolatedPoint(starting, ending, progress);
-            // Update the taxi geometry.
-            _taxiGraphic.Geometry = intermediatePoint;
+            double progress = _frameIndex / (double) FrameMax;
+            // Update the taxi geometry with the position of the taxi when it is {progress}% of the way through.
+            _taxiGraphic.Geometry = InterpolatedPoint(starting, ending, progress);
         }
 
         private static MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)
@@ -200,8 +199,6 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
                     StatusLabel.Text = "Status: Visible";
                     _taxiGraphic.IsSelected = true;
                     break;
-
-                default:
                 case LineOfSightTargetVisibility.Unknown:
                     StatusLabel.Text = "Status: Unknown";
                     _taxiGraphic.IsSelected = false;
@@ -221,13 +218,10 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             double value = e.NewValue / 100;
 
             // Get the current point.
-            MapPoint oldPoint = (MapPoint)_observerGraphic.Geometry;
+            MapPoint oldPoint = (MapPoint) _observerGraphic.Geometry;
 
-            // Create a new point with the same (x,y) but updated z.
-            MapPoint newPoint = new MapPoint(oldPoint.X, oldPoint.Y, (maxHeight - minHeight) * value + minHeight);
-
-            // Apply the updated geometry to the observer point.
-            _observerGraphic.Geometry = newPoint;
+            // Apply a new point with the same (x,y) but updated z.
+            _observerGraphic.Geometry = new MapPoint(oldPoint.X, oldPoint.Y, (maxHeight - minHeight) * value + minHeight);
         }
     }
 }

@@ -119,7 +119,7 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHull
                     convexHullSimpleLineSymbol);
 
                 // Create the graphic for the convex hull - comprised of a polygon shape and fill symbol.
-                Graphic convexHullGraphic = new Graphic(convexHullGeometry, new Dictionary<string, object>() { { "Type", "Hull" } }, convexHullSimpleFillSymbol) 
+                Graphic convexHullGraphic = new Graphic(convexHullGeometry, new Dictionary<string, object> { { "Type", "Hull" } }, convexHullSimpleFillSymbol) 
                 {
                     ZIndex = 1 
                 };
