@@ -96,18 +96,11 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
                     // Create a new image service raster
-<<<<<<< HEAD
-                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri)
+                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_imageServerUri)
                     {
                         // Set the image service raster's rendering rule to the rendering rule created earlier
                         RenderingRule = myRenderingRule
                     };
-=======
-                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_imageServerUri);
-
-                    // Set the image service raster's rendering rule to the rendering rule created earlier
-                    myImageServiceRaster.RenderingRule = myRenderingRule;
->>>>>>> v.next
 
                     // Create a new raster layer from the image service raster
                     RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);

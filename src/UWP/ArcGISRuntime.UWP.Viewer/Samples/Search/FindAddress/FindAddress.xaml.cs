@@ -77,13 +77,8 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
 
         private async void UpdateSearch()
         {
-<<<<<<< HEAD
-            // Get the text in the search bar
-            string enteredText = MySearchBox.Text;
-=======
             // Get the text in the search bar.
             string enteredText = AutoSuggestBox.Text;
->>>>>>> v.next
 
             // Clear existing marker.
             MyMapView.GraphicsOverlays.Clear();
@@ -170,15 +165,9 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
 
             // Get the first result.
             GeocodeResult address = addresses.First();
-<<<<<<< HEAD
-            // Use the city and region for the Callout Title
-            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
-            // Use the metro area for the Callout Detail
-=======
             // Use the city and region for the Callout Title.
             string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
             // Use the metro area for the Callout Detail.
->>>>>>> v.next
             string calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Use the MapView to convert from the on-screen location to the on-map location.
